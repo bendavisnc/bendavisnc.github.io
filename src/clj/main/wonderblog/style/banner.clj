@@ -13,7 +13,7 @@
     "position" "relative"
     "margin-top" "1vh"
    }
-   ["a"
+   ["a.sitelink"
     {
       "color" (str constants/primary-color-1 " !important")
       "font-size" "14vh"

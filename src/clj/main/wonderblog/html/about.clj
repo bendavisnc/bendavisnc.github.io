@@ -11,7 +11,7 @@
 	`(
 		[:div
 		  {:class "content-header"}
-		  ~about-data/page-name
+		  [:span ~about-data/page-name]
 			[:hr]
     ]
 		[:br]

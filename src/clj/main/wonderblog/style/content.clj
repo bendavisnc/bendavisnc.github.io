@@ -29,14 +29,23 @@
 				"color" constants/text-color-1
 				"margin-bottom" "1vw"
 			}
-		  ["hr"
+		  ["hr" ; http://stackoverflow.com/questions/6382023/changing-the-color-of-a-hr-element
 				{
-					"color" constants/text-color-1
-					"stroke-width" "4px"
+					; "color" 
+					"background-color" "lightgrey"
+					"color" "lightgrey"
+					"border" "none"
+					"height" "2px"
 					"width" "90%"
 					"float" "left"
 					"display" "block"
 					"margin" 0
+				}
+		  ]
+		  ["span"
+				{
+					"width" "10vw"
+					"display" "inline-block"
 				}
 		  ]
 	  ]

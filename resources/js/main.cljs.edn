@@ -1,0 +1,6 @@
+{
+ :require [wonderblog.core]
+ :compiler-options {
+	 :asset-path "js/main.out"
+ }}
+}
