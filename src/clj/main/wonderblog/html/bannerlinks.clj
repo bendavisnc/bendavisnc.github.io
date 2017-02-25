@@ -5,7 +5,17 @@
   ))
 
 (defn banner-link [datum]
-  [:a {:href (:href datum)} (:title datum)])
+  [:a 
+   {
+     :class "navlink"
+     :href (:href datum)
+     :style (str 
+              "background-image: url(\"" (:img datum) "\"); "
+              ; "background-size: 10vh 10vh; "
+              "background-size: contain;"
+              "background-repeat: no-repeat;")
+   } 
+  ])
 
 (defn html []
   `[:div 

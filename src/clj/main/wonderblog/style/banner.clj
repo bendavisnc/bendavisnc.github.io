@@ -20,6 +20,27 @@
       "position" "absolute"
       "left" "2vw"
       "bottom" "1vw"
+      "display" "block"
     }
+   ]
+   [".bannerlinks"
+    {
+      "position" "absolute"
+      "left" "44vw"
+      "bottom" "1vw"
+    }
+    ["a.navlink"
+      {
+        ; "width" "10vh" 
+        ; "height" "10vh" 
+        ; "float" "left"
+        "padding-right" "2vw"
+        ; "display" "block"
+        "display" "inline-block"
+        "vertical-align" "baseline"
+        ; "position" "relative"
+        ; "bottom" "1vh"
+      }
+    ]
    ]
   ])
