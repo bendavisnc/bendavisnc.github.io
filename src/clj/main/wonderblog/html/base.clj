@@ -6,6 +6,7 @@
   )
 
 (defn container [& content]
+  "The basic container that wraps all of the dynamic content."
   [:div {:class "container"}
     content])
 
@@ -16,11 +17,12 @@
       [:meta {:charset "utf-8"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge,chrome=1"}]
       [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no"}]
-      [:script {:src "js/jquery-3.1.1.js"}]
-      [:script {:src "js/d3.js"}]
-      [:script {:src "js/main.js"}]
-      [:link {:rel "stylesheet", :href "css/style.css"}]
+      [:script {:src "./js/jquery-3.1.1.js"}]
+      [:script {:src "./js/d3.js"}]
+      [:script {:src "./js/main.js"}]
+      [:link {:rel "stylesheet", :href "./css/style.css"}]
     ]
     [:body
       (container dynamic-content)
     ]))
+

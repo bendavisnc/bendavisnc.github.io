@@ -11,5 +11,6 @@
   ])
 
 (defn html [inner-content]
+	"Wraps our content in a standard container."
   (content-container inner-content))
 

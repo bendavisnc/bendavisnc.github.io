@@ -1,11 +1,6 @@
-(ns wonderblog.data.links)
+(ns wonderblog.data.links.core)
 
 (def page-name "links")
-
-
-(def data
-  [
-  ])
 
     
     

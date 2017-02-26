@@ -13,37 +13,22 @@
   '[pandeiro.boot-http :refer [serve]]
   '[adzerk.boot-cljs :refer [cljs]]
   '[boot.core :as boot]
-  '[clojure.java.io :refer [file]]
-  '[wonderblog.html.core :as html]
+  '[wonderblog.tasks.core :refer [generate-html, generate-posts]]
   )
 
-(deftask generate-html
-  "Generate html files from hiccup render functions."
-  [f filename FILENAME str "The filename to use."
-   r htmlfn HTMLFN sym "The html function to invoke."]
-  (fn [next-task]
-    (fn [fileset]
-      (let [
-          tmp-d (boot/tmp-dir!)
-          newfile (file tmp-d filename)
-          fn-to-invoke (deref (resolve htmlfn))
-        ]
-        (do
-          (use 'wonderblog.html.core :reload-all)
-          (spit newfile (fn-to-invoke))
-          (next-task 
-            (boot/commit!
-              (boot/add-resource fileset tmp-d))))))))
 
 (deftask build
   []
   (comp
     (garden :pretty-print true :styles-var 'wonderblog.style.main/all-style :output-to "css/style.css")
     (cljs :optimizations :none :source-map true)
+    ; main pages
     (generate-html :filename "index.html" :htmlfn 'wonderblog.html.about/render)
     (generate-html :filename "about.html" :htmlfn 'wonderblog.html.about/render)
     (generate-html :filename "links.html" :htmlfn 'wonderblog.html.links/render)
     (generate-html :filename "posts.html" :htmlfn 'wonderblog.html.posts/render)
+    ; posts
+    (generate-posts)
     (target)
     (notify)
     ))

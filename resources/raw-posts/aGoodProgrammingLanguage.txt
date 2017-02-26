@@ -1,0 +1,50 @@
+A good programming language
+
+Programming languages are important if you happen to be a programmer; just like carpentry tools are pretty important if you happen to be a carpenter. But just like the difference between a carpenter who primarily uses a chisel versus a carpenter who primarily uses a table saw, what tools you pick as a programmer say a lot about you. 
+So how does one decide which languages to invest and spend a lot of time with, and which ones to leave be? 
+
+It's a very hard decision - one that I feel like I'm constantly struggling with. 
+There's lots of different viewpoints on the subject. 
+Some seem to have a very simplistic view of the problem.
+
+You'll hear a lot of guys say something like, "Just learn C, and maybe C++. That's all anyone really needs."
+Perhaps that's true in a sense. If you're a bionic super being with a super brain, then sure - why bother learning so many different languages and language eco systems (libraries, build tools, etc) when you can just crank something out that's superior to what a high level language's compiler would output?
+
+Of course when it comes to simple answers to this complex problem - your option's aren't limited. 
+
+"Just learn Java. It's the most popular after all. Java is everywhere."
+Again, solid advice (and the prevalent opinion of most American universities these days). 
+
+But when we dig a little deeper, and we don't just assume that what's most tried and true or most popular currently is what's right for us as individual programmers - the question becomes a lot more interesting. 
+
+There's lots of things to keep in mind when trying to choose a new language to learn. 
+Some of the obvious are:
+	What type of problem are you trying to solve?
+	What factors are highest priority (memory management, scalability, runtime environment, etc) ?
+	What kind of customer or audience am I aiming at?
+
+All of these aspects in choosing a new language are important; but there's only one that I really want to talk about:
+A programming language has the power to change the way you think. 
+
+This is a powerful realization that took me too long as a programmer to realize. 
+Learning a new programming language (a good one) is like learning a new way to think and problem solve. 
+To me, this is why "Just learn C and C++" or "Just go with what's most popular" is flawed advice when it comes to picking a programming language.
+We're not (most of us) bionic super beings or mindless crowd followers. 
+We're people who want to learn new things - new ways to solve current problems. 
+So when thinking about which programming language to adopt; think about what you want to learn. Ask yourself constantly if this language is having any unexpected influences on you. If it's a good one, then it will. 
+
+So now we're finally getting to what I mean when I say "good". I don't mean "efficient". I don't mean "popular". In a sense, what I really mean is "opinionated". 
+It's funny to think that something as cold and seemingly boring as a programming language can be something so alive and even opinionated. But it's true, some languages in particular are indeed very opinionated. 
+In trying to solve the same problem, some languages may frame the problem as DSLs (domain specific languages) that need to be created; others as simply data that needs to be transformed; still others as APIs that need to be defined. These are only a few examples. It's not that one language is always right or wrong. It's just that some languages make certain things easier, while others more difficult.
+The real benefit that a good language can provide is demonstrating how easy a certain style of problem solving can be. 
+For example, maybe you're a Java programmer. You've been a Java programmer your entire life, doing for the most part the same types of Javaesque things that most Java programmers do everyday. Your Java interfaces are beautiful; real works of art.
+But finally the day comes, and your team has decided that they want to endeavor to make a truly zen DSL for... describing visual aspects in their new clone of Angry Birds. 
+You've never truly created a DSL before, but you're not nervous. Why?
+Because you've been playing with Scala in your spare time; and you've seen first hand beautiful Scala DSLs (google "Scalatags" for a great example of what a DSL can be) and how they're implemented.
+Sure, maybe you need some special library in Java to fill in the blanks that were prefilled by the Scala language; but still, the point is: you're not nervous, you've seen the solution before in an interesting light.
+In short - good languages give you confidence. Don't have any idea about the advantages of immutable data structures? Spend a few months learning Clojure's collection library. Think creating a DSL is something that only magical wizard programmers can achieve? Spend some time learning Scala's syntax. You can still come back to your "everyday" language; but you'll be coming back with more confidence. 
+
+
+
+
+

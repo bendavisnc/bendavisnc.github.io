@@ -1,11 +1,13 @@
 (ns wonderblog.html.core
   (:require
-    [wonderblog.html.about :as about-html]
-    [wonderblog.html.links :as links-html]
-    [wonderblog.html.posts :as posts-html]
-    [hiccup.page :refer [html5]]
-  )
-  )
+    [wonderblog.html.base :as base]
+    [wonderblog.html.banner :as banner]
+    [wonderblog.html.content :as content]
+  ))
 
-; (defn render []
-  ; (about-html/render))
+(defn render-full [inner-content]
+	"Renders an entire page given inner content to display."
+  (base/render 
+    (banner/html)
+    (content/html inner-content)))
+ 

@@ -3,7 +3,7 @@
     [wonderblog.html.base :as base]
     [wonderblog.html.banner :as banner]
     [wonderblog.html.content :as content]
-    [wonderblog.data.links :as links-data]
+    [wonderblog.data.links.core :as links-data]
   )
   )
 
@@ -15,8 +15,8 @@
 			[:hr]
     ]
 		[:br]
-		[:div
-		  "ello mate replace me soon!"]))
+		; [:div "ello mate replace me soon!"]
+  ))
  		
 
 

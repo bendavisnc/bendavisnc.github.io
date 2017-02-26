@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="-1244.466"
-     inkscape:cy="1391.0546"
+     inkscape:zoom="1.4"
+     inkscape:cx="-1314.6197"
+     inkscape:cy="6.6441236"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -371,5 +371,266 @@
            id="tspan3969"
            sodipodi:role="line">links</tspan></text>
     </g>
+    <path
+       id="path3035"
+       d="m -1828.1896,640.23368 993.48629,0 0,736.34342 -993.48629,0 z"
+       style="color:#000000;fill:#f4f4f4;fill-opacity:1;stroke:#cccccc;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:connector-curvature="0" />
+    <rect
+       ry="15"
+       rx="15.1"
+       y="673.61755"
+       x="-1785.3148"
+       height="160.62985"
+       width="894.91553"
+       id="rect3037"
+       style="color:#000000;fill:#fefefe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.79871774;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3039"
+       y="807.67395"
+       x="-1764.4097"
+       style="font-size:97.29393768px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4686f2;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       xml:space="preserve"><tspan
+         y="807.67395"
+         x="-1764.4097"
+         id="tspan3041"
+         sodipodi:role="line">bendavisnc</tspan></text>
+    <g
+       transform="matrix(0.75846992,0,0,0.75846992,-275.98891,1131.9311)"
+       id="g3043">
+      <path
+         sodipodi:type="arc"
+         style="color:#000000;fill:#4686f2;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         id="path3045"
+         sodipodi:cx="-1703.1172"
+         sodipodi:cy="-320.43512"
+         sodipodi:rx="81.822357"
+         sodipodi:ry="81.822357"
+         d="m -1621.2948,-320.43512 c 0,45.18924 -36.6331,81.82236 -81.8224,81.82236 -45.1892,0 -81.8223,-36.63312 -81.8223,-81.82236 0,-45.18924 36.6331,-81.82236 81.8223,-81.82236 45.1893,0 81.8224,36.63312 81.8224,81.82236 z"
+         transform="matrix(0.51113606,0,0,0.51113606,-331.88613,-281.40046)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3047"
+         y="-979.45782"
+         x="-857.62091"
+         style="font-size:27.74393082px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Bold"
+         xml:space="preserve"
+         transform="matrix(0.8660254,-0.5,0.5,0.8660254,0,0)"><tspan
+           y="-979.45782"
+           x="-857.62091"
+           id="tspan3049"
+           sodipodi:role="line">about</tspan></text>
+    </g>
+    <g
+       transform="matrix(0.7584659,0,0,0.7584659,-255.68306,1131.9295)"
+       id="g3051">
+      <path
+         transform="matrix(0.51113606,0,0,0.51113606,-238.3147,-281.40046)"
+         d="m -1621.2948,-320.43512 c 0,45.18924 -36.6331,81.82236 -81.8224,81.82236 -45.1892,0 -81.8223,-36.63312 -81.8223,-81.82236 0,-45.18924 36.6331,-81.82236 81.8223,-81.82236 45.1893,0 81.8224,36.63312 81.8224,81.82236 z"
+         sodipodi:ry="81.822357"
+         sodipodi:rx="81.822357"
+         sodipodi:cy="-320.43512"
+         sodipodi:cx="-1703.1172"
+         id="path3053"
+         style="color:#000000;fill:#fc05f6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         sodipodi:type="arc" />
+      <text
+         transform="matrix(0.8660254,-0.5,0.5,0.8660254,0,0)"
+         xml:space="preserve"
+         style="font-size:27.74393082px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Raleway;-inkscape-font-specification:Raleway Bold"
+         x="-773.65704"
+         y="-934.23535"
+         id="text3055"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3057"
+           x="-773.65704"
+           y="-934.23535">posts</tspan></text>
+    </g>
+    <g
+       transform="matrix(1.4589206,0,0,1.4566246,499.60427,1413.5416)"
+       id="g3059">
+      <path
+         sodipodi:type="arc"
+         style="color:#000000;fill:#fecd41;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         id="path3061"
+         sodipodi:cx="-1703.1172"
+         sodipodi:cy="-320.43512"
+         sodipodi:rx="81.822357"
+         sodipodi:ry="81.822357"
+         d="m -1621.2948,-320.43512 c 0,45.18924 -36.6331,81.82236 -81.8224,81.82236 -45.1892,0 -81.8223,-36.63312 -81.8223,-81.82236 0,-45.18924 36.6331,-81.82236 81.8223,-81.82236 45.1893,0 81.8224,36.63312 81.8224,81.82236 z"
+         transform="matrix(0.51113606,0,0,0.51113606,-142.60041,-281.40046)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3063"
+         y="-882.77246"
+         x="-691.67047"
+         style="font-size:27.74393082px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:125%;letter-spacing:0px;word-spacing:0px;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Raleway;-inkscape-font-specification:Raleway Bold"
+         xml:space="preserve"
+         transform="matrix(0.8660254,-0.5,0.5,0.8660254,0,0)"><tspan
+           y="-882.77246"
+           x="-691.67047"
+           id="tspan3065"
+           sodipodi:role="line">links</tspan></text>
+    </g>
+    <rect
+       style="color:#000000;fill:#fefefe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.79871774;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3067"
+       width="894.91553"
+       height="455.59439"
+       x="-1785.3148"
+       y="851.40436"
+       rx="15"
+       ry="15" />
+    <text
+       xml:space="preserve"
+       style="font-size:53.33417511px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       x="-1762.3168"
+       y="917.42523"
+       id="text3069"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3071"
+         x="-1762.3168"
+         y="917.42523">links</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path3073"
+       d="m -1764.1572,928.2198 855.45067,0"
+       style="fill:none;stroke:#cccccc;stroke-width:0.54817569px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3075"
+       y="975.79767"
+       x="-1761.3783"
+       style="font-size:32.38180923px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       xml:space="preserve"><tspan
+         y="975.79767"
+         x="-1761.3783"
+         id="tspan3077"
+         sodipodi:role="line">personal</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       x="-1740.468"
+       y="1016.1743"
+       id="text3079"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan3087"
+         sodipodi:role="line"
+         x="-1740.468"
+         y="1016.1743">gmail</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3114"
+       y="1016.1743"
+       x="-1670.2625"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       xml:space="preserve"><tspan
+         y="1016.1743"
+         x="-1670.2625"
+         sodipodi:role="line"
+         id="tspan3116">github</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       x="-1590.9655"
+       y="1016.1743"
+       id="text3118"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan3120"
+         sodipodi:role="line"
+         x="-1590.9655"
+         y="1016.1743">linkedin</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32.38180923px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       x="-1487.0925"
+       y="1117.9406"
+       id="text3122"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3124"
+         x="-1487.0925"
+         y="1117.9406">books I love</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3126"
+       y="1148.3173"
+       x="-1466.1823"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       xml:space="preserve"><tspan
+         y="1148.3173"
+         x="-1466.1823"
+         sodipodi:role="line"
+         id="tspan3128">The Little Schemer</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       x="-1466.1823"
+       y="1177.6117"
+       id="text3130"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan3132"
+         sodipodi:role="line"
+         x="-1466.1823"
+         y="1177.6117">FP in Scala</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3134"
+       y="1204.8859"
+       x="-1466.1823"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       xml:space="preserve"><tspan
+         y="1204.8859"
+         x="-1466.1823"
+         sodipodi:role="line"
+         id="tspan3136">On Lisp</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       x="-1466.1823"
+       y="1228.1194"
+       id="text3138"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan3140"
+         sodipodi:role="line"
+         x="-1466.1823"
+         y="1228.1194">Clojure for the Brave and True</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3142"
+       y="1117.9406"
+       x="-1179.2355"
+       style="font-size:32.38180923px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       xml:space="preserve"><tspan
+         y="1117.9406"
+         x="-1179.2355"
+         id="tspan3144"
+         sodipodi:role="line">talks I've enjoyed</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:19.85207748px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       x="-1158.3252"
+       y="1148.3173"
+       id="text3146"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan3148"
+         sodipodi:role="line"
+         x="-1158.3252"
+         y="1148.3173">....</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3162"
+       y="1117.9406"
+       x="-1762.8068"
+       style="font-size:32.38180923px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;font-family:Raleway;-inkscape-font-specification:Raleway Light"
+       xml:space="preserve"><tspan
+         y="1117.9406"
+         x="-1762.8068"
+         id="tspan3164"
+         sodipodi:role="line">people I admire</tspan></text>
   </g>
 </svg>

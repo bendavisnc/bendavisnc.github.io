@@ -1,26 +1,56 @@
 (ns wonderblog.html.posts
-	(:require 
-    [wonderblog.html.base :as base]
-    [wonderblog.html.banner :as banner]
-    [wonderblog.html.content :as content]
-    [wonderblog.data.posts :as posts-data]
+  (:require 
+    [wonderblog.data.posts.core :as posts-data]
+    [wonderblog.data.posts.entries :as posts-entries]
+    [wonderblog.html.core :refer [render-full]]
+    [clojure.java.io :as io]
   )
   )
 
+(def post-links
+  (map
+    (fn [d]
+      [:a {:href (:href d)} (:title d)])
+    posts-entries/data))
+
+
 (def posts-content 
-	`(
-		[:div
-		  {:class "content-header"}
-		  [:span ~posts-data/page-name]
-			[:hr]
+  `(
+    [:div
+      {:class "content-header"}
+      [:span ~posts-data/page-name]
+      [:hr]
     ]
-		[:br]
-		[:div
-		  "todo soon"]))
- 		
+    [:br]
+    [:div
+      ~post-links]))
+
+      
+    
 
 
 (defn render []
-	(base/render 
-		(banner/html)
-		(content/html posts-content)))
+  "Render the page that has the posts links."
+  (render-full 
+    posts-content))
+
+(defn single-post-content [post-title, post-text]
+  (list
+    [:div
+      {:class "content-header"}
+      [:span post-title]
+      [:hr]
+    ]
+    [:br]
+    [:div {:class "content-text"}
+      [:p post-text]
+    ]
+  ))
+
+(defn render-post-page [post-datum]
+  "Render a page that houses a post."
+  (render-full 
+    (single-post-content 
+      (:title post-datum)
+      (slurp
+        (io/resource (:src post-datum))))))
