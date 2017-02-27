@@ -1,41 +1,33 @@
 (ns wonderblog.html.about
 	(:require 
-    [wonderblog.html.base :as base]
-    [wonderblog.html.banner :as banner]
-    [wonderblog.html.content :as content]
     [wonderblog.data.about :as about-data]
+    [wonderblog.html.core :refer [render-full]]
   )
   )
 
+(defn about-item [datum]
+	(list
+		[:div 
+		  {:class "content-title"}
+		  (:title datum)]
+		[:div 
+		  {:class "content-text"}
+		  [:p
+			  (:text datum)
+	    ]
+	  ]))
+
 (def about-content 
-	`(
+	(list
 		[:div
 		  {:class "content-header"}
-		  [:span ~about-data/page-name]
+		  [:span about-data/page-name]
 			[:hr]
     ]
 		[:br]
-		~@
-	  (reduce 
-			(fn [acc, d]
-				(conj
-					acc
-					[:div 
-					  {:class "content-title"}
-					  (:title d)]
-					[:div 
-					  {:class "content-text"}
-					  [:p
-						  (:text d)
-		        ]
-		      ]
-   				))
-			[]
-   		about-data/data)))
- 		
+		(mapcat about-item about-data/data)))
+
 
 
 (defn render []
-	(base/render 
-		(banner/html)
-		(content/html about-content)))
+	(render-full about-content))

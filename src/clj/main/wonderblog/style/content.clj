@@ -18,6 +18,7 @@
       "padding-top" "2vh"
       ; "overflow-y" "scroll"
       "overflow-y" "auto"
+      "color" constants/text-color-1
     }
     ["div"
       {
@@ -27,8 +28,7 @@
     ]
     [".content-header"
       {
-        "font-size" "3vw"
-        "color" constants/text-color-1
+        "font-size" "6vh"
         "margin-bottom" "1vw"
       }
       ["hr" ; http://stackoverflow.com/questions/6382023/changing-the-color-of-a-hr-element
@@ -61,7 +61,7 @@
       {
         ; "font-size" "1vw"
         "font-size" "3vh"
-        "white-space" "pre-line"
+        ; "white-space" "pre-line"
         ; "word-wrap" "break-word"
         ; "overflow" "auto"
         ; "overflow-y" "auto"
@@ -75,12 +75,53 @@
       }
       ["p"
         {
+          "white-space" "pre-line"
           ; "word-wrap" "break-word"
           ; "white-space" "normal"
           ; "width" "600px"
           ; "display" "inline-block"
           ; "background-color" "pink"
         }
+      ]
+    ]
+    [".content-links"
+      {
+        "font-size" "3vh"
+        "margin-left" "2vw"
+        ; "margin-top" "2vh"
+        "margin-bottom" "2vh"
+        "display" "inline-block"
+      }
+      ["a"
+        {
+          "text-decoration" "none"
+          "margin-right" "1vw"
+        }
+        ["div"
+          {
+            "float" "left"
+            "margin-right" "1vw"
+          }
+          ["img"
+            {
+              ; "width" "10vw"
+              ; "height" "auto"
+              "width" "auto"
+              "height" "10vw"
+            }
+          ]
+        ]
+      ]
+    ]
+    [".talk-links"
+      {
+        ; "display" "block"
+      }
+      ["a"
+        {
+          "display" "block"
+        }
+
       ]
     ]
   ]

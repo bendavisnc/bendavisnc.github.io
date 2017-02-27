@@ -15,15 +15,15 @@
 
 
 (def posts-content 
-  `(
+  (list
     [:div
       {:class "content-header"}
-      [:span ~posts-data/page-name]
+      [:span posts-data/page-name]
       [:hr]
     ]
     [:br]
     [:div
-      ~post-links]))
+      post-links]))
 
       
     
