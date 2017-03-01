@@ -8,7 +8,8 @@
    {
     "background-color" constants/bg-color-2
     "width" "100%"
-    "height" "30vh"
+    ; "height" "30vh"
+    "height" "24vh"
     "border-radius" "2vw"
     "position" "relative"
     "margin-top" "1vh"
@@ -19,7 +20,7 @@
       "font-size" "14vh"
       "position" "absolute"
       "left" "2vw"
-      "bottom" "1vw"
+      "bottom" "1vh"
       "display" "block"
     }
    ]
@@ -31,15 +32,9 @@
     }
     ["a.navlink"
       {
-        ; "width" "10vh" 
-        ; "height" "10vh" 
-        ; "float" "left"
         "padding-right" "2vw"
-        ; "display" "block"
         "display" "inline-block"
         "vertical-align" "baseline"
-        ; "position" "relative"
-        ; "bottom" "1vh"
       }
     ]
    ]
