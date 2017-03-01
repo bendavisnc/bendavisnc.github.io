@@ -20,6 +20,30 @@
     },
   ])
 
+; (def data
+;   [
+;     {
+;       :title "about"
+;       :href "about.html"
+;       :color "blue"
+;     },
+;     {
+;       :title "posts"
+;       :href "posts.html"
+;       :color "purple"
+;     },
+;     {
+;       :title "links"
+;       :href "links.html"
+;       :color "orange"
+;     },
+;   ])
+
+    
+    
+    
+    
+    
     
     
     

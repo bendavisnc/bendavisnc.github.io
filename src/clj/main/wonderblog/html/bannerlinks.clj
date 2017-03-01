@@ -4,7 +4,14 @@
     [wonderblog.data.bannerlinks :as bannerlinks-data]
   ))
 
-(defn banner-link [datum]
+(def spacing-val 150)
+
+(def left-pos-vals
+  (map
+    #(* % spacing-val)
+    (range 0 3)))
+
+(defn banner-link [datum, left-pos]
   [:a 
    {
      :class "navlink"
@@ -12,17 +19,19 @@
      :style (str 
               "background-image: url(\"" (:img datum) "\"); "
               ; "background-size: 10vh 10vh; "
+              "left: " left-pos "px;"
               "background-size: contain;"
               "background-repeat: no-repeat;")
    } 
   ])
 
 (defn html []
-  `[:div 
+  [:div 
     {:class "bannerlinks"}
-    ~@
-    (reduce
-      (fn [acc, d]
-        (conj acc (banner-link d)))
-      []
-      bannerlinks-data/data)])
+    (map
+      banner-link
+      bannerlinks-data/data
+      ; (list 0 20 40)
+      left-pos-vals
+      )
+  ])

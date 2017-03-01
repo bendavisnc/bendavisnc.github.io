@@ -1,6 +1,6 @@
 (ns wonderblog.style.main
   (:require
-    [wonderblog.constants :as constants]
+    [wonderblog.style.constants :as constants]
     [wonderblog.style.banner :as banner]
     [wonderblog.style.content :as content]
   ))
@@ -30,8 +30,10 @@
 (def container
   [".container"
     {
-      "width" "70vw"
-      "height" "100vh"
+      ; "width" "70vw"
+      "width" constants/content-width
+      ; "height" "100vh"
+      "height" "100%"
       "margin-left" "auto"
       "margin-right" "auto"
     }

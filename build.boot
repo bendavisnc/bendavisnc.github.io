@@ -31,6 +31,7 @@
     (generate-posts)
     (target)
     (notify)
+    (speak)
     ))
 
 (deftask dev
