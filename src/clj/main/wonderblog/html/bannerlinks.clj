@@ -5,10 +5,14 @@
   ))
 
 (def spacing-val 150)
+(def offset-val 750)
+; (def spacing-val 144)
+; (def spacing-val 140)
+; (def spacing-val 120)
 
 (def left-pos-vals
   (map
-    #(* % spacing-val)
+    #(+ (* % spacing-val) offset-val)
     (range 0 3)))
 
 (defn banner-link [datum, left-pos]
@@ -26,12 +30,9 @@
   ])
 
 (defn html []
-  [:div 
-    {:class "bannerlinks"}
-    (map
-      banner-link
-      bannerlinks-data/data
-      ; (list 0 20 40)
-      left-pos-vals
-      )
-  ])
+  (map
+    banner-link
+    bannerlinks-data/data
+    ; (list 0 20 40)
+    left-pos-vals
+    ))
