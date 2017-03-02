@@ -3,7 +3,7 @@
     [wonderblog.style.constants :as constants])
   )
 
-(def banner-height "300px")
+(def banner-height "240px")
 
 (def style
   [".banner"
@@ -21,7 +21,7 @@
         "font-size" constants/super-massive-font-size
         "position" "absolute"
         "left" "10px"
-        "bottom" "10px"
+        "bottom" "-10px"
         "display" "block"
       }
     ]
@@ -29,7 +29,7 @@
       {
         "position" "absolute"
         "bottom" "10px"
-        "background-color" "pink"
+        ; "background-color" "pink"
         ; "width" "150px"
         ; "height" "150px"
         "width" "100px"

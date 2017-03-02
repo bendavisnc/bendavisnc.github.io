@@ -4,6 +4,8 @@
     [wonderblog.data.links.personal :as links-personal-data]
     [wonderblog.data.links.books :as links-books-data]
     [wonderblog.data.links.talks :as links-talks-data]
+    [wonderblog.data.links.blogs :as links-blogs-data]
+    [wonderblog.data.links.tech :as links-tech-data]
     [wonderblog.html.core :refer [render-full]]
   ))
 
@@ -32,6 +34,7 @@
      :href (:href datum)
      :target "_blank"
      :title (:title datum)
+     :class "book-link"
     } 
     [:div
       [:img
@@ -65,6 +68,49 @@
       (map talk-link links-talks-data/data)
     ]))
 
+(def blog-link personal-link)
+
+(def blogs-content
+  (list
+    [:div 
+      {:class "content-title"}
+      "blogs that are way better than mine"]
+    [:div 
+      {:class "talk-links content-links"}
+      (map blog-link links-blogs-data/data)
+    ]))
+
+(defn tech-link [datum]
+  [:a 
+    {
+     :href (:href datum)
+     :target "_blank"
+     :title (:desc datum)
+     :class "tech-link"
+    } 
+    [:div
+      [:img
+        {
+         :alt (:title datum)
+         :src (:img datum)
+        }
+      ]
+      [:span
+        (:title datum)
+      ]
+    ]
+  ])
+
+(def tech-content
+  (list
+    [:div 
+      {:class "content-title"}
+      "teck i'm into"]
+    [:div 
+      {:class "tech-links content-links"}
+      (map tech-link links-tech-data/data)
+    ]))
+
 (def links-content 
   (list
     [:div
@@ -74,8 +120,10 @@
     ]
     [:br]
     personal-content
+    tech-content
     books-content
     talks-content
+    blogs-content
   ))
     
 

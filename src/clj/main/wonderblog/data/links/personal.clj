@@ -14,4 +14,8 @@
       :title "linkedin"
       :href "https://www.linkedin.com/in/ben-davis-9b708548/"
     },
+    {
+      :title "resume"
+      :href "./documents/BenDavisResume.pdf"
+    },
   ])

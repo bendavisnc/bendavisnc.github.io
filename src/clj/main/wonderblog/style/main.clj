@@ -20,7 +20,9 @@
 (def body
   ["body" 
    {
-     "background-color" constants/bg-color-1
+     ; "background-color" constants/bg-color-1
+     "background-image" "url(\"../img/teapartybg.png\")"
+     "background-size" "100% auto"
      "font-family" "'Raleway', sans-serif"
    }])
 

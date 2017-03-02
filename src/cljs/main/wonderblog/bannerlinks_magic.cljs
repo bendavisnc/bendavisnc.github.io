@@ -1,7 +1,7 @@
 (ns wonderblog.bannerlinks-magic
   (:require 
     [clojure.string]
-    [wonderblog.util :refer [get-page-name]]
+    [wonderblog.util :refer [get-page-name, set-style-property-dimension, get-style-property-dimension, get-size, get-current-link, get-all-links, currently-selected?]]
     )
   )
 
@@ -10,60 +10,13 @@
 ;;
 ;; All of the logic for the banner links to size adjust dynamically.
 
-(defn get-normal-size [] 100)
+(def normal-size  100) ; the default size of a link circle
 
-(defn currently-selected? [e]
-  (=
-    (get-page-name)
-    (->
-      (.select js/d3 e)
-      (.attr "href"))))
+(def magnify-factor 1.8) ; the scale factor for the "current" link circle
 
-(defn get-current-link []
-  (->
-    (.selectAll js/d3 ".navlink")
-    (.filter
-      (fn [e]
-        (this-as thiz
-          (currently-selected? thiz))))
-  ))
+(def hover-magnify-factor 1.2) ; the scale factor for when hovering over a link circle
 
-(defn get-all-links []
-  (->
-    (.select js/d3 ".bannerlinks")
-    (.selectAll ".navlink")
-  ))
-
-(defn get-pixels [s]
-  (int 
-    (first
-      (clojure.string/split s "px"))))
-
-(defn get-size [e]
-  (get-pixels (.style e "width")))
-
-
-
-; selection.tween("attr.fill", function() {
-;   var node = this, i = d3.interpolateRgb(node.getAttribute("fill"), "blue");
-;   return function(t) {
-;     node.setAttribute("fill", i(t));
-;   };
-; });
-
-(defn set-style-property-dimension [e, property, dim]
-  (aset 
-    (aget e "style")
-    property
-    (str dim "px")))
-
-(defn get-style-property-dimension [e, property]
-  (get-pixels
-    (aget 
-      (aget e "style")
-      property)))
-
-(defn perform-resize-transition [d3elem, target-size]
+(defn perform-resize-transition [d3elem, target-size, & [skip-transition?]]
   (let [
       starting-size (get-size d3elem)
       ; left-target (* -1 (/ starting-size 4))
@@ -72,58 +25,33 @@
         (-
           (get-style-property-dimension (.node d3elem) "left")
           (/ size-dx -2))
-          ; (* 1 (/ starting-size 4)))
-          ; (* 1 (/ starting-size 2)))
     ]
-    (->
-      d3elem
-      (.transition)
-      (.duration 250)
-      (.style "width" (str target-size "px"))
-      (.style "height" (str target-size "px"))
-      (.style "left" (str left-target "px"))
+    (if skip-transition?
+      (->
+        d3elem
+        (.style "width" (str target-size "px"))
+        (.style "height" (str target-size "px"))
+        (.style "left" (str left-target "px"))
+        )
+      ;else
+      (->
+        d3elem
+        (.transition)
+        (.duration 250)
+        (.style "width" (str target-size "px"))
+        (.style "height" (str target-size "px"))
+        (.style "left" (str left-target "px"))
+        )
       )))
 
-; (defn perform-resize-transition [d3elem, target-size]
-;   (->
-;     d3elem
-;     (.transition)
-;     (.duration 250)
-;     (.tween 
-;       "resize-transition"
-;       (fn []
-;         (this-as thiz
-;           (let [
-;               raw-node thiz
-;               starting-size (get-size d3elem)
-;               ; interp-fn (.interpolate js/d3 (get-normal-size) target-size)
-;               interp-fn (.interpolate js/d3 starting-size  target-size)
-;             ]
-;             (fn [t]
-;               (let [i-val (interp-fn t)]
-;                 (do
-;                   (set-style-property-dimension raw-node "width" i-val)
-;                   (set-style-property-dimension raw-node "height" i-val)
-;                   (set-style-property-dimension 
-;                     raw-node 
-;                     "left"
-;                     (* -1
-;                       (+
-;                         (get-style-property-dimension raw-node "left")
-;                         (- i-val starting-size)))
-;                     )
-;                   )))))))))
 
 (defn magnify-selected! []
   (let [
       normal-size 
         (get-size (get-current-link))
-      ; large-size (* normal-size 2.5)
-      ; large-size (* normal-size 2)
-      large-size (* normal-size 1.8)
-      ; large-size (* normal-size 1.5)
+      large-size (* normal-size magnify-factor)
     ]
-    (perform-resize-transition (get-current-link) large-size)
+    (perform-resize-transition (get-current-link) large-size true)
   ))
 
 
@@ -136,9 +64,7 @@
           (when (not (currently-selected? thiz))
             (let [
                 d3this (.select js/d3 thiz)
-                normal-size 
-                  (get-normal-size)
-                hover-size (* normal-size 1.2)
+                hover-size (* normal-size hover-magnify-factor)
               ]
               (perform-resize-transition d3this hover-size))))))
     (.on "mouseleave"
@@ -147,15 +73,57 @@
           (when (not (currently-selected? thiz))
             (let [
                 d3this (.select js/d3 thiz)
-                normal-size 
-                  (get-normal-size)
               ]
               (perform-resize-transition d3this normal-size))))))
     ))
 
+
+(defn get-link [i]
+  (->
+    (get-all-links)
+    (aget 0)
+    (aget i)))
+
+(defn get-first-link []
+  (get-link 0))
+
+(defn get-second-link []
+  (get-link 1))
+
+(defn get-last-link []
+  (get-link 2))
+
+(defn get-left-val [e]
+  (get-style-property-dimension e "left"))
+
+(defn get-right-val [e]
+  (+
+    (get-left-val e)
+    (get-size (.select js/d3 e))))
+
+(defn reposition-middle-link! []
+  (or
+    (= (.node (get-current-link)) (get-second-link))
+    (let [
+        new-left-val
+          (-
+            (/
+              (+
+                (get-right-val (get-first-link))
+                (get-left-val (get-last-link)))
+              2)
+            (/ normal-size 2))
+      ]
+      (set-style-property-dimension 
+        (get-second-link) 
+        "left"
+        new-left-val))))
+
+
 (defn onload []
   (do
     (magnify-selected!)
+    (reposition-middle-link!)
     (wire-hover!)
     ))
 
