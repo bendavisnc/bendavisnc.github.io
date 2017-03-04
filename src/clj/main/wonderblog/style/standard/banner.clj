@@ -1,16 +1,13 @@
-(ns wonderblog.style.banner
-	(:require 
-    [wonderblog.style.constants :as constants])
+(ns wonderblog.style.standard.banner
+  (:require [wonderblog.style.standard.constants :as constants])
   )
 
-(def banner-height "240px")
-
-(def style
-  [".banner"
+(def style* 
+  '[".banner"
     {
       "background-color" constants/bg-color-2
       "width" "100%"
-      "height" banner-height
+      "height" constants/banner-height
       "border-radius" constants/border-radius
       "position" "relative"
       "margin-top" constants/standard-gap
@@ -29,11 +26,10 @@
       {
         "position" "absolute"
         "bottom" "10px"
-        ; "background-color" "pink"
-        ; "width" "150px"
-        ; "height" "150px"
         "width" "100px"
         "height" "100px"
       }
     ]
   ])
+
+(def style (eval style*))

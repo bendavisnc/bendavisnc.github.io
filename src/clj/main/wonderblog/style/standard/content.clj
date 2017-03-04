@@ -1,17 +1,17 @@
-(ns wonderblog.style.content
-  (:require 
-    [wonderblog.style.constants :as constants])
+(ns wonderblog.style.standard.content
+  (:require [wonderblog.style.standard.constants :as constants])
   )
 
-(def style
-  [".content-container"
+(def style*
+  '[".content-container"
     {
       "background-color" constants/bg-color-2
       "width" "100%"
       ; "width" constants/content-width
-      ; "height" "60vh" ; not sure about this
-      ; "height" "70vh" ; not sure about this
-      "height" "900px" ; not sure about this
+      ; "height" "50vh" 
+      "height" "60vh" 
+      ; "height" "70vh" 
+      ; "height" "900px" 
       "box-sizing" "border-box"
       "border-radius" constants/border-radius
       "position" "relative"
@@ -142,5 +142,6 @@
         ]
       ]
     ]
-  ]
-  )
+  ])
+
+(def style (eval style*))

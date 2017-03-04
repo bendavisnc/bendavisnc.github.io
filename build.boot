@@ -20,7 +20,8 @@
 (deftask build
   []
   (comp
-    (garden :pretty-print true :styles-var 'wonderblog.style.main/all-style :output-to "css/style.css")
+    (garden :pretty-print true :styles-var 'wonderblog.style.standard.main/all-style :output-to "css/style.css")
+    (garden :pretty-print true :styles-var 'wonderblog.style.mobile.banner/style :output-to "css/teststyle.css")
     (cljs :optimizations :none :source-map true)
     ; main pages
     (generate-html :filename "index.html" :htmlfn 'wonderblog.html.about/render)

@@ -105,7 +105,7 @@
   (list
     [:div 
       {:class "content-title"}
-      "teck i'm into"]
+      "tech i'm into"]
     [:div 
       {:class "tech-links content-links"}
       (map tech-link links-tech-data/data)

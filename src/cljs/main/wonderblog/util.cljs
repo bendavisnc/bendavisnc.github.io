@@ -34,6 +34,11 @@
           (currently-selected? thiz))))
   ))
 
+(defn at-main-page? []
+  (not
+    (.empty
+      (get-current-link))))
+
 (defn get-pixels [s]
   (int 
     (first

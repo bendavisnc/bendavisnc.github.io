@@ -17,12 +17,15 @@
 (def posts-content 
   (list
     [:div
-      {:class "content-header"}
+      {:class "content-header posts-header"}
       [:span posts-data/page-name]
       [:hr]
     ]
     [:br]
     [:div
+      {
+        :class "posts-content"
+      }
       post-links]))
 
       
@@ -37,7 +40,7 @@
 (defn single-post-content [post-title, post-text]
   (list
     [:div
-      {:class "content-header"}
+      {:class "content-header posts-header"}
       [:span post-title]
       [:hr]
     ]

@@ -1,7 +1,7 @@
 (ns wonderblog.bannerlinks-magic
   (:require 
     [clojure.string]
-    [wonderblog.util :refer [get-page-name, set-style-property-dimension, get-style-property-dimension, get-size, get-current-link, get-all-links, currently-selected?]]
+    [wonderblog.util :refer [at-main-page?, get-page-name, set-style-property-dimension, get-style-property-dimension, get-size, get-current-link, get-all-links, currently-selected?]]
     )
   )
 
@@ -122,8 +122,9 @@
 
 (defn onload []
   (do
-    (magnify-selected!)
-    (reposition-middle-link!)
+    (when (at-main-page?)
+      (magnify-selected!)
+      (reposition-middle-link!))
     (wire-hover!)
     ))
 
