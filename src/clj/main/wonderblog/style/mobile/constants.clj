@@ -10,7 +10,8 @@
 (def bg-color-2 standard-constants/bg-color-2)
 (def primary-color-1 standard-constants/primary-color-1)
 (def text-color-1 standard-constants/text-color-1)
-(def main-font-color standard-constants/main-font-color)
+; (def main-font-color standard-constants/main-font-color)
+(def main-font-color "red")
 
 
 ;;
@@ -23,12 +24,12 @@
 (def border-radius "4vw")
 
 
-(def super-massive-font-size "30vh")
+(def super-massive-font-size "11vw")
 
-(def large-font-size "20vh")
+(def large-font-size "7vw")
 
-(def medium-font-size "10vh")
+(def medium-font-size "5vw")
 
-(def small-font-size "5vh")
+(def small-font-size "3vw")
 
 (def standard-gap "5vh")

@@ -4,28 +4,18 @@
     [wonderblog.data.bannerlinks :as bannerlinks-data]
   ))
 
-(def spacing-val 150)
-(def offset-val 750)
-; (def spacing-val 144)
-; (def spacing-val 140)
-; (def spacing-val 120)
-
-(def left-pos-vals
-  (map
-    #(+ (* % spacing-val) offset-val)
-    (range 0 3)))
-
-(defn banner-link [datum, left-pos]
+(defn banner-link [datum, index-val]
   [:a 
    {
-     :class "navlink"
+     :class (str "navlink " "navlink-" index-val)
      :href (:href datum)
      :style (str 
               "background-image: url(\"" (:img datum) "\"); "
+            )
               ; "background-size: 10vh 10vh; "
-              "left: " left-pos "px;"
-              "background-size: contain;"
-              "background-repeat: no-repeat;")
+              ; "left: " left-pos "px;"
+              ; "background-size: contain;"
+              ; "background-repeat: no-repeat;")
    } 
   ])
 
@@ -33,6 +23,5 @@
   (map
     banner-link
     bannerlinks-data/data
-    ; (list 0 20 40)
-    left-pos-vals
+    (list 0 1 2)
     ))

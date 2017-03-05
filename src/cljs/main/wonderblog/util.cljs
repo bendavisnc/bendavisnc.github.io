@@ -47,14 +47,9 @@
 (defn get-size [e]
   (get-pixels (.style e "width")))
 
-(defn set-style-property-dimension [e, property, dim]
-  (aset 
-    (aget e "style")
-    property
-    (str dim "px")))
+(defn set-style-property-dimension [d3element, property, dim]
+  (.style d3element property (str dim "px")))
 
-(defn get-style-property-dimension [e, property]
+(defn get-style-property-dimension [d3element, property]
   (get-pixels
-    (aget 
-      (aget e "style")
-      property)))
+    (.style d3element property)))

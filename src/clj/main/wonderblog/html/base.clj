@@ -10,6 +10,9 @@
   [:div {:class "container"}
     content])
 
+; <link rel="stylesheet" type="text/css" media="screen and (max-width: 360px)" href="portrait.css">
+
+
 (defn render [& dynamic-content]
   (html5 {:lang "en" :itemtype "http://schema.org/Blog"}
     [:head
@@ -22,7 +25,22 @@
       [:script {:src "./js/jquery-3.1.1.js"}]
       [:script {:src "./js/d3.js"}]
       [:script {:src "./js/main.js"}]
-      [:link {:rel "stylesheet", :href "./css/style.css"}]
+      [:link 
+        {
+          :rel "stylesheet"
+          :type "text/css"
+          :media "screen and (max-width: 800px)"
+          :href "./css/mobile-style.css"
+        }
+      ]
+      [:link 
+        {
+          :rel "stylesheet"
+          :type "text/css"
+          :media "screen and (min-width: 801px)"
+          :href "./css/style.css"
+        }
+      ]
     ]
     [:body
       (container dynamic-content)

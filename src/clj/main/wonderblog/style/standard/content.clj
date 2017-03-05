@@ -9,8 +9,8 @@
       "width" "100%"
       ; "width" constants/content-width
       ; "height" "50vh" 
-      "height" "60vh" 
-      ; "height" "70vh" 
+      ; "height" "60vh" 
+      "height" "70vh" 
       ; "height" "900px" 
       "box-sizing" "border-box"
       "border-radius" constants/border-radius

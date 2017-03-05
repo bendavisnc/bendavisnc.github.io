@@ -2,8 +2,8 @@
   (:require [wonderblog.style.standard.constants :as constants])
   )
 
-(def style 
-  (list
+(def style*
+  '[
     [".content-header.posts-header"
       {
       }
@@ -25,5 +25,8 @@
         }
       ]
     ]
-  ))
+  ])
+
+(def style
+  (eval style*))
 

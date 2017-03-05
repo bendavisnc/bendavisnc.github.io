@@ -19,7 +19,9 @@
 
 (def content-width "1200px")
 
+; (def border-radius "40px")
 (def border-radius "20px")
+
 
 (def super-massive-font-size "130px")
 
@@ -30,3 +32,4 @@
 (def small-font-size "40px")
 
 (def standard-gap "40px")
+; (def standard-gap "400px")

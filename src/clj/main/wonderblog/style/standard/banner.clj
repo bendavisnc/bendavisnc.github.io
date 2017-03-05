@@ -28,6 +28,26 @@
         "bottom" "10px"
         "width" "100px"
         "height" "100px"
+        "background-size" "contain"
+        "background-repeat" "no-repeat"
+      }
+    ]
+    ["a.navlink-0"
+      {
+        ; "left" "730px"
+        "left" "750px"
+      }
+    ]
+    ["a.navlink-1"
+      {
+        ; "left" "870px"
+        "left" "890px"
+      }
+    ]
+    ["a.navlink-2"
+      {
+        ; "left" "1010px"
+        "left" "1030px"
       }
     ]
   ])
