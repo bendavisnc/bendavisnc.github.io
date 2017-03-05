@@ -17,7 +17,7 @@
 (def posts-content 
   (list
     [:div
-      {:class "content-header posts-header"}
+      {:class "content-header"}
       [:span posts-data/page-name]
       [:hr]
     ]

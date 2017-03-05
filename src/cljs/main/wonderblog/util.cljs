@@ -53,3 +53,19 @@
 (defn get-style-property-dimension [d3element, property]
   (get-pixels
     (.style d3element property)))
+
+(defn get-banner-height []
+  (->
+    (.select js/d3 ".banner")
+    (.node)
+    (aget "offsetHeight")))
+
+(defn mobile-sized-display? []
+  (<=
+    (->
+      (.select js/d3 ".banner")
+      (.node)
+      (aget "offsetWidth"))
+    1199))
+    
+

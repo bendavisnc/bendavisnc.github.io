@@ -5,7 +5,8 @@
 (def style* 
   '[".banner"
     {
-      "background-color" constants/bg-color-2
+      ; "background-color" constants/bg-color-2
+      "background-color" "rgba(254, 254, 254, 0.8)"
       "width" "100%"
       "height" constants/banner-height
       "border-radius" constants/border-radius
@@ -34,20 +35,31 @@
     ]
     ["a.navlink-0"
       {
+        ; "left" "690px"
+        "left" "720px"
         ; "left" "730px"
-        "left" "750px"
+        ; "left" "750px"
       }
     ]
     ["a.navlink-1"
       {
+        ; "left" "850px"
+        ; "left" "860px"
         ; "left" "870px"
-        "left" "890px"
+        "left" "875px"
+        ; "left" "890px"
+        ; "left" "900px"
       }
     ]
     ["a.navlink-2"
       {
-        ; "left" "1010px"
+        ; "left" "970px"
+        ; "left" "1000px"
         "left" "1030px"
+        ; "left" "1010px"
+        ; "left" "1030px"
+        ; "left" "1030px"
+        ; "left" "1070px"
       }
     ]
   ])

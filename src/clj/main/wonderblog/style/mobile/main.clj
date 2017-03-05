@@ -5,6 +5,24 @@
     )
   )
 
+(def style*
+  [
+    ["body" 
+      {
+        "background-size" "1200px 800px"
+        "background-position" "60% 30%"
+        "min-height" "100vw"
+      }
+    ]
+    ; ["body, html" 
+      ; {:overflow "auto"}
+    ; ]
+  ]
+  )
 
 (def style
-  (eval standard-main/style*))
+  (vec
+    (concat
+      (eval standard-main/style*)
+      style*
+      )))

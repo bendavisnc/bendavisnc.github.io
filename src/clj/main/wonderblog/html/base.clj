@@ -29,7 +29,7 @@
         {
           :rel "stylesheet"
           :type "text/css"
-          :media "screen and (max-width: 800px)"
+          :media "screen and (max-width: 1199px)"
           :href "./css/mobile-style.css"
         }
       ]
@@ -37,7 +37,7 @@
         {
           :rel "stylesheet"
           :type "text/css"
-          :media "screen and (min-width: 801px)"
+          :media "screen and (min-width: 1200px)"
           :href "./css/style.css"
         }
       ]

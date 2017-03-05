@@ -18,11 +18,17 @@
       {
         "background-image" "url(\"../img/teapartybg.png\")"
         "background-size" "100% auto"
+        "background-repeat" "no-repeat"
         "font-family" "'Raleway', sans-serif"
+        "background-color" "rgb(231, 231, 231)"
       }
     ]
     ["body, html" 
-      {:overflow "hidden"}
+      ; {:overflow "hidden"}
+      {
+         "overflow-y" "auto"
+         "overflow-x" "hidden"
+      }
     ]
     [".container"
       {

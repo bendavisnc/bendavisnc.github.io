@@ -15,7 +15,8 @@
 ;;
 ;; dimensions
 
-(def banner-height "200px")
+; (def banner-height "200px")
+(def banner-height "260px")
 
 (def content-width "1200px")
 

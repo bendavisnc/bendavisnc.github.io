@@ -1,7 +1,7 @@
 (ns wonderblog.bannerlinks-magic
   (:require 
     [clojure.string]
-    [wonderblog.util :refer [at-main-page?, get-page-name, set-style-property-dimension, get-style-property-dimension, get-size, get-current-link, get-all-links, currently-selected?]]
+    [wonderblog.util :refer [mobile-sized-display?, get-banner-height, at-main-page?, get-page-name, set-style-property-dimension, get-style-property-dimension, get-size, get-current-link, get-all-links, currently-selected?]]
     )
   )
 
@@ -14,12 +14,20 @@
 
 (def hover-magnify-factor 1.2) ; the scale factor for when hovering over a link circle
 
-(def normal-size-atom (atom nil))
+(def magnify-size-as-percent 0.9)
+; (def magnify-size-as-percent 1.9)
 
-(defn get-recorded-normal-size [] (deref normal-size-atom))
+; (def normal-size-atom (atom nil))
 
-(defn record-normal-size! []
-  (reset! normal-size-atom (get-size (.select js/d3 ".navlink-0"))))
+; (defn get-recorded-normal-size [] (deref normal-size-atom))
+
+(def get-normal-size
+  (memoize
+    (fn []
+      (/
+        (* magnify-size-as-percent (get-banner-height))
+        magnify-factor))))
+
 
 (defn perform-resize-transition [d3elem, target-size, & [skip-transition?]]
   (let [
@@ -53,7 +61,7 @@
 (defn magnify-selected! []
   (let [
       normal-size 
-        (get-recorded-normal-size)
+        (get-normal-size)
       large-size (* normal-size magnify-factor)
     ]
     (perform-resize-transition (get-current-link) large-size true)
@@ -62,7 +70,7 @@
 
 (defn wire-hover! []
   (let [
-      normal-size (get-recorded-normal-size)
+      normal-size (get-normal-size)
     ]
     (->
       (get-all-links)
@@ -104,7 +112,7 @@
 
 (defn reposition-middle-link! []
   (or
-    (= (.node (get-current-link)) (get-second-link))
+    (= (.node (get-current-link)) (.node (get-second-link)))
     (let [
         new-left-val
           (-
@@ -113,22 +121,37 @@
                 (get-right-val (get-first-link))
                 (get-left-val (get-last-link)))
               2)
-            (/ (get-recorded-normal-size) 2))
+            (/ (get-normal-size) 2))
       ]
       (set-style-property-dimension 
         (get-second-link) 
         "left"
         new-left-val))))
 
+(defn resize-bannerlinks! []
+  (let [
+      new-normal (str (get-normal-size) "px")
+    ]
+    (dorun
+      (map
+        (fn [bannerlink]
+          (->
+            (.select js/d3 bannerlink)
+            (.style "width" new-normal)
+            (.style "height" new-normal)))
+        (aget (get-all-links) 0)))))
+
+
 
 (defn onload []
   (do
-    (record-normal-size!)
-    (wire-hover!)
-    (when (at-main-page?)
-      (magnify-selected!)
-      (reposition-middle-link!))
-    ))
+    (when (not (mobile-sized-display?))
+      (resize-bannerlinks!)
+      (wire-hover!)
+      (when (at-main-page?)
+        (magnify-selected!)
+        (reposition-middle-link!))
+      )))
 
 
-; (js/jQuery onload) ; onload
+(js/jQuery onload) ; onload

@@ -5,7 +5,8 @@
 (def style*
   '[".content-container"
     {
-      "background-color" constants/bg-color-2
+      ; "background-color" constants/bg-color-2
+      "background-color" "rgba(254, 254, 254, 0.8)"
       "width" "100%"
       ; "width" constants/content-width
       ; "height" "50vh" 
@@ -19,7 +20,7 @@
       "padding-left" "40px"
       "padding-top" "40px"
       "overflow-y" "auto"
-      "opacity" 0.8
+      ; "opacity" 0.8
       ; "color" constants/text-color-1
       "color" constants/main-font-color
     }

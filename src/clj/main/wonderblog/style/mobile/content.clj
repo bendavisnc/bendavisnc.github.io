@@ -5,6 +5,18 @@
     )
   )
 
+(def style*
+  [".content-container"
+    {
+      ; "height" "50vh" 
+      "height" "100vw" 
+      "padding-left" "20px"
+    }
+  ])
 
 (def style
-  (eval standard-content/style*))
+  (vec
+    (concat
+      (eval standard-content/style*)
+      style*
+      )))
