@@ -5,4 +5,4 @@ goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', '
 goog.addDependency("../wonderblog/util.js", ['wonderblog.util'], ['cljs.core', 'clojure.string']);
 goog.addDependency("../wonderblog/bannerlinks_magic.js", ['wonderblog.bannerlinks_magic'], ['wonderblog.data', 'wonderblog.util', 'cljs.core', 'clojure.string']);
 goog.addDependency("../wonderblog/core.js", ['wonderblog.core'], ['cljs.core', 'wonderblog.bannerlinks_magic']);
-goog.addDependency("../boot/cljs/main1379.js", ['boot.cljs.main1379'], ['wonderblog.core', 'cljs.core']);
+goog.addDependency("../boot/cljs/main1380.js", ['boot.cljs.main1380'], ['wonderblog.core', 'cljs.core']);

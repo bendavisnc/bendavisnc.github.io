@@ -9,14 +9,14 @@ return ((wonderblog.data.magnify_size_as_percent * wonderblog.util.get_banner_he
 }));
 wonderblog.bannerlinks_magic.perform_resize_transition = (function wonderblog$bannerlinks_magic$perform_resize_transition(var_args){
 var args__7509__auto__ = [];
-var len__7502__auto___7612 = arguments.length;
-var i__7503__auto___7613 = (0);
+var len__7502__auto___7632 = arguments.length;
+var i__7503__auto___7633 = (0);
 while(true){
-if((i__7503__auto___7613 < len__7502__auto___7612)){
-args__7509__auto__.push((arguments[i__7503__auto___7613]));
+if((i__7503__auto___7633 < len__7502__auto___7632)){
+args__7509__auto__.push((arguments[i__7503__auto___7633]));
 
-var G__7614 = (i__7503__auto___7613 + (1));
-i__7503__auto___7613 = G__7614;
+var G__7634 = (i__7503__auto___7633 + (1));
+i__7503__auto___7633 = G__7634;
 continue;
 } else {
 }
@@ -27,9 +27,9 @@ var argseq__7510__auto__ = ((((2) < args__7509__auto__.length))?(new cljs.core.I
 return wonderblog.bannerlinks_magic.perform_resize_transition.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),argseq__7510__auto__);
 });
 
-wonderblog.bannerlinks_magic.perform_resize_transition.cljs$core$IFn$_invoke$arity$variadic = (function (d3elem,target_size,p__7610){
-var vec__7611 = p__7610;
-var skip_transition_QMARK_ = cljs.core.nth.call(null,vec__7611,(0),null);
+wonderblog.bannerlinks_magic.perform_resize_transition.cljs$core$IFn$_invoke$arity$variadic = (function (d3elem,target_size,p__7630){
+var vec__7631 = p__7630;
+var skip_transition_QMARK_ = cljs.core.nth.call(null,vec__7631,(0),null);
 var starting_size = wonderblog.util.get_size.call(null,d3elem);
 var size_dx = (starting_size - target_size);
 var left_target = (wonderblog.util.get_style_property_dimension.call(null,d3elem,"left") - (size_dx / (-2)));
@@ -42,12 +42,12 @@ return d3elem.transition().duration((250)).style("width",[cljs.core.str(target_s
 
 wonderblog.bannerlinks_magic.perform_resize_transition.cljs$lang$maxFixedArity = (2);
 
-wonderblog.bannerlinks_magic.perform_resize_transition.cljs$lang$applyTo = (function (seq7607){
-var G__7608 = cljs.core.first.call(null,seq7607);
-var seq7607__$1 = cljs.core.next.call(null,seq7607);
-var G__7609 = cljs.core.first.call(null,seq7607__$1);
-var seq7607__$2 = cljs.core.next.call(null,seq7607__$1);
-return wonderblog.bannerlinks_magic.perform_resize_transition.cljs$core$IFn$_invoke$arity$variadic(G__7608,G__7609,seq7607__$2);
+wonderblog.bannerlinks_magic.perform_resize_transition.cljs$lang$applyTo = (function (seq7627){
+var G__7628 = cljs.core.first.call(null,seq7627);
+var seq7627__$1 = cljs.core.next.call(null,seq7627);
+var G__7629 = cljs.core.first.call(null,seq7627__$1);
+var seq7627__$2 = cljs.core.next.call(null,seq7627__$1);
+return wonderblog.bannerlinks_magic.perform_resize_transition.cljs$core$IFn$_invoke$arity$variadic(G__7628,G__7629,seq7627__$2);
 });
 wonderblog.bannerlinks_magic.magnify_selected_BANG_ = (function wonderblog$bannerlinks_magic$magnify_selected_BANG_(){
 var normal_size = wonderblog.bannerlinks_magic.get_normal_size.call(null);

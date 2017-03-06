@@ -1,8 +1,7 @@
 (ns wonderblog.core
-	(:require 
+  (:require 
    [wonderblog.bannerlinks-magic])
   )
 
 (enable-console-print!)
 
-; (println "hey there mate!")

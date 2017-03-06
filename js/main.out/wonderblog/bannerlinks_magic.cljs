@@ -11,11 +11,7 @@
 ;;
 ;; All of the logic for the banner links to size adjust dynamically.
 
-; (def magnify-size-as-percent 1.9)
-
-; (def normal-size-atom (atom nil))
-
-; (defn get-recorded-normal-size [] (deref normal-size-atom))
+; only runs on desktop sized screens.
 
 (def get-normal-size
   (memoize
@@ -28,7 +24,6 @@
 (defn perform-resize-transition [d3elem, target-size, & [skip-transition?]]
   (let [
       starting-size (get-size d3elem)
-      ; left-target (* -1 (/ starting-size 4))
       size-dx (- starting-size target-size)
       left-target 
         (-
