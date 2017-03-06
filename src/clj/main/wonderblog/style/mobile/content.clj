@@ -12,6 +12,12 @@
       "height" "100vw" 
       "padding-left" "20px"
     }
+    [".content-links"
+      {
+        ; "font-size" constants/medium-font-size
+        "margin-left" "4vw"
+      }
+    ]
   ])
 
 (def style

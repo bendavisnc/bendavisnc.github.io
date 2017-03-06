@@ -1,7 +1,8 @@
 (ns wonderblog.bannerlinks-magic
   (:require 
     [clojure.string]
-    [wonderblog.util :refer [mobile-sized-display?, get-banner-height, at-main-page?, get-page-name, set-style-property-dimension, get-style-property-dimension, get-size, get-current-link, get-all-links, currently-selected?]]
+    [wonderblog.util :refer [get-page-key, mobile-sized-display?, get-banner-height, at-main-page?, get-page-name, set-style-property-dimension, get-style-property-dimension, get-size, get-current-link, get-all-links, currently-selected?]]
+    [wonderblog.data :refer [left-positions, magnify-factor, magnify-size-as-percent, hover-magnify-factor]]
     )
   )
 
@@ -10,11 +11,6 @@
 ;;
 ;; All of the logic for the banner links to size adjust dynamically.
 
-(def magnify-factor 1.8) ; the scale factor for the "current" link circle
-
-(def hover-magnify-factor 1.2) ; the scale factor for when hovering over a link circle
-
-(def magnify-size-as-percent 0.9)
 ; (def magnify-size-as-percent 1.9)
 
 ; (def normal-size-atom (atom nil))
@@ -141,6 +137,20 @@
             (.style "height" new-normal)))
         (aget (get-all-links) 0)))))
 
+(defn reposition-bannerlinks! []
+  (let [
+      position-data ((get-page-key) left-positions)
+    ]
+    (dorun
+      (map
+        (fn [bannerlink, new-left-val]
+          (->
+            (.select js/d3 bannerlink)
+            (.style "left" (str new-left-val "px"))))
+        (aget (get-all-links) 0)
+        position-data
+        ))))
+
 
 
 (defn onload []
@@ -149,8 +159,8 @@
       (resize-bannerlinks!)
       (wire-hover!)
       (when (at-main-page?)
-        (magnify-selected!)
-        (reposition-middle-link!))
+        (reposition-bannerlinks!)
+        (magnify-selected!))
       )))
 
 

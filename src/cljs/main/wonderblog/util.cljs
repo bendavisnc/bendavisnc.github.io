@@ -12,6 +12,16 @@
             "pathname")
           "/")))))
 
+(def get-page-key
+  (memoize
+    (fn []
+      (keyword
+        (first
+          (clojure.string/split 
+            (get-page-name)
+            "."))))))
+
+
 (defn currently-selected? [e]
   (=
     (get-page-name)

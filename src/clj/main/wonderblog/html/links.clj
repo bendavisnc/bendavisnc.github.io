@@ -89,11 +89,17 @@
      :class "tech-link"
     } 
     [:div
-      [:img
+      [:div
         {
-         :alt (:title datum)
-         :src (:img datum)
+          :class "img-container"
+          :style (str "background-image: url(\"" (:img datum) "\");")
         }
+      ; [:img
+        ; {
+         ; :alt (:title datum)
+         ; :src (:img datum)
+        ; }
+      ; ]
       ]
       [:span
         (:title datum)

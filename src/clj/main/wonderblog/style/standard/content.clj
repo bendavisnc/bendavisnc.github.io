@@ -5,14 +5,9 @@
 (def style*
   '[".content-container"
     {
-      ; "background-color" constants/bg-color-2
       "background-color" "rgba(254, 254, 254, 0.8)"
       "width" "100%"
-      ; "width" constants/content-width
-      ; "height" "50vh" 
-      ; "height" "60vh" 
       "height" "70vh" 
-      ; "height" "900px" 
       "box-sizing" "border-box"
       "border-radius" constants/border-radius
       "position" "relative"
@@ -20,8 +15,6 @@
       "padding-left" "40px"
       "padding-top" "40px"
       "overflow-y" "auto"
-      ; "opacity" 0.8
-      ; "color" constants/text-color-1
       "color" constants/main-font-color
     }
     [".content-header"
@@ -31,7 +24,6 @@
       }
       ["hr" ; http://stackoverflow.com/questions/6382023/changing-the-color-of-a-hr-element
         {
-          ; "color" 
           "background-color" constants/main-font-color
           "color" constants/main-font-color
           "border" "none"
@@ -119,25 +111,35 @@
         {
           "display" "block"
         }
-        ["div"
+        ["div" ; http://stackoverflow.com/questions/8865458/how-to-vertically-center-text-with-css
           {
-            "width" "300px"
+            "width" "400px"
             "height" "70px"
+            "line-height" "70px"
             ; "background-color" "blue"
             ; "border" "2px solid blue"
             "position" "relative"
           }
           ["span"
             {
-              "vertical-align" "middle"
-              "margin-left" "20px"
-              "position" "absolute"
-              "left" "30px"
+              ; "vertical-align" "middle"
+              ; "margin-left" "20px"
+              ; "position" "relative"
+              ; "background-color" "red"
+              "display" "inline-block"
             }
           ]
-          ["img"
+          [".img-container"
             {
+              "width" "70px"
+              "height" "70px"
               "vertical-align" "middle"
+              ; "background-color" "green"
+              ; "background-size" "contain"
+              "background-size" "40px auto"
+              "background-position" "center center"
+              "background-repeat" "no-repeat"
+              "display" "inline-block"
             }
           ]
         ]
