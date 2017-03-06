@@ -1,11 +1,13 @@
 (set-env!
- :source-paths #{"src/clj/main", "src/cljs/main"}
- :resource-paths #{"resources"}
- :dependencies '[
-                  [hiccup "1.0.5"],
-                  [org.martinklepsch/boot-garden "1.3.2-0"],
-                  [adzerk/boot-cljs "2.0.0-SNAPSHOT"],
-                  [pandeiro/boot-http "0.6.3-SNAPSHOT"]])
+  :source-paths #{"src/clj/main", "src/cljs/main"}
+  :resource-paths #{"resources"}
+  :dependencies '[
+                   [hiccup "1.0.5"],
+                   [org.martinklepsch/boot-garden "1.3.2-0"],
+                   [adzerk/boot-cljs "2.0.0-SNAPSHOT"],
+                   [pandeiro/boot-http "0.6.3-SNAPSHOT"]]
+
+ )
 
 
 (require 
@@ -30,7 +32,7 @@
     (generate-html :filename "posts.html" :htmlfn 'wonderblog.html.posts/render)
     ; posts
     (generate-posts)
-    (target)
+    (target :dir #{"."} :no-clean true)
     (notify)
     (speak)
     ))
