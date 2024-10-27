@@ -1,5 +1,7 @@
-(ns bdnc.home.home)
+(ns bdnc.home.home
+  (:require [reagent.core :as reagent :refer [atom]]
+            ["react-router-dom" :as react-router-dom]))
 
 (defn home []
-  [:div
-   [:div "todo - home content"]])
+  (fn [] 
+    (reagent/as-element [:div [:div "todo - home content"]])))
