@@ -1,4 +1,6 @@
 (ns bdnc.components.header)
 
-(defn header []
-  [:nav {:id "nav"}])
+(defn component []
+  (println "hjjjj")
+  [:nav {:id "nav"}
+        "todo, header"])

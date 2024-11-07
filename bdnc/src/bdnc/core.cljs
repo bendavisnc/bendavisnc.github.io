@@ -13,7 +13,7 @@
 
 (defn init! []
   (let [router (react-router-dom/createBrowserRouter (clj->js [{:path "/"
-                                                                :element (reagent/as-element [basic-page/component [:> (root/page)]])
+                                                                :element (reagent/as-element [:> (root/page)])
                                                                 :children [{:children [{:index true
                                                                                         :element (reagent/as-element [basic-page/component [home/page]])}
                                                                                        {:path "/contacts"
