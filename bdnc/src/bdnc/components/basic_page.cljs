@@ -1,8 +1,8 @@
 (ns bdnc.components.basic-page
-  [:require [bdnc.components.header :as header]])
+  [:require [bdnc.components.header :as header]
+            [bdnc.components.hamburger :as hamburger]])
 
-(defn component [child]
+(defn component [gs, child]
   [:div {:id "basic-page"}
-    (println "hiii")
-    [header/component]
+    [header/component gs, hamburger/component]
     child])
