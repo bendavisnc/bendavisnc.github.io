@@ -6,7 +6,8 @@
               [bdnc.components.basic-page :as basic-page]
               [bdnc.pages.root.root :as root]
               [bdnc.pages.home.home :as home]
-              [bdnc.pages.contacts.contacts :as contacts]))
+              [bdnc.pages.contacts.contacts :as contacts]
+              [bdnc.pages.navigation.navigation :as navigation]))
 
 (enable-console-print!)
 
@@ -18,6 +19,9 @@
                                                                                         :element (reagent/as-element [basic-page/component {:title "home"} 
                                                                                                                                            [home/page]])}
                                                                                                                                            
+                                                                                       {:path "/navigation"
+                                                                                        :element (reagent/as-element [basic-page/component {:title "site navigation"} 
+                                                                                                                                           [navigation/page]])}
                                                                                        {:path "/contacts"
                                                                                         :element (reagent/as-element [basic-page/component {:title "contacts"} 
                                                                                                                                            [contacts/page]])}]}]}]))]
