@@ -16,15 +16,15 @@
   (let [router (react-router-dom/createBrowserRouter (clj->js [{:path "/"
                                                                 :element (reagent/as-element [:> (root/page)])
                                                                 :children [{:children [{:index true
-                                                                                        :element (reagent/as-element [basic-page/component {:title "home"} 
-                                                                                                                                           [home/page]])}
+                                                                                        :element (reagent/as-element [:> (basic-page/component {:title "home"} 
+                                                                                                                                               [home/page])])}
                                                                                                                                            
                                                                                        {:path "/navigation"
-                                                                                        :element (reagent/as-element [basic-page/component {:title "site navigation"} 
-                                                                                                                                           [navigation/page]])}
+                                                                                        :element (reagent/as-element [:> (basic-page/component {:title "site navigation"} 
+                                                                                                                                               [navigation/page])])}
                                                                                        {:path "/contacts"
-                                                                                        :element (reagent/as-element [basic-page/component {:title "contacts"} 
-                                                                                                                                           [contacts/page]])}]}]}]))]
+                                                                                        :element (reagent/as-element [:> (basic-page/component {:title "contacts"} 
+                                                                                                                                               [contacts/page])])}]}]}]))]
                                                                                                                                             
                                                                                     
     (reagent-dom/render (react/createElement react-router-dom/RouterProvider (clj->js {"router" router})) 
