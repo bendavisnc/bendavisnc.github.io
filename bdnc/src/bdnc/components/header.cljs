@@ -7,6 +7,6 @@
          [:a {:href "#"
               :class "text-white text-center mb-2"}
              [:span (:title @gs)]]
-         [hamburger {:class "absolute top-2 right-2"} 
+         [:> (hamburger {:class "absolute top-2 right-2"} 
                     gs
-                    navigation]]])
+                    navigation)]]])

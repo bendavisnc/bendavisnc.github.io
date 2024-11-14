@@ -4,7 +4,6 @@
 
 (defn page []
   (fn []
-    (let [_ (react-router-dom/useNavigation)]
-      (reagent/as-element [:div {:id "page-root"}
-                            [:> react-router-dom/Outlet]]))))
+    (reagent/as-element [:div {:id "page-root"}
+                          [:> react-router-dom/Outlet]])))
 
