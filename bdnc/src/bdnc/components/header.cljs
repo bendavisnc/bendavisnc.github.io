@@ -1,7 +1,7 @@
 (ns bdnc.components.header) 
 
 (defn component [gs, navigation, hamburger]
-  [:header {:class "bg-blue-200 "}
+  [:header {:class "bg-black bg-opacity-10"}
    [:nav {:id "nav"
           :class "relative flex justify-center items-end min-h-24"}
          [:a {:href "#"
