@@ -9,9 +9,6 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/clojurescript "1.10.773"]
                  [org.clojure/core.async  "0.4.500"]
-                 [compojure "1.7.1"]
-                 [ring/ring-core "1.13.0"]
-                 [ring/ring-defaults "0.5.0"]
                  [reagent "0.10.0" :exclusions [cljsjs/react cljsjs/react-dom cljsjs/react-dom-server]]]
 
   :plugins [[lein-figwheel "0.5.20"]
@@ -26,12 +23,12 @@
                 ;; The presence of a :figwheel configuration here
                 ;; will cause figwheel to inject the figwheel client
                 ;; into your build
-                :figwheel {:on-jsload "bdnc.core/on-js-reload"}
+                :figwheel {:on-jsload "bdnc.core/on-js-reload"
                            ;; :open-urls will pop open your application
                            ;; in the default browser once Figwheel has
                            ;; started and compiled your application.
                            ;; Comment this out once it no longer serves you.
-                          ;;  :open-urls ["http://localhost:3449/index.html"]}
+                           :open-urls ["http://localhost:3449/index.html"]}
 
                 :compiler {:main bdnc.core
                            :target :bundle
@@ -55,7 +52,7 @@
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
-             :server-port 8080 ;; default
+             ;; :server-port 3449 ;; default
              ;; :server-ip "127.0.0.1"
 
              :css-dirs ["resources/public/css"] ;; watch and update CSS
@@ -69,7 +66,7 @@
 
              ;; doesn't work for you just run your own server :) (see lein-ring)
 
-             :ring-handler bdnc.server/handler}
+             ;; :ring-handler hello_world.server/handler
 
              ;; To be able to open files in your editor from the heads up display
              ;; you will need to put a script on your path.
@@ -91,7 +88,7 @@
 
              ;; to pipe all the output to the repl
              ;; :server-logfile false
-             
+             }
 
   :profiles {:dev {:dependencies [[binaryage/devtools "1.0.0"]
                                   [figwheel-sidecar "0.5.20"]]
