@@ -52,8 +52,8 @@
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
-             ;; :server-port 3449 ;; default
-             ;; :server-ip "127.0.0.1"
+             :server-port 8080 ;; default
+             :server-ip "192.168.86.23"
 
              :css-dirs ["resources/public/css"] ;; watch and update CSS
 

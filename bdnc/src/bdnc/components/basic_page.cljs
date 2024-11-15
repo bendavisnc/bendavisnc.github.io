@@ -7,6 +7,7 @@
 (defn component [gs, child]
   (fn []
     (let [navigation (react-router-dom/useNavigation)]
-      (reagent/as-element [:div {:id "basic-page"}
+      (reagent/as-element [:div {:id "basic-page"
+                                 :class "h-screen"}
                                 [header/component gs, navigation, hamburger/component]
                                 child]))))
