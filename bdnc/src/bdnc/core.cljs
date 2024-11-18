@@ -6,7 +6,7 @@
               [bdnc.components.basic-page :as basic-page]
               [bdnc.pages.root.root :as root]
               [bdnc.pages.home.home :as home]
-              [bdnc.pages.contacts.contacts :as contacts]
+              [bdnc.pages.contact.contact :as contact]
               [bdnc.pages.navigation.navigation :as navigation]))
 
 (enable-console-print!)
@@ -22,9 +22,9 @@
                                                                                        {:path "/navigation"
                                                                                         :element (reagent/as-element [:> (basic-page/component (atom {:title "site navigation"}) 
                                                                                                                                                [navigation/page])])}
-                                                                                       {:path "/contacts"
-                                                                                        :element (reagent/as-element [:> (basic-page/component (atom {:title "contacts"}) 
-                                                                                                                                               [contacts/page])])}]}]}]))]
+                                                                                       {:path "/contact"
+                                                                                        :element (reagent/as-element [:> (basic-page/component (atom {:title "contact"}) 
+                                                                                                                                               [contact/page])])}]}]}]))]
                                                                                                                                             
                                                                                     
     (reagent-dom/render (react/createElement react-router-dom/RouterProvider (clj->js {"router" router})) 
