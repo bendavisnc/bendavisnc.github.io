@@ -2,9 +2,14 @@
   (:require [reagent.core :as reagent]
             ["react-router-dom" :as react-router-dom]))
 
-(defn component-active [props, gs]
+(defn handle-back [navigate]
+  (fn [e]
+    (.preventDefault e)
+    (navigate -1)))
+    
+(defn component-active [props, gs, navigate]
   [:> react-router-dom/NavLink (conj props 
-                                     {:to "/contacts"})
+                                     {:on-click (handle-back navigate)})
                                [:span "x"]])
    
 (defn component-pending [props, gs]
@@ -16,12 +21,13 @@
 
 (defn component [props, gs, navigation]
   (fn []
-    (let [location (react-router-dom/useLocation)]
+    (let [location (react-router-dom/useLocation)
+          navigate (react-router-dom/useNavigate)]
       (reagent/as-element 
         (let [is-at-navigation? (= (.-pathname location)
                                    "/navigation")]
           (if is-at-navigation?  
-            [component-active props, gs]
+            [component-active props, gs, navigate]
             [component-pending props, gs]))))))
       
   

@@ -14,7 +14,7 @@
        [:ul {:class "w-4/5 self-center"}
             (map (fn [link]
                    [:li {:key (:name link)
-                         :class "rounded my-8 py-10 text-2xl bg-blue-100"}
+                         :class "rounded my-8 py-10 text-2xl bg-black bg-opacity-10"}
                         [:> react-router-dom/Link {:to (:path link)
                                                    :class "ml-2"}
                                                   (:name link)]])
