@@ -7,6 +7,7 @@
               [bdnc.pages.root.root :as root]
               [bdnc.pages.home.home :as home]
               [bdnc.pages.contact.contact :as contact]
+              [bdnc.pages.about.about :as about]
               [bdnc.pages.navigation.navigation :as navigation]))
 
 (enable-console-print!)
@@ -21,7 +22,12 @@
                                                                                                                                            
                                                                                        {:path "/navigation"
                                                                                         :element (reagent/as-element [:> (basic-page/component (atom {:title "site navigation"}) 
+
                                                                                                                                                [navigation/page])])}
+                                                                                       {:path "/about"
+                                                                                        :element (reagent/as-element [:> (basic-page/component (atom {:title "about"}) 
+                                                                                                                                               [about/page])])}
+                                                                                                                                            
                                                                                        {:path "/contact"
                                                                                         :element (reagent/as-element [:> (basic-page/component (atom {:title "contact"}) 
                                                                                                                                                [contact/page])])}]}]}]))]
