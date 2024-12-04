@@ -499,8 +499,26 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
+.fixed {
+  position: fixed;
+}
+.relative {
+  position: relative;
+}
+.left-0 {
+  left: 0px;
+}
+.top-0 {
+  top: 0px;
+}
 .h-dvh {
   height: 100dvh;
+}
+.min-h-24 {
+  min-height: 6rem;
+}
+.w-dvw {
+  width: 100dvw;
 }
 .bg-\[\#4686f2\] {
   --tw-bg-opacity: 1;
@@ -513,4 +531,8 @@ video {
 .bg-\[\#fecd41\] {
   --tw-bg-opacity: 1;
   background-color: rgb(254 205 65 / var(--tw-bg-opacity));
+}
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }

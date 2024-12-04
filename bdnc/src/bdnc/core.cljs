@@ -4,6 +4,9 @@
 
 (enable-console-print!)
 
+(defn header []
+  [:div#header {:class ["bg-white", "w-dvw min-h-24 fixed top-0 left-0"]}])
+
 (defn page-a []
   [:div#a {:class ["bg-[#4686f2]", "h-dvh"]}])
 
@@ -15,9 +18,12 @@
 
 
 (defn root []
-  [:<> [page-a]
-       [page-b]
-       [page-c]])
+  [:div#root-container {:class "relative"}
+    [:<> 
+      [header]
+      [page-a]
+      [page-b]
+      [page-c]]])
 
 (defn init! []
   (reagent-dom/render [root]
