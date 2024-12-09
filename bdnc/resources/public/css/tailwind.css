@@ -499,6 +499,9 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
+.visible {
+  visibility: visible;
+}
 .fixed {
   position: fixed;
 }
@@ -535,4 +538,7 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+.opacity-50 {
+  opacity: 0.5;
 }

@@ -44,22 +44,22 @@
 
 (defn header []
   (let [title @(rf/subscribe [:title])]
-    [:div#header {:class ["bg-white", "w-dvw min-h-24 fixed top-0 left-0"]}
+    [:div#header {:class ["bg-white", "opacity-50", "w-dvw min-h-24 fixed top-0 left-0"]}
       [:span#title title]]))
 
 (defn page [id, color, index]
   [:div {:id id
-         :class [(gstring/format "bg-[%s]" color), "h-dvh"]
+         :class [color, "h-dvh"]
          :data-index index}])
 
 (defn page-a []
-  (page "a" "#4686f2" 0))
+  (page "a" "bg-[#4686f2]" 0))
 
 (defn page-b []
-  (page "b" "#fc05f6" 1))
+  (page "b" "bg-[#fc05f6]" 1))
 
 (defn page-c []
-  (page "c" "#fecd41" 2))
+  (page "c" "bg-[#fecd41]" 2))
 
 (defn root []
   [:div#root-container {:class "relative"}
