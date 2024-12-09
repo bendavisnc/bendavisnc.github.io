@@ -499,11 +499,11 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
-.visible {
-  visibility: visible;
-}
 .fixed {
   position: fixed;
+}
+.absolute {
+  position: absolute;
 }
 .relative {
   position: relative;
@@ -511,14 +511,26 @@ video {
 .left-0 {
   left: 0px;
 }
+.right-2 {
+  right: 0.5rem;
+}
 .top-0 {
   top: 0px;
+}
+.top-2 {
+  top: 0.5rem;
+}
+.h-6 {
+  height: 1.5rem;
 }
 .h-dvh {
   height: 100dvh;
 }
 .min-h-24 {
   min-height: 6rem;
+}
+.w-6 {
+  width: 1.5rem;
 }
 .w-dvw {
   width: 100dvw;
@@ -539,6 +551,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
-.opacity-50 {
-  opacity: 0.5;
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
 }

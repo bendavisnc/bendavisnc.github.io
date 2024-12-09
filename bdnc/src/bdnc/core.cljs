@@ -3,7 +3,8 @@
               [reagent.dom :as reagent-dom]
               [goog.string :as gstring]
               [goog.string.format]
-              [re-frame.core :as rf]))
+              [re-frame.core :as rf]
+              [bdnc.hamburger :as hamburger])) 
 
 (enable-console-print!)
 
@@ -19,7 +20,7 @@
                                                 (doseq [entry entries
                                                         :let [entry-target (.-target entry)]]
                                                   (when (.-isIntersecting entry) 
-                                                    (rf/dispatch [:visible (get-data-attribute entry-target "index")]))))
+                                                    (rf/dispatch [:visible-index (get-data-attribute entry-target "index")]))))
                                               (clj->js {:root nil 
                                                         :threshold 0.1}))]
     (.observe observer target)))
@@ -33,19 +34,36 @@
     {}))
 
 (rf/reg-event-db
-  :visible
+  :visible-index
   (fn [db [_ i]]
-    (assoc db :title (title i))))
+    (assoc db :visible-index i)))
+
+(rf/reg-event-db
+  :hamburger-clicked
+  (fn [db [_]]
+    (update db :hamburger-active? not)))
 
 (rf/reg-sub
   :title
   (fn [db _] 
-    (:title db)))
+    (title (:visible-index db))))
+
+(rf/reg-sub
+  :hamburger-active?
+  (fn [db _] 
+    (:hamburger-active? db)))
+
+(rf/reg-sub
+  :visible-index
+  (fn [db _] 
+    (:visible-index db)))
+
 
 (defn header []
   (let [title @(rf/subscribe [:title])]
-    [:div#header {:class ["bg-white", "opacity-50", "w-dvw min-h-24 fixed top-0 left-0"]}
-      [:span#title title]]))
+    [:div#header {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-white", "bg-opacity-50"]}
+      [:span#title title]
+      [hamburger/component {:class "absolute top-2 right-2"}]])) 
 
 (defn page [id, color, index]
   [:div {:id id
