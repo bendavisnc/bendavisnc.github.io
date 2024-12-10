@@ -61,7 +61,7 @@
 
 (defn header []
   (let [title @(rf/subscribe [:title])]
-    [:div#header {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-white", "bg-opacity-50"]}
+    [:div#header {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-white", "bg-opacity-50", "flex", "justify-center", "items-end"]}
       [:span#title title]
       [hamburger/component {:class "absolute top-2 right-2"}]])) 
 
@@ -79,13 +79,19 @@
 (defn page-c []
   (page "c" "bg-[#fecd41]" 2))
 
+(defn page-nav []
+  (page "nav" "bg-rose-400" -1))
+
 (defn root []
-  [:div#root-container {:class "relative"}
-    [:<> 
-      [header]
-      [page-a]
-      [page-b]
-      [page-c]]])
+  (let [hamburger-active? @(rf/subscribe [:hamburger-active?])]
+    [:div#root-container {:class "relative"}
+      (if hamburger-active?
+        [:<> [header]
+             [page-nav]]  
+        [:<> [header]
+             [page-a]
+             [page-b]
+             [page-c]])]))
 
 (defn init! []
   (reagent-dom/render [root]
@@ -96,4 +102,25 @@
 
 (defn on-js-reload [])
 
+(aset js/window 
+      "wut"
+      (fn []
+        (let [ya true
+              wa (into [[1]]
+                       (if ya
+                         [[2], [3]]
+                         [[9]]))]
+          (println wa))))
+
+;; (aset js/window 
+;;       "wut"
+;;       (fn []
+;;         (let [ya true
+;;               wa (vec (concat [[1]]
+;;                               (if ya
+;;                                 [[2], [3]]
+;;                                 [[9]])))]
+;;           (println wa))))
+ 
+ 
 (init!)
