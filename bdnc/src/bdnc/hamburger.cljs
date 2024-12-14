@@ -23,6 +23,6 @@
         component-delegate (if hamburger-active? component-active component-pending)]
     [component-delegate (conj props 
                               {:on-click (fn [_] 
-                                           (rf/dispatch [:hamburger-clicked]))})]))
+                                           (.scrollIntoView (.getElementById js/document "navigation")))})]))
         
   
