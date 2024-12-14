@@ -538,6 +538,9 @@ video {
 .w-dvw {
   width: 100dvw;
 }
+.flex-col {
+  flex-direction: column;
+}
 .items-end {
   align-items: flex-end;
 }
@@ -566,4 +569,7 @@ video {
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+.pt-32 {
+  padding-top: 8rem;
 }

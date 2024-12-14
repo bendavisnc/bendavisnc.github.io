@@ -4,6 +4,7 @@
               [goog.string :as gstring]
               [goog.string.format]
               [re-frame.core :as rf]
+              [bdnc.navigation :as navigation] 
               [bdnc.hamburger :as hamburger])) 
 
 (enable-console-print!)
@@ -20,7 +21,7 @@
                                                 (doseq [entry entries
                                                         :let [entry-target (.-target entry)]]
                                                   (when (.-isIntersecting entry) 
-                                                    (rf/dispatch [:visible-index (get-data-attribute entry-target "index")]))))
+                                                    (rf/dispatch [:visible-index (js/parseInt (get-data-attribute entry-target "index"))]))))
                                               (clj->js {:root nil 
                                                         :threshold 0.1}))]
     (.observe observer target)))
@@ -36,7 +37,9 @@
 (rf/reg-event-db
   :visible-index
   (fn [db [_ i]]
-    (assoc db :visible-index i)))
+    (-> db
+        (assoc :visible-index i)
+        (assoc :hamburger-active? (= i -1)))))
 
 (rf/reg-event-db
   :hamburger-clicked
@@ -71,56 +74,30 @@
          :data-index index}])
 
 (defn page-a []
-  (page "a" "bg-[#4686f2]" 0))
+  (page "a-page" "bg-[#4686f2]" 0))
 
 (defn page-b []
-  (page "b" "bg-[#fc05f6]" 1))
+  (page "b-page" "bg-[#fc05f6]" 1))
 
 (defn page-c []
-  (page "c" "bg-[#fecd41]" 2))
-
-(defn page-nav []
-  (page "nav" "bg-rose-400" -1))
+  (page "c-page" "bg-[#fecd41]" 2))
 
 (defn root []
-  (let [hamburger-active? @(rf/subscribe [:hamburger-active?])]
-    [:div#root-container {:class "relative"}
-      (if hamburger-active?
-        [:<> [header]
-             [page-nav]]  
-        [:<> [header]
-             [page-a]
-             [page-b]
-             [page-c]])]))
+  [:div#root-container {:class "relative"}
+    [:<> [header]
+         [navigation/component]  
+         [page-a]
+         [page-b]
+         [page-c]]])
 
 (defn init! []
   (reagent-dom/render [root]
                       (.getElementById js/document 
                                        "app"))
-  (doseq [id ["#a", "#b", "#c"]]
-    (scroll-observe! id)))
+  (doseq [id ["#navigation", "#a-page", "#b-page", "#c-page"]]
+    (scroll-observe! id))
+  (set! js/window.location.hash "a-page"))
 
 (defn on-js-reload [])
 
-(aset js/window 
-      "wut"
-      (fn []
-        (let [ya true
-              wa (into [[1]]
-                       (if ya
-                         [[2], [3]]
-                         [[9]]))]
-          (println wa))))
-
-;; (aset js/window 
-;;       "wut"
-;;       (fn []
-;;         (let [ya true
-;;               wa (vec (concat [[1]]
-;;                               (if ya
-;;                                 [[2], [3]]
-;;                                 [[9]])))]
-;;           (println wa))))
- 
- 
 (init!)
