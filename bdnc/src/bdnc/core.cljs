@@ -18,10 +18,9 @@
         _ (when (nil? target)
             (throw (new js/Error "`scroll-observe!` target is null")))
         observer (new js/IntersectionObserver (fn [entries] 
-                                                (doseq [entry entries
-                                                        :let [entry-target (.-target entry)]]
+                                                (doseq [entry entries]
                                                   (when (.-isIntersecting entry) 
-                                                    (rf/dispatch [:visible-index (js/parseInt (get-data-attribute entry-target "index"))]))))
+                                                    (rf/dispatch [:visible-page (-> entry .-target .-id)]))))
                                               (clj->js {:root nil 
                                                         :threshold 0.1}))]
     (.observe observer target)))
@@ -35,11 +34,11 @@
     {}))
 
 (rf/reg-event-db
-  :visible-index
-  (fn [db [_ i]]
+  :visible-page
+  (fn [db [_ id]]
     (-> db
-        (assoc :visible-index i)
-        (assoc :hamburger-active? (= i -1)))))
+        (assoc :visible-page id)
+        (assoc :hamburger-active? (= id "navigation")))))
 
 (rf/reg-event-db
   :hamburger-clicked
@@ -49,7 +48,7 @@
 (rf/reg-sub
   :title
   (fn [db _] 
-    (title (:visible-index db))))
+    (title (:visible-page db))))
 
 (rf/reg-sub
   :hamburger-active?
@@ -57,9 +56,9 @@
     (:hamburger-active? db)))
 
 (rf/reg-sub
-  :visible-index
+  :visible-page
   (fn [db _] 
-    (:visible-index db)))
+    (:visible-page db)))
 
 
 (defn header []
@@ -68,19 +67,18 @@
       [:span#title title]
       [hamburger/component {:class "absolute top-2 right-2"}]])) 
 
-(defn page [id, color, index]
+(defn page [id, color]
   [:div {:id id
-         :class [color, "h-dvh"]
-         :data-index index}])
+         :class [color, "h-dvh"]}])
 
 (defn page-a []
-  (page "a-page" "bg-[#4686f2]" 0))
+  (page "a-page" "bg-[#4686f2]"))
 
 (defn page-b []
-  (page "b-page" "bg-[#fc05f6]" 1))
+  (page "b-page" "bg-[#fc05f6]"))
 
 (defn page-c []
-  (page "c-page" "bg-[#fecd41]" 2))
+  (page "c-page" "bg-[#fecd41]"))
 
 (defn root []
   [:div#root-container {:class "relative"}
