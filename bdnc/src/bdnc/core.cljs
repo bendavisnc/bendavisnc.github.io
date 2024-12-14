@@ -5,7 +5,8 @@
               [goog.string.format]
               [re-frame.core :as rf]
               [bdnc.navigation :as navigation] 
-              [bdnc.hamburger :as hamburger])) 
+              [bdnc.hamburger :as hamburger] 
+              [bdnc.pages :as pages])) 
 
 (enable-console-print!)
 
@@ -20,13 +21,10 @@
         observer (new js/IntersectionObserver (fn [entries] 
                                                 (doseq [entry entries]
                                                   (when (.-isIntersecting entry) 
-                                                    (rf/dispatch [:visible-page (-> entry .-target .-id)]))))
+                                                    (rf/dispatch [:visible-page (-> entry .-target .-id keyword)]))))
                                               (clj->js {:root nil 
                                                         :threshold 0.1}))]
     (.observe observer target)))
-
-(defn title [i]
-  (str "wat" i))
 
 (rf/reg-event-db
   :initialize
@@ -48,7 +46,7 @@
 (rf/reg-sub
   :title
   (fn [db _] 
-    (title (:visible-page db))))
+    (-> db :visible-page pages/all :title)))
 
 (rf/reg-sub
   :hamburger-active?
