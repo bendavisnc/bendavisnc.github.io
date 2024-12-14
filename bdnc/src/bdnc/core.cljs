@@ -10,10 +10,6 @@
 
 (enable-console-print!)
 
-(defn get-data-attribute [node key]
-  (when node
-    (aget (.-dataset node) key)))
-
 (defn scroll-observe! [target-selector]
   (let [target (.querySelector js/document target-selector)
         _ (when (nil? target)
@@ -36,7 +32,7 @@
   (fn [db [_ id]]
     (-> db
         (assoc :visible-page id)
-        (assoc :hamburger-active? (= id "navigation")))))
+        (assoc :hamburger-active? (= id :navigation)))))
 
 (rf/reg-event-db
   :hamburger-clicked
