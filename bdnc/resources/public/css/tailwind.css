@@ -538,6 +538,12 @@ video {
 .w-dvw {
   width: 100dvw;
 }
+.min-w-6 {
+  min-width: 1.5rem;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
 .flex-col {
   flex-direction: column;
 }
