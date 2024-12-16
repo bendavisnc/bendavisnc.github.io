@@ -1,6 +1,6 @@
 (ns bdnc.core
   (:require
-   [bdnc.hamburger :as hamburger]
+   [bdnc.header :as header]
    [bdnc.navigation :as navigation]
    [bdnc.pages :as pages]
    [goog.string :as gstring]
@@ -55,12 +55,6 @@
   (fn [db _]
     (:visible-page db)))
 
-(defn header []
-  (let [title @(rf/subscribe [:title])]
-    [:div#header {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-white", "bg-opacity-50", "flex", "justify-center", "items-end"]}
-     [:span#title title]
-     [hamburger/component {:class ["absolute", "top-2", "right-2", "min-w-6", "flex", "justify-center", "cursor-pointer"]}]]))
-
 (defn page [id, color]
   [:div {:id id
          :class [color, "h-dvh"]}])
@@ -76,7 +70,7 @@
 
 (defn root []
   [:div#root-container {:class "relative"}
-   [:<> [header]
+   [:<> [header/component]
         [navigation/component]
         [page-a]
         [page-b]
