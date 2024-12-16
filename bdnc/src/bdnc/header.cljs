@@ -29,11 +29,10 @@
 (defn component [props]
   (let [title @(rf/subscribe [:title])
         visible-page @(rf/subscribe [:visible-page])
-        _ (println visible-page)
-        logo (logos visible-page)]
-        ;; _ (when-not logo
-    ;; (throw (new js/Error (gstring/format "No logo for `%s`."
-    ;;  visible-page))))] 
+        logo (logos visible-page)
+        _ (when-not logo
+            (.warn js/console (gstring/format "No logo for `%s`."
+                                               visible-page)))]
     [:div#header props
      [:div {:class ["flex", "flex-col", "items-center", "min-h-24", "justify-center", "relative"]}
       [:div.logo-container
