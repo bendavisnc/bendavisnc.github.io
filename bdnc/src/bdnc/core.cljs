@@ -70,7 +70,7 @@
 
 (defn root []
   [:div#root-container {:class "relative"}
-   [:<> [header/component]
+   [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-white", "bg-opacity-50", "flex", "justify-center", "items-end"]}]
         [navigation/component]
         [page-a]
         [page-b]
