@@ -55,23 +55,23 @@
   (fn [db _]
     (:visible-page db)))
 
-(defn page [id, color]
+(defn page [id]
   [:div {:id id
-         :class [color, "h-dvh", "flex", "justify-center", "items-center"]}
+         :class ["h-dvh", "flex", "justify-center", "items-center"]}
    [:div.mock (gstring/format "todo, %s content"
                               id)]])
 
 (defn page-a []
-  (page "a-page" "bg-[#4686f2]"))
+  (page "a-page"))
 
 (defn page-b []
-  (page "b-page" "bg-[#fc05f6]"))
+  (page "b-page"))
 
 (defn page-c []
-  (page "c-page" "bg-[#fecd41]"))
+  (page "c-page"))
 
 (defn root []
-  [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
+  [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "bg-[url('/images/beach.png')]", "bg-cover", "overflow-hidden"]}
    [:div#main-container {:class ["overflow-auto", "h-dvh"]}
     [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
          [navigation/component]

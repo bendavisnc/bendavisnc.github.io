@@ -574,22 +574,16 @@ video {
 .bg-\[\#00000010\] {
   background-color: #00000010;
 }
-.bg-\[\#4686f2\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(70 134 242 / var(--tw-bg-opacity));
+.bg-\[url\(\'\/images\/beach\.png\'\)\] {
+  background-image: url('/images/beach.png');
 }
-.bg-\[\#fc05f6\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(252 5 246 / var(--tw-bg-opacity));
-}
-.bg-\[\#fecd41\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 205 65 / var(--tw-bg-opacity));
-}
-.bg-rose-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 113 133 / var(--tw-bg-opacity));
+.bg-cover {
+  background-size: cover;
 }
 .pt-32 {
   padding-top: 8rem;
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }

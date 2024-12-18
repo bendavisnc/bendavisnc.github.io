@@ -5,7 +5,7 @@
 (defn component []
   [:div#navigation
    {:id "navigation"
-    :class ["bg-rose-400", "h-dvh", "flex", "justify-center", "pt-32"]
+    :class ["h-dvh", "flex", "justify-center", "pt-32"]
     :data-index -1}
    [:ul {:class ["flex", "flex-col"]}
     (for [link links/all
