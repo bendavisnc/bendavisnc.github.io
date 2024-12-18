@@ -57,7 +57,9 @@
 
 (defn page [id, color]
   [:div {:id id
-         :class [color, "h-dvh"]}])
+         :class [color, "h-dvh", "flex", "justify-center", "items-center"]}
+   [:div.mock (gstring/format "todo, %s content"
+                              id)]])
 
 (defn page-a []
   (page "a-page" "bg-[#4686f2]"))
@@ -69,12 +71,13 @@
   (page "c-page" "bg-[#fecd41]"))
 
 (defn root []
-  [:div#root-container {:class "relative"}
-   [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-white", "bg-opacity-50", "flex", "justify-center", "items-end"]}]
-        [navigation/component]
-        [page-a]
-        [page-b]
-        [page-c]]])
+  [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
+   [:div#main-container {:class ["overflow-auto", "h-dvh"]}
+    [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
+         [navigation/component]
+         [page-a]
+         [page-b]
+         [page-c]]]])
 
 (defn init! []
   (reagent-dom/render [root]

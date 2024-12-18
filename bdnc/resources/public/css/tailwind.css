@@ -565,6 +565,15 @@ video {
 .justify-center {
   justify-content: center;
 }
+.overflow-auto {
+  overflow: auto;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.bg-\[\#00000010\] {
+  background-color: #00000010;
+}
 .bg-\[\#4686f2\] {
   --tw-bg-opacity: 1;
   background-color: rgb(70 134 242 / var(--tw-bg-opacity));
@@ -580,13 +589,6 @@ video {
 .bg-rose-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(251 113 133 / var(--tw-bg-opacity));
-}
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-.bg-opacity-50 {
-  --tw-bg-opacity: 0.5;
 }
 .pt-32 {
   padding-top: 8rem;
