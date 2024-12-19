@@ -2,6 +2,7 @@
   (:require
    [bdnc.header :as header]
    [bdnc.navigation :as navigation]
+   [bdnc.contact :as contact]
    [bdnc.pages :as pages]
    [goog.string :as gstring]
    [goog.string.format]
@@ -26,7 +27,7 @@
 (rf/reg-event-db
   :initialize
   (fn [_ _]
-    {}))
+    {:visible-page :contact}))
 
 (rf/reg-event-db
   :visible-page
@@ -42,9 +43,15 @@
 
 (rf/reg-sub
   :title
-  (fn [db _]
-    (-> db :visible-page pages/all :title)))
-
+  (fn [_, _]
+    (rf/subscribe [:visible-page]))
+  (fn [visible-page, _]
+    (let [title (:title (visible-page pages/all)) 
+          _ (when-not title
+              (.warn js/console (gstring/format "No title for `%s`."
+                                                visible-page)))]
+      title)))
+ 
 (rf/reg-sub
   :hamburger-active?
   (fn [db _]
@@ -61,9 +68,6 @@
    [:div.mock (gstring/format "todo, %s content"
                               id)]])
 
-(defn page-a []
-  (page "a-page"))
-
 (defn page-b []
   (page "b-page"))
 
@@ -75,17 +79,18 @@
    [:div#main-container {:class ["overflow-auto", "h-dvh"]}
     [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
          [navigation/component]
-         [page-a]
+         [contact/component]
          [page-b]
          [page-c]]]])
 
 (defn init! []
+  (rf/dispatch-sync [:initialize])
   (reagent-dom/render [root]
                       (.getElementById js/document
                                        "app"))
-  (doseq [id ["#navigation", "#a-page", "#b-page", "#c-page"]]
+  (doseq [id ["#navigation", "#contact", "#b-page", "#c-page"]]
     (scroll-observe! id))
-  (set! js/window.location.hash "a-page"))
+  (set! js/window.location.hash "contact"))
 
 (defn on-js-reload [])
 

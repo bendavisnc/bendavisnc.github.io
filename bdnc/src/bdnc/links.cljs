@@ -1,7 +1,7 @@
 (ns bdnc.links)
 
-(def a {:name "a"
-        :path "#a-page"})
+(def a {:name "contact"
+        :path "#contact"})
 
 (def b {:name "b"
         :path "#b-page"})

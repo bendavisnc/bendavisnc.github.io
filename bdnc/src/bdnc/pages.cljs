@@ -2,13 +2,13 @@
 
 (def navigation {:title "navigation"})
 
-(def a {:title "a"})
+(def contact {:title "contact"})
 
 (def b {:title "b"})
 
 (def c {:title "c"})
 
 (def all {:navigation navigation
-          :a-page a
+          :contact contact
           :b-page b
           :c-page c})
