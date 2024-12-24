@@ -4,11 +4,11 @@
 
 (def contact {:title "contact"})
 
-(def b {:title "b"})
+(def experience {:title "experience"})
 
 (def c {:title "c"})
 
 (def all {:navigation navigation
           :contact contact
-          :b-page b
+          :experience experience
           :c-page c})

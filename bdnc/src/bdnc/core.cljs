@@ -1,6 +1,7 @@
 (ns bdnc.core
   (:require
    [bdnc.contact :as contact]
+   [bdnc.experience :as experience]
    [bdnc.header :as header]
    [bdnc.navigation :as navigation]
    [bdnc.pages :as pages]
@@ -67,9 +68,6 @@
    [:div.mock (gstring/format "todo, %s content"
                               id)]])
 
-(defn page-b []
-  (page "b-page"))
-
 (defn page-c []
   (page "c-page"))
 
@@ -79,7 +77,7 @@
     [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
          [navigation/component]
          [contact/component]
-         [page-b]
+         [experience/component]
          [page-c]]]])
 
 (defn init! []
@@ -87,7 +85,7 @@
   (reagent-dom/render [root]
                       (.getElementById js/document
                                        "app"))
-  (doseq [id ["#navigation", "#contact", "#b-page", "#c-page"]]
+  (doseq [id ["#navigation", "#contact", "#experience", "#c-page"]]
     (scroll-observe! id))
   (set! js/window.location.hash "contact"))
 
