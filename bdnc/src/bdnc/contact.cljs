@@ -1,4 +1,7 @@
-(ns bdnc.contact)
+(ns bdnc.contact
+  (:require
+   [goog.string :as gstring]
+   [goog.string.format]))
 
 (def github-logo
   [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon", :class "w-12 h-12"}
@@ -24,17 +27,18 @@
             :path "mailto:bendavisnc@gmail.com"
             :logo email-logo})
 
-(def links-all [github, linkedin, email])
+(def links-all {:github github
+                :linkedin linkedin
+                :email email})
 
 (defn component []
   [:div#contact
    {:class ["h-dvh", "flex", "justify-center", "pt-32"]}
    [:ul {:class ["flex", "flex-col"]}
-    (for [link links-all
-          :let [name (:name link)
+    (for [[link-id, link] links-all
+          :let [link-name (:name link)
                 path (:path link)
-                id (str name
-                        "-link")
+                id (gstring/format "%s-link" (name link-id))
                 logo (:logo link)]]
       [:li {:key id}
        [:a {:id id
@@ -43,4 +47,4 @@
          [:div {:class []}
           logo]
          [:span {:class []}
-          name]]]])]])
+          link-name]]]])]])
