@@ -34,7 +34,7 @@
 (defn component []
   [:div#contact
    {:class ["h-dvh", "flex", "justify-center", "pt-32"]}
-   [:ul {:class ["flex", "flex-col"]}
+   [:ul {:class ["flex", "flex-col", "gap-8"]}
     (for [[link-id, link] links-all
           :let [link-name (:name link)
                 path (:path link)
@@ -43,8 +43,8 @@
       [:li {:key id}
        [:a {:id id
             :href path}
-        [:div {:class ["flex", "items-center", "text-5xl", "text-[#f9eac4]", "font-black", "gap-1.5" "mb-8"]}
-         [:div {:class []}
+        [:div {:class ["flex", "items-center", "text-5xl", "text-[#f9eac4]", "font-black", "gap-1.5"]}
+         [:div {:class ["fill-slate-600"]}
           logo]
          [:span {:class []}
           link-name]]]])]])
