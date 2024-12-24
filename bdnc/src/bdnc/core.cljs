@@ -1,8 +1,8 @@
 (ns bdnc.core
   (:require
+   [bdnc.contact :as contact]
    [bdnc.header :as header]
    [bdnc.navigation :as navigation]
-   [bdnc.contact :as contact]
    [bdnc.pages :as pages]
    [goog.string :as gstring]
    [goog.string.format]
@@ -46,12 +46,11 @@
   (fn [_, _]
     (rf/subscribe [:visible-page]))
   (fn [visible-page, _]
-    (let [title (:title (visible-page pages/all)) 
+    (let [title (:title (visible-page pages/all))
           _ (when-not title
               (.warn js/console (gstring/format "No title for `%s`."
                                                 visible-page)))]
       title)))
- 
 (rf/reg-sub
   :hamburger-active?
   (fn [db _]
