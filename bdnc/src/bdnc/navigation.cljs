@@ -1,9 +1,8 @@
 (ns bdnc.navigation
   (:require
+   [bdnc.links :as links]
    [goog.string :as gstring]
-   [goog.string.format]
-   [bdnc.links :as links]))
-
+   [goog.string.format]))
 
 (defn component []
   [:div#navigation
