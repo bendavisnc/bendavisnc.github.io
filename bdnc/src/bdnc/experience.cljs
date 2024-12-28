@@ -21,11 +21,13 @@
 (def comcast {:name "comcast"
               :path "https://www.todo.com"
               :title "software developer"
+              :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
               :logo comcast-logo})
 
 (def signalpath {:name "signalpath"
                  :path "https://www.todo.com"
                  :title "master chief"
+                 :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
                  :logo comcast-logo})
 
 (def items-all {:comcast comcast
@@ -34,6 +36,27 @@
 (defn expand-button [props]
   [:button props expand-icon])
 
+(defn main-section [props, company, role, logo]
+  [:div.main-section props
+    [:div {:class ["flex", "flex-col"]}
+     [:div {:class ["text-5xl", "text-[#f9eac4]", "font-bold"]}
+      company]
+     [:div {:class ["font-light"]}
+      role]
+     [expand-button {}]]
+    [:div {:class ["flex", "flex-col", "justify-center"]}
+     [:div {:class ["w-20", "h-20", "fill-slate-600"]}
+      logo]]])
+
+(defn details-section [props, company, details]
+  [:div.details-section 
+   [:ol {:class ["flex", "flex-col", "gap-2", "list-disc", "list-inside"]}
+    (for [[i, detail] (map-indexed vector details)
+          :let [id (gstring/format "detail-item-%s-%i" 
+                                   company
+                                   i)]]
+      [:li {:key id} detail])]])
+ 
 (defn component []
   [:div#experience
    {:class ["h-dvh", "flex", "justify-center", "pt-32"]}
@@ -41,17 +64,15 @@
     (for [[item-id, item] items-all
           :let [company (:name item)
                 role (:title item)
+                details (:details item)
                 path (:path item)
                 id (gstring/format "%s-item" (name item-id))
                 logo (:logo item)]]
       [:li {:key id}
-       [:div {:class ["flex", "w-[20rem]", "justify-between"]}
-        [:div {:class ["flex", "flex-col"]}
-         [:div {:class ["text-5xl", "text-[#f9eac4]", "font-bold"]}
-          company]
-         [:div {:class ["font-light"]}
-          role]
-         [expand-button {}]]
-        [:div {:class ["flex", "flex-col", "justify-center"]}
-         [:div {:class ["w-20", "h-20", "fill-slate-600"]}
-          logo]]]])]])
+       [main-section {:class ["flex", "w-[20rem]", "justify-between"]}
+        company
+        role
+        logo]
+       [details-section {:class ["w-dvw", "flex", "justify-center"]} 
+        company 
+        details]])]])
