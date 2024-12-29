@@ -4,15 +4,11 @@
    [goog.string.format]))
 
 (def expand-icon
-  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon", :class "w-4 h-4"}
-        [:path {:d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
-        [:text {:style {:text-align "center"
-                        :fill "white"}
-                :x "6.0577888"
-                :y "16.501675"}
-         [:tspan {:x "6.0577888"
-                  :y "16.501675"}
-          "+"]]])
+  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon", :class "w-6 h-6"}
+        [:path {:style {:fill "black"}
+                :d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
+        [:path {:style {:fill "white"}
+                :d "m 11.459799,7.4983244 h 1.080402 v 3.9614746 h 3.961474 v 1.080402 h -3.961474 v 3.961474 H 11.459799 V 12.540201 H 7.4983249 v -1.080402 h 3.9614741 z"}]])
 
 (def comcast-logo
   [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
