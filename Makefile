@@ -11,3 +11,8 @@ format:
 	@echo "Formatting cljs."
 	standard-clj fix bdnc/src/
 
+commit:
+	@echo "Initiating dev commit."
+	git add -u **/*.cljs **/*.css; git commit
+
+
