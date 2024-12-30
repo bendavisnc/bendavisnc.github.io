@@ -4,9 +4,9 @@
    [goog.string :as gstring]
    [goog.string.format]))
 
-(defn component []
+(defn component [props]
   [:div#navigation
-   {:class ["h-dvh", "flex", "justify-center", "pt-32"]}
+   props
    [:ul {:class ["flex", "flex-col", "gap-8"]}
     (for [[link-id, link] links/all
           :let [link-name (:name link)

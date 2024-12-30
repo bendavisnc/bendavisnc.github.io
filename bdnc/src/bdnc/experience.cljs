@@ -89,9 +89,9 @@
                                      company
                                      i)]]
         [:li {:key id} detail])]]))
-(defn component []
+(defn component [props]
   [:div#experience
-   {:class ["h-dvh", "flex", "justify-center", "pt-32"]}
+   props
    [:ul {:class ["flex", "flex-col", "gap-8"]}
     (for [[item-id, item] items-all
           :let [company (:name item)

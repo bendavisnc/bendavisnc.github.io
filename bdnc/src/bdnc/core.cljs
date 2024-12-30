@@ -75,23 +75,27 @@
     (println [db, id])
     (get-in db [:visible? id])))
 
-(defn page [id]
-  [:div {:id id
-         :class ["h-dvh", "flex", "justify-center", "items-center"]}
+(defn page-mock [props]
+  [:div (update props
+                :class
+                conj
+                "h-dvh", "flex", "justify-center", "items-center")
    [:div.mock (gstring/format "todo, %s content"
-                              id)]])
+                              (:id props))]])
 
-(defn page-c []
-  (page "c-page"))
+(defn page-c [props]
+  (page-mock (-> props
+                 (assoc :id "c-page")
+                 (update :class conj "bg-[#fecd41]"))))
 
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "bg-[url('/images/beach.png')]", "bg-cover", "overflow-hidden"]}
-   [:div#main-container {:class ["overflow-auto", "h-dvh"]}
+   [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
     [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
-         [navigation/component]
-         [contact/component]
-         [experience/component]
-         [page-c]]]])
+         [navigation/component {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}]
+         [contact/component {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}]
+         [experience/component {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}]
+         [page-c {:class ["snap-start"]}]]]])
 
 (defn init! []
   (rf/dispatch-sync [:initialize])

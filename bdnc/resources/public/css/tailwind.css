@@ -574,6 +574,15 @@ video {
 .cursor-pointer {
   cursor: pointer;
 }
+.snap-y {
+  scroll-snap-type: y var(--tw-scroll-snap-strictness);
+}
+.snap-mandatory {
+  --tw-scroll-snap-strictness: mandatory;
+}
+.snap-start {
+  scroll-snap-align: start;
+}
 .list-inside {
   list-style-position: inside;
 }
@@ -612,6 +621,10 @@ video {
 }
 .bg-\[\#00000010\] {
   background-color: #00000010;
+}
+.bg-\[\#fecd41\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 205 65 / var(--tw-bg-opacity));
 }
 .bg-\[url\(\'\/images\/beach\.png\'\)\] {
   background-image: url('/images/beach.png');

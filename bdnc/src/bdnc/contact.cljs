@@ -31,9 +31,9 @@
                 :linkedin linkedin
                 :email email})
 
-(defn component []
+(defn component [props]
   [:div#contact
-   {:class ["h-dvh", "flex", "justify-center", "pt-32"]}
+   props
    [:ul {:class ["flex", "flex-col", "gap-8"]}
     (for [[link-id, link] links-all
           :let [link-name (:name link)
