@@ -40,7 +40,7 @@
 (rf/reg-event-db
   :visible?
   (fn [db [_ id]]
-    (update-in db 
+    (update-in db
                [:visible? id]
                not)))
 
