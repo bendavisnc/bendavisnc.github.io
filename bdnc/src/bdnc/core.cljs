@@ -38,6 +38,13 @@
         (assoc :hamburger-active? (= id :navigation)))))
 
 (rf/reg-event-db
+  :visible?
+  (fn [db [_ id]]
+    (update-in db 
+               [:visible? id]
+               not)))
+
+(rf/reg-event-db
   :hamburger-clicked
   (fn [db [_]]
     (update db :hamburger-active? not)))
@@ -61,6 +68,12 @@
   :visible-page
   (fn [db _]
     (:visible-page db)))
+
+(rf/reg-sub
+  :visible?
+  (fn [db, [_, id]]
+    (println [db, id])
+    (get-in db [:visible? id])))
 
 (defn page [id]
   [:div {:id id

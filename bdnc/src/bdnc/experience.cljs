@@ -1,7 +1,8 @@
 (ns bdnc.experience
   (:require
    [goog.string :as gstring]
-   [goog.string.format]))
+   [goog.string.format]
+   [re-frame.core :as rf]))
 
 (def expand-icon
   [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon", :class "w-6 h-6"}
@@ -29,29 +30,35 @@
 (def items-all {:comcast comcast
                 :signalpath signalpath})
 
-(defn expand-button [props]
-  [:button props expand-icon])
+(defn expand-button [props, details-id]
+  [:button (assoc props 
+                  :on-click (fn []
+                              (rf/dispatch [:visible? details-id])))
+    expand-icon])
 
-(defn main-section [props, company, role, logo]
+(defn main-section [props, details-id, company, role, logo]
   [:div.main-section props
     [:div {:class ["flex", "flex-col"]}
      [:div {:class ["text-5xl", "text-[#f9eac4]", "font-bold"]}
       company]
      [:div {:class ["font-light"]}
       role]
-     [expand-button {}]]
+     [expand-button {} details-id]]
     [:div {:class ["flex", "flex-col", "justify-center"]}
      [:div {:class ["w-20", "h-20", "fill-slate-600"]}
       logo]]])
 
-(defn details-section [props, company, details]
-  [:div.details-section 
-   [:ol {:class ["flex", "flex-col", "gap-2", "list-disc", "list-inside"]}
-    (for [[i, detail] (map-indexed vector details)
-          :let [id (gstring/format "detail-item-%s-%i" 
-                                   company
-                                   i)]]
-      [:li {:key id} detail])]])
+(defn details-section [props, details-id, company, details]
+  (let [visible? @(rf/subscribe [:visible? details-id])]
+    [:div.details-section (assoc props
+                                 :hidden
+                                 (not visible?))
+     [:ol {:class ["flex", "flex-col", "gap-2", "list-disc", "list-inside"]}
+      (for [[i, detail] (map-indexed vector details)
+            :let [id (gstring/format "detail-item-%s-%i" 
+                                     company
+                                     i)]]
+        [:li {:key id} detail])]]))
  
 (defn component []
   [:div#experience
@@ -63,12 +70,15 @@
                 details (:details item)
                 path (:path item)
                 id (gstring/format "%s-item" (name item-id))
+                details-id (keyword (gstring/format "%s-item-details" (name item-id)))
                 logo (:logo item)]]
       [:li {:key id}
        [main-section {:class ["flex", "w-[20rem]", "justify-between"]}
+        details-id
         company
         role
         logo]
-       [details-section {:class ["w-dvw", "flex", "justify-center"]} 
+       [details-section {:id (name details-id)} 
+        details-id
         company 
         details]])]])
