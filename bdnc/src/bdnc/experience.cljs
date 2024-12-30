@@ -62,9 +62,14 @@
 
 (defn details-section [props, details-id, company, details]
   (let [visible? @(rf/subscribe [:visible? details-id])]
-    [:div.details-section (assoc props
-                                 :hidden
-                                 (not visible?))
+    [:div.details-section (conj props
+                                {:class ["overflow-hidden" 
+                                         "transition-all" 
+                                         "duration-300" 
+                                         "ease-in-out" 
+                                         (if visible?
+                                           "h-32"
+                                           "h-0")]})
      [:ol {:class ["flex", "flex-col", "gap-2", "list-disc", "list-inside"]}
       (for [[i, detail] (map-indexed vector details)
             :let [id (gstring/format "detail-item-%s-%i" 
