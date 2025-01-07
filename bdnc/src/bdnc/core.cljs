@@ -61,7 +61,6 @@
 (rf/reg-sub
   :visible?
   (fn [db, [_, id]]
-    (println [db, id])
     (get-in db [:visible? id])))
 
 (defn page-mock [props]
@@ -74,7 +73,7 @@
 
 (defn page-c [props]
   (page-mock (-> props
-                 (assoc :id "c-page")
+                 (assoc :id "c")
                  (update :class conj "bg-[#fecd41]"))))
 
 (defn root []
@@ -91,7 +90,7 @@
   (reagent-dom/render [root]
                       (.getElementById js/document
                                        "app"))
-  (scrolling/init! "#navigation", "#contact", "#experience", "#c-page")
+  (apply scrolling/init! (keys pages/all))
   (set! js/window.location.hash "contact"))
 
 (defn on-js-reload [])

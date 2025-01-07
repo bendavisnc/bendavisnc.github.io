@@ -7,7 +7,7 @@
                  :path "#experience"})
 
 (def c {:name "c"
-        :path "#c-page"})
+        :path "#c"})
 
 (def all {:contact contact
           :experience experience

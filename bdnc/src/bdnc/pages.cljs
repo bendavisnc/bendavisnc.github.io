@@ -11,4 +11,4 @@
 (def all {:navigation navigation
           :contact contact
           :experience experience
-          :c-page c})
+          :c c})
