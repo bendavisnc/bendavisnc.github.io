@@ -5,6 +5,7 @@
    [bdnc.header :as header]
    [bdnc.navigation :as navigation]
    [bdnc.pages :as pages]
+   [bdnc.scrolling :as scrolling]
    [goog.string :as gstring]
    [goog.string.format]
    [re-frame.core :as rf]
@@ -12,18 +13,6 @@
    [reagent.dom :as reagent-dom]))
 
 (enable-console-print!)
-
-(defn scroll-observe! [target-selector]
-  (let [target (.querySelector js/document target-selector)
-        _ (when (nil? target)
-            (throw (new js/Error "`scroll-observe!` target is null")))
-        observer (new js/IntersectionObserver (fn [entries]
-                                                (doseq [entry entries]
-                                                  (when (.-isIntersecting entry)
-                                                    (rf/dispatch [:visible-page (-> entry .-target .-id keyword)]))))
-                                              (clj->js {:root nil
-                                                        :threshold 0.1}))]
-    (.observe observer target)))
 
 (rf/reg-event-db
   :initialize
@@ -102,8 +91,7 @@
   (reagent-dom/render [root]
                       (.getElementById js/document
                                        "app"))
-  (doseq [id ["#navigation", "#contact", "#experience", "#c-page"]]
-    (scroll-observe! id))
+  (scrolling/init! "#navigation", "#contact", "#experience", "#c-page")
   (set! js/window.location.hash "contact"))
 
 (defn on-js-reload [])
