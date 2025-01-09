@@ -17,14 +17,19 @@
 (rf/reg-event-db
   :initialize
   (fn [_ _]
-    {:visible-page :contact}))
+    {:page-active :contact}))
 
 (rf/reg-event-db
-  :visible-page
+  :page-active
   (fn [db [_ id]]
     (-> db
-        (assoc :visible-page id)
+        (assoc :page-active id)
         (assoc :hamburger-active? (= id :navigation)))))
+
+(rf/reg-event-db
+  :current-scroll-amount
+  (fn [db [_ i]]
+    (assoc db :current-scroll-amount i)))
 
 (rf/reg-event-db
   :visible?
@@ -39,24 +44,19 @@
     (update db :hamburger-active? not)))
 
 (rf/reg-sub
-  :title
-  (fn [_, _]
-    (rf/subscribe [:visible-page]))
-  (fn [visible-page, _]
-    (let [title (:title (visible-page pages/all))
-          _ (when-not title
-              (.warn js/console (gstring/format "No title for `%s`."
-                                                visible-page)))]
-      title)))
-(rf/reg-sub
   :hamburger-active?
   (fn [db _]
     (:hamburger-active? db)))
 
 (rf/reg-sub
-  :visible-page
+  :page-active
   (fn [db _]
-    (:visible-page db)))
+    (:page-active db)))
+
+(rf/reg-sub
+  :current-scroll-amount
+  (fn [db _]
+    (:current-scroll-amount db)))
 
 (rf/reg-sub
   :visible?

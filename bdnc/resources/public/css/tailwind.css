@@ -562,6 +562,9 @@ video {
 .w-6 {
   width: 1.5rem;
 }
+.w-\[100vw\] {
+  width: 100vw;
+}
 .w-\[20rem\] {
   width: 20rem;
 }
@@ -637,6 +640,9 @@ video {
 }
 .pt-32 {
   padding-top: 8rem;
+}
+.text-center {
+  text-align: center;
 }
 .text-5xl {
   font-size: 3rem;

@@ -1,11 +1,11 @@
 (ns bdnc.scrolling
-  (:require 
+  (:require
    [bdnc.pages :as pages]
    [goog.string :as gstring]
    [goog.string.format]
    [re-frame.core :as rf]))
 
-(defn scroll-observe! [target-selector]
+(defn scroll-observe-page-active! [target-selector]
   (let [target (.querySelector js/document target-selector)
         _ (when (nil? target)
             (throw (new js/Error (gstring/format "`scroll-observe!` target is null for selector `%s`."
@@ -15,11 +15,19 @@
                                                   (when (.-isIntersecting entry)
                                                     (let [target (.-target entry)
                                                           id (keyword (.-id target))]
-                                                      (rf/dispatch [:visible-page id])))))
+                                                      (rf/dispatch [:page-active id])))))
                                               (clj->js {:root nil
                                                         :threshold (range 0 1 0.01)}))]
     (.observe observer target)))
 
+(defn scroll-observe-current-scroll-amount! [target-selector]
+  (let [target (.querySelector js/document target-selector)]
+    (.addEventListener target "scroll" (fn []
+                                         (let [amount (/ (.-scrollTop target)
+                                                         (.-scrollHeight target))]
+                                           (rf/dispatch [:current-scroll-amount amount]))))))
+
 (defn init! [& ids]
   (doseq [id ids]
-    (scroll-observe! (str "#" (name id)))))
+    (scroll-observe-page-active! (str "#" (name id))))
+  (scroll-observe-current-scroll-amount! "#main-container"))
