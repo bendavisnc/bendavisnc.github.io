@@ -71,6 +71,8 @@
              :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
    :experience  {:component experience/component
                  :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+   :a  {:component mocks/page-a
+        :props {:class ["snap-start"]}}
    :c  {:component mocks/page-c
         :props {:class ["snap-start"]}}})
 
@@ -91,7 +93,7 @@
                       (.getElementById js/document
                                        "app"))
   (apply scrolling/init! (keys pages/all))
-  (set! js/window.location.hash "contact"))
+  (set! js/window.location.hash (name pages/home)))
 
 (defn on-js-reload [])
 

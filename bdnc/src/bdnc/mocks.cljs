@@ -10,7 +10,10 @@
    [:div.mock (gstring/format "todo, %s content"
                               (:id props))]])
 
+(defn page-a [props]
+  (page-mock (conj props
+                   {:id "a"})))
+
 (defn page-c [props]
-  (page-mock (-> props
-                 (assoc :id "c")
-                 (update :class conj "bg-[#fecd41]"))))
+  (page-mock (conj props
+                   {:id "c"})))
