@@ -3,6 +3,7 @@
    [bdnc.contact :as contact]
    [bdnc.experience :as experience]
    [bdnc.header :as header]
+   [bdnc.mocks :as mocks]
    [bdnc.navigation :as navigation]
    [bdnc.pages :as pages]
    [bdnc.scrolling :as scrolling]
@@ -63,27 +64,26 @@
   (fn [db, [_, id]]
     (get-in db [:visible? id])))
 
-(defn page-mock [props]
-  [:div (update props
-                :class
-                conj
-                "h-dvh", "flex", "justify-center", "items-center")
-   [:div.mock (gstring/format "todo, %s content"
-                              (:id props))]])
-
-(defn page-c [props]
-  (page-mock (-> props
-                 (assoc :id "c")
-                 (update :class conj "bg-[#fecd41]"))))
+(def page-content
+  {:navigation {:component navigation/component
+                :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+   :contact {:component contact/component
+             :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+   :experience  {:component experience/component
+                 :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+   :c  {:component mocks/page-c
+        :props {:class ["snap-start"]}}})
 
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "bg-[url('/images/beach.png')]", "bg-cover", "overflow-hidden"]}
    [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
-    [:<> [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
-         [navigation/component {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}]
-         [contact/component {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}]
-         [experience/component {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}]
-         [page-c {:class ["snap-start"]}]]]])
+    [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
+    (for [page-id (keys pages/all)
+          :let [{:keys [component, props]} (page-id page-content)
+                element-id (name page-id)]]
+      [component (conj props
+                       {:id element-id
+                        :key element-id})])]])
 
 (defn init! []
   (rf/dispatch-sync [:initialize])
