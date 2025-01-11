@@ -78,7 +78,7 @@
 
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
-   [:div#background-container {:class ["w-dvw", "h-dvh", "bg-[url('/images/beach.png')]", "bg-cover", "overflow-auto", "absolute", "z-[-99]"]}]
+   [:div#background-container {:class ["w-dvw", "h-dvh", "bg-[url('/images/beach.png')]", "bg-cover", "absolute", "z-[-99]"]}]
    [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
     [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
     (for [page-id (keys pages/all)
