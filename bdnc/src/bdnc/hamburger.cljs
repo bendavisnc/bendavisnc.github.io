@@ -9,10 +9,13 @@
   [:span "x"])
 
 (defn component [props]
-  (let [hamburger-active? @(rf/subscribe [:hamburger-active?])]
+  (let [page-active @(rf/subscribe [:page-active])
+        hamburger-active? (= :navigation page-active)]
     [:a#hamburger (conj props
-                        {:on-click (fn [_]
-                                     (.scrollIntoView (.getElementById js/document "navigation")))})
+                        (if hamburger-active?
+                          {:on-click (fn []
+                                       (.back js/history))}
+                          {:href "#navigation"}))
      (if hamburger-active?
        [visual-active]
        [visual-pending])]))

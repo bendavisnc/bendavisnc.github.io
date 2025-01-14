@@ -17,7 +17,7 @@
                                                           id (keyword (.-id target))]
                                                       (rf/dispatch [:page-active id])))))
                                               (clj->js {:root nil
-                                                        :threshold (range 0 1 0.01)}))]
+                                                        :threshold 0.5}))]
     (.observe observer target)))
 
 (defn scroll-observe-current-scroll-amount! [target-selector]

@@ -1,5 +1,6 @@
 (ns bdnc.core
   (:require
+   [bdnc.back :as back]
    [bdnc.contact :as contact]
    [bdnc.experience :as experience]
    [bdnc.header :as header]
@@ -23,9 +24,7 @@
 (rf/reg-event-db
   :page-active
   (fn [db [_ id]]
-    (-> db
-        (assoc :page-active id)
-        (assoc :hamburger-active? (= id :navigation)))))
+    (assoc db :page-active id)))
 
 (rf/reg-event-db
   :current-scroll-amount
@@ -38,16 +37,6 @@
     (update-in db
                [:visible? id]
                not)))
-
-(rf/reg-event-db
-  :hamburger-clicked
-  (fn [db [_]]
-    (update db :hamburger-active? not)))
-
-(rf/reg-sub
-  :hamburger-active?
-  (fn [db _]
-    (:hamburger-active? db)))
 
 (rf/reg-sub
   :page-active
@@ -96,12 +85,22 @@
                         :key element-id})])]])
 
 (defn init! []
+  (back/init!)
   (rf/dispatch-sync [:initialize])
   (reagent-dom/render [root]
                       (.getElementById js/document
-                                       "app"))
-  (apply scrolling/init! (keys pages/all))
-  (set! js/window.location.hash (name pages/home)))
+                                       "app")
+                      (fn []
+                        (apply scrolling/init! (keys pages/all))
+                        (let [page-onstart-s (.-hash (.-location js/window))]
+                          (if (not (empty? page-onstart-s))
+                            (println (gstring/format "Page on start, `%s`."
+                                                     page-onstart-s))
+                            ;; else
+                            (do
+                              (println "Setting current page to home page.")
+                              (set! js/window.location.hash (name pages/home))))))))
+                        ;; (back/init!)))
 
 (defn on-js-reload [])
 
