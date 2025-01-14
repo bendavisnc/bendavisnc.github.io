@@ -1,0 +1,25 @@
+- misc
+  - add dynamic title ✅
+  - add sticky pages ✅
+  - add background animation ✅
+  - add about page
+
+- navigation
+  - add back functionality, via icon ✅
+  - add back functionality, via gesture ✅
+
+- hamburger
+  - pretty up close button
+
+- experience
+  - make transitioned heights dynamic
+  - pretty up bullet lists
+  - add resume content
+  - fix misaligned logos
+
+- stretch
+  - personalize title 
+  - add interests page
+  - add footer
+  - add routing library
+
