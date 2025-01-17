@@ -1,5 +1,7 @@
 (ns bdnc.core
   (:require
+   [bdnc.about :as about]
+   [bdnc.about-continued :as about-continued]
    [bdnc.back :as back]
    [bdnc.contact :as contact]
    [bdnc.experience :as experience]
@@ -60,8 +62,10 @@
              :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
    :experience  {:component experience/component
                  :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
-   :a  {:component mocks/page-a
-        :props {:class ["snap-start"]}}
+   :about  {:component about/component
+            :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+   :about-continued  {:component about-continued/component
+                      :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
    :c  {:component mocks/page-c
         :props {:class ["snap-start"]}}})
 

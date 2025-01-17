@@ -628,14 +628,12 @@ video {
 .bg-\[\#00000010\] {
   background-color: #00000010;
 }
-.bg-\[url\(\'\/images\/beach\.png\'\)\] {
-  background-image: url('/images/beach.png');
-}
-.bg-cover {
-  background-size: cover;
-}
 .fill-slate-600 {
   fill: #475569;
+}
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 .pt-32 {
   padding-top: 8rem;
@@ -661,8 +659,15 @@ video {
 .font-bold {
   font-weight: 700;
 }
+.font-extrabold {
+  font-weight: 800;
+}
 .font-light {
   font-weight: 300;
+}
+.text-\[\#353e43\] {
+  --tw-text-opacity: 1;
+  color: rgb(53 62 67 / var(--tw-text-opacity));
 }
 .text-\[\#f9eac4\] {
   --tw-text-opacity: 1;

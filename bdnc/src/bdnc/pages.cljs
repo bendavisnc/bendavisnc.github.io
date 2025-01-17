@@ -6,15 +6,19 @@
 
 (def experience {:title "experience"})
 
-(def a {:title "a"})
+(def about {:title "about"})
+
+(def about-continued {:title "about-continued"
+                      :title-hidden true})
 
 (def c {:title "c"})
 
-(def home :a)
+(def home :about)
 
 ;; This is the actual order of how the pages are presented
 (def all {:navigation navigation
-          :a a
+          :about about
+          :about-continued about-continued
           :contact contact
           :experience experience
           :c c})

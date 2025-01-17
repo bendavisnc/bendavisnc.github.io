@@ -26,11 +26,13 @@
      (for [[i, page-id] (map-indexed vector (keys pages/all))
            :let [page (page-id pages/all)
                  element-id (str "page-title-" (name page-id))
-                 title (:title page)]]
+                 title (:title page)
+                 title-hidden (:title-hidden page)]]
        [:div.page-title {:key element-id
                          :id element-id
                          :class ["relative", "w-[100vw]"]}
-        title])]))
+        (if-not title-hidden
+          title)])]))
 
 (defn component [props]
   [:div#header props
