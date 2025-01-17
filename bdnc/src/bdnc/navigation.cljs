@@ -11,6 +11,7 @@
    [:ul {:class ["flex", "flex-col", "gap-8"]}
     (for [page-id (rest (keys pages/all))
           ;; `rest` because skip navigation itself
+          :when (not (:title-hidden (page-id pages/all)))
           :let [link-id page-id
                 link (link-id links/all)
                 _ (when-not link

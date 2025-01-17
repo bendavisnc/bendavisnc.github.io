@@ -6,13 +6,13 @@
 (def experience {:name "experience"
                  :path "#experience"})
 
-(def a {:name "a"
-        :path "#a"})
+(def about {:name "about"
+            :path "#about"})
 
 (def c {:name "c"
         :path "#c"})
 
 (def all {:contact contact
           :experience experience
-          :a a
+          :about about
           :c c})

@@ -14,7 +14,7 @@
 (defn component [props]
   [:div#about
    props
-   [:div {:class ["flex", "flex-col", "gap-8", "px-6", "text-lg", "text-[#f9eac4]", "font-extrabold"]}
+   [:div {:class ["flex", "flex-col", "gap-8", "px-6", "text-xl", "text-[#f9eac4]", "font-extrabold", "shadow-slate-950/50", "text-shadow-sm"]}
     (for [[content-id, content] content-all
           :let [text (:text content)
                 id (gstring/format "%s-content" (name content-id))]]

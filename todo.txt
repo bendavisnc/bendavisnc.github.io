@@ -2,7 +2,7 @@
   - add dynamic title ✅
   - add sticky pages ✅
   - add background animation ✅
-  - add about page
+  - add about page ✅
 
 - navigation
   - add back functionality, via icon ✅
@@ -16,6 +16,11 @@
   - pretty up bullet lists
   - add resume content
   - fix misaligned logos
+  
+
+- about
+  - improve colors
+  - dry up
 
 - stretch
   - personalize title 
