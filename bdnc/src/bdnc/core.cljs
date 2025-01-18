@@ -3,6 +3,7 @@
    [bdnc.about :as about]
    [bdnc.about-continued :as about-continued]
    [bdnc.back :as back]
+   [bdnc.background :as background]
    [bdnc.contact :as contact]
    [bdnc.experience :as experience]
    [bdnc.header :as header]
@@ -71,15 +72,9 @@
 
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
-   [:div#background-container {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
-    [:video {:id "bg-video"
-             :class ["object-cover", "w-dvw", "h-dvh"]
-             :autoPlay true
-             :loop true
-             :muted true
-             :playsInline true}
-     [:source {:src "/videos/bg-loop.mp4"
-               :type "video/mp4"}]]]
+   [background/component
+    {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
+    "/videos/bg-loop.mp4"]
    [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
     [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
     (for [page-id (keys pages/all)
