@@ -3,6 +3,7 @@
   - add sticky pages ✅
   - add background animation ✅
   - add about page ✅
+  - fix background video cropping
 
 - navigation
   - add back functionality, via icon ✅
@@ -20,7 +21,7 @@
 
 - about
   - improve colors
-  - dry up
+  - dry up ✅
 
 - stretch
   - personalize title 
