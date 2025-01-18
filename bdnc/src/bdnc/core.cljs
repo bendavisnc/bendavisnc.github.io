@@ -73,6 +73,7 @@
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
    [:div#background-container {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
     [:video {:id "bg-video"
+             :class ["object-cover", "w-dvw", "h-dvh"]
              :autoPlay true
              :loop true
              :muted true

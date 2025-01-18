@@ -631,6 +631,10 @@ video {
 .fill-slate-600 {
   fill: #475569;
 }
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
