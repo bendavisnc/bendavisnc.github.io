@@ -7,10 +7,15 @@
 (defn orientation-from-body []
   (let [body (.-body js/document)
         w (.-clientWidth body)
-        h (.-clientHeight body)] 
+        h (.-clientHeight body)]
     (if (>= h w)
       :portrait
       :landscape)))
+
+(defn dispatch! [orientation]
+  (println (gstring/format "Setting orientation to `%s`."
+                           orientation))
+  (rf/dispatch [:orientation orientation]))
 
 ;; https://stackoverflow.com/questions/5498934/detect-change-in-orientation-using-javascript
 (defn orientation-observe! []
@@ -19,10 +24,7 @@
                   (let [orientation (if (.-matches m)
                                       :portrait
                                       :landscape)]
-                    (println (gstring/format "Setting orientation to `%s`."
-                                             orientation))
-                    (rf/dispatch [:orientation orientation])))))
-
+                    (dispatch! orientation)))))
 (defn init! []
-  (rf/dispatch [:orientation (orientation-from-body)])
+  (dispatch! (orientation-from-body))
   (orientation-observe!))

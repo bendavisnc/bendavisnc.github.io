@@ -499,6 +499,39 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
+.container {
+  width: 100%;
+}
+@media (min-width: 640px) {
+
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+
+  .container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+
+  .container {
+    max-width: 1536px;
+  }
+}
 .visible {
   visibility: visible;
 }
@@ -555,6 +588,9 @@ video {
 }
 .min-h-24 {
   min-height: 6rem;
+}
+.min-h-dvh {
+  min-height: 100dvh;
 }
 .w-12 {
   width: 3rem;
@@ -619,11 +655,11 @@ video {
 .gap-8 {
   gap: 2rem;
 }
-.overflow-auto {
-  overflow: auto;
-}
 .overflow-hidden {
   overflow: hidden;
+}
+.overflow-scroll {
+  overflow: scroll;
 }
 .bg-\[\#00000010\] {
   background-color: #00000010;
