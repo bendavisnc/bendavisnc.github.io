@@ -68,28 +68,31 @@
   (fn [db, _]
     (:orientation db)))
 
+(def page-props
+  {:class ["h-dvh", "overflow-hidden", "flex", "justify-center", "pt-32", "md:pt-20", "snap-start"]})
+
 (def page-content
   {:navigation {:component navigation/component
-                :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+                :props page-props}
    :contact {:component contact/component
-             :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+             :props page-props}
    :experience  {:component experience/component
-                 :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+                 :props page-props}
    :about  {:component about/component
-            :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+            :props page-props}
    :about-continued  {:component about-continued/component
-                      :props {:class ["h-dvh", "flex", "justify-center", "pt-32", "snap-start"]}}
+                      :props page-props}
    :c  {:component mocks/page-c
-        :props {:class ["snap-start"]}}})
+        :props page-props}})
 
 (defn root []
-  [:div#root-container {:class ["relative" "w-dvw", "h-dvh"]}
+  [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
    [background/component
-    {:class ["w-dvw", "min-h-dvh", "fixed", "z-[-99]"]}
+    {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
     {:portrait "/videos/bg-loop.mp4"
      :landscape "/videos/bg-loop-landscape.mp4"}]
-   [:div#main-container {:class ["overflow-scroll", "h-dvh", "snap-y", "snap-mandatory"]}
-    [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
+   [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
+    [header/component {:class ["w-dvw", "min-h-24", "md:min-h-16", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
     (for [page-id (keys pages/all)
           :let [{:keys [component, props]} (page-id page-content)
                 element-id (name page-id)]]

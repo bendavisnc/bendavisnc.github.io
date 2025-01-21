@@ -589,9 +589,6 @@ video {
 .min-h-24 {
   min-height: 6rem;
 }
-.min-h-dvh {
-  min-height: 100dvh;
-}
 .w-12 {
   width: 3rem;
 }
@@ -655,11 +652,11 @@ video {
 .gap-8 {
   gap: 2rem;
 }
+.overflow-auto {
+  overflow: auto;
+}
 .overflow-hidden {
   overflow: hidden;
-}
-.overflow-scroll {
-  overflow: scroll;
 }
 .bg-\[\#00000010\] {
   background-color: #00000010;
@@ -734,4 +731,22 @@ video {
 }
 .text-shadow-sm {
   text-shadow: 0 1px 2px var(--tw-shadow-color);
+}
+@media (min-width: 768px) {
+
+  .md\:min-h-16 {
+    min-height: 4rem;
+  }
+
+  .md\:gap-2 {
+    gap: 0.5rem;
+  }
+
+  .md\:pt-20 {
+    padding-top: 5rem;
+  }
+
+  .md\:leading-6 {
+    line-height: 1.5rem;
+  }
 }

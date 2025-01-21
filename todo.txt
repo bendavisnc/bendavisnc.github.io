@@ -4,6 +4,7 @@
   - add background animation ✅
   - add about page ✅
   - fix background video cropping
+  - rework background for desktop size
 
 - navigation
   - add back functionality, via icon ✅

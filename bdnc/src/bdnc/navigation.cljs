@@ -8,7 +8,7 @@
 (defn component [props]
   [:div#navigation
    props
-   [:ul {:class ["flex", "flex-col", "gap-8"]}
+   [:ul {:class ["flex", "flex-col", "gap-8", "md:gap-2"]}
     (for [page-id (rest (keys pages/all))
           ;; `rest` because skip navigation itself
           :when (not (:title-hidden (page-id pages/all)))
