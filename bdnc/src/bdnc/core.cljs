@@ -1,6 +1,7 @@
 (ns bdnc.core
   (:require
    [bdnc.about :as about]
+   [bdnc.orientation :as orientation]
    [bdnc.about-continued :as about-continued]
    [bdnc.back :as back]
    [bdnc.background :as background]
@@ -22,7 +23,8 @@
 (rf/reg-event-db
   :initialize
   (fn [_ _]
-    {:page-active :contact}))
+    {:page-active :contact
+     :orientation :portrait}))
 
 (rf/reg-event-db
   :page-active
@@ -41,6 +43,11 @@
                [:visible? id]
                not)))
 
+(rf/reg-event-db
+  :orientation
+  (fn [db [_ orientation]]
+    (assoc db :orientation orientation)))
+
 (rf/reg-sub
   :page-active
   (fn [db _]
@@ -55,6 +62,11 @@
   :visible?
   (fn [db, [_, id]]
     (get-in db [:visible? id])))
+
+(rf/reg-sub
+  :orientation
+  (fn [db, _]
+    (:orientation db)))
 
 (def page-content
   {:navigation {:component navigation/component
@@ -74,7 +86,8 @@
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
    [background/component
     {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
-    "/videos/bg-loop.mp4"]
+    {:portrait "/videos/bg-loop.mp4"
+     :landscape "/videos/bg-loop-landscape.mp4"}]
    [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
     [header/component {:class ["w-dvw", "min-h-24", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
     (for [page-id (keys pages/all)
@@ -85,14 +98,16 @@
                         :key element-id})])]])
 
 (defn init! []
-  (back/init!)
   (rf/dispatch-sync [:initialize])
   (reagent-dom/render [root]
                       (.getElementById js/document
                                        "app")
                       (fn []
-                        (scrolling/init! :container :main-container 
-                                         :pages (keys pages/all)) 
+                        (scrolling/init! :container :main-container
+                                         :pages (keys pages/all))
+
+                        (back/init!)
+                        (orientation/init!)
                         (let [page-onstart-s (.-hash (.-location js/window))]
                           (if (not (empty? page-onstart-s))
                             (println (gstring/format "Page on start, `%s`."
