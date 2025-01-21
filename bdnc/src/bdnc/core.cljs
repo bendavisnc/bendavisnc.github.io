@@ -91,7 +91,8 @@
                       (.getElementById js/document
                                        "app")
                       (fn []
-                        (apply scrolling/init! (keys pages/all))
+                        (scrolling/init! :container :main-container 
+                                         :pages (keys pages/all)) 
                         (let [page-onstart-s (.-hash (.-location js/window))]
                           (if (not (empty? page-onstart-s))
                             (println (gstring/format "Page on start, `%s`."
