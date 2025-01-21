@@ -9,13 +9,14 @@
 (def what {:text "Here you'll find links to my resume as well as associated things such as my linkedin and github accounts. "})
 (def thanks {:text "Thanks for checking me out - and if you're a fellow programmer or someone who's looking for one, I'd love to chat and talk about potentially working on something that's compelling and meaningful."})
 
-(defn component* [props, id, content-all]
-  [:div (conj props
-              {:id id})
-   [:div {:class ["flex", "flex-col", "gap-8", "px-6", "text-xl", "text-[#f9eac4]", "font-extrabold", "shadow-slate-950/50", "text-shadow-sm"]}
-    (for [[content-id, content] content-all
-          :let [text (:text content)
-                id (gstring/format "%s-content" (name content-id))]]
-      [:p {:key id
-           :id id}
-       text])]])
+(defn component* [id, content-all]
+  (fn [props]
+    [:div (conj props
+                {:id id})
+     [:div {:class ["flex", "flex-col", "gap-8", "px-6", "text-xl", "text-[#f9eac4]", "font-extrabold", "shadow-slate-950/50", "text-shadow-sm"]}
+      (for [[content-id, content] content-all
+            :let [text (:text content)
+                  id (gstring/format "%s-content" (name content-id))]]
+        [:p {:key id
+             :id id}
+         text])]]))

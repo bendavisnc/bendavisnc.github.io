@@ -2,6 +2,6 @@
   (:require
    [bdnc.about-generic :refer [component* thanks what]]))
 
-(defn component [props]
-  (component* props :about-continued {:what what
-                                      :thanks thanks}))
+(def component
+  (component* :about-continued {:what what
+                                :thanks thanks}))
