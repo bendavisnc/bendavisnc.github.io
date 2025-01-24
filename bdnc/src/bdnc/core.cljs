@@ -121,6 +121,6 @@
                               (set! js/window.location.hash (name pages/home))))))))
                         ;; (back/init!)))
 
-(defn on-js-reload [])
 
+(.alert js/window "sweett")
 (init!)

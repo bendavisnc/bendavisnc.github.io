@@ -1,0 +1,3 @@
+{:main bdnc.core
+ :config-hostname "192.168.86.23"
+ :client-hostname "192.168.86.23"}

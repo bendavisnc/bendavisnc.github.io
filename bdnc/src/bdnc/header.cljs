@@ -14,7 +14,7 @@
 (defn site-title [props]
   [:div props
    [:span#site-title
-    "bdnc"]])
+    "bdnc-alpha"]])
 
 (defn page-title [props]
   (let [max-scroll (* -1 100 (count pages/all))
