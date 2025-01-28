@@ -3,7 +3,7 @@
                  [cljsjs/react "18.3.1-1"]
                  [cljsjs/react-dom "18.3.1-1"]
                  [re-frame "1.4.3"]  
-                 [reagent "0.10.0" :exclusions [cljsjs/react cljsjs/react-dom cljsjs/react-dom-server]]]
+                 [reagent "1.2.0"]]
            
   :profiles
     {:dev

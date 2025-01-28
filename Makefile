@@ -1,5 +1,5 @@
 
-dev:
+dev: clean
 	@echo "Running figwheel for development."
 	cd bdnc; npm install; lein fig -- -b dev -r
 
@@ -15,4 +15,6 @@ commit:
 	@echo "Initiating dev commit."
 	git add -u **/*.cljs **/*.css; git commit
 
-
+clean:
+	@echo "Removing target directories."
+	cd bdnc; rm -rf ./target ./node_modules

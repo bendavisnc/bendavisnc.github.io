@@ -5,9 +5,8 @@
 
 (defn component [props, src]
   (reagent/create-class
-    {:component-did-update (fn [thiz]
-                             (let [target-container (reagent/dom-node thiz)
-                                   target (first (.getElementsByTagName target-container "video"))]
+    {:component-did-update (fn [_]
+                             (let [target (.getElementById js/document "bg-video")]
                                (.load target)))
      :render (fn []
                (let [orientation @(rf/subscribe [:orientation])]

@@ -8,9 +8,6 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^6.16.0"
   },
   "scripts": {
     "build:css": "postcss src/css/tailwind.css -o resources/public/css/tailwind.css"

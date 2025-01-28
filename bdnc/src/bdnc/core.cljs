@@ -17,57 +17,57 @@
    [goog.string.format]
    [re-frame.core :as rf]
    [reagent.core :as reagent :refer [atom]]
-   [reagent.dom :as reagent-dom]))
+   [reagent.dom.client :as rdomc]))
 
 (enable-console-print!)
 
 (rf/reg-event-db
-  :initialize
-  (fn [_ _]
-    {:page-active :contact
-     :orientation :portrait}))
+ :initialize
+ (fn [_ _]
+   {:page-active :contact
+    :orientation :portrait}))
 
 (rf/reg-event-db
-  :page-active
-  (fn [db [_ id]]
-    (assoc db :page-active id)))
+ :page-active
+ (fn [db [_ id]]
+   (assoc db :page-active id)))
 
 (rf/reg-event-db
-  :current-scroll-amount
-  (fn [db [_ i]]
-    (assoc db :current-scroll-amount i)))
+ :current-scroll-amount
+ (fn [db [_ i]]
+   (assoc db :current-scroll-amount i)))
 
 (rf/reg-event-db
-  :visible?
-  (fn [db [_ id]]
-    (update-in db
-               [:visible? id]
-               not)))
+ :visible?
+ (fn [db [_ id]]
+   (update-in db
+              [:visible? id]
+              not)))
 
 (rf/reg-event-db
-  :orientation
-  (fn [db [_ orientation]]
-    (assoc db :orientation orientation)))
+ :orientation
+ (fn [db [_ orientation]]
+   (assoc db :orientation orientation)))
 
 (rf/reg-sub
-  :page-active
-  (fn [db _]
-    (:page-active db)))
+ :page-active
+ (fn [db _]
+   (:page-active db)))
 
 (rf/reg-sub
-  :current-scroll-amount
-  (fn [db _]
-    (:current-scroll-amount db)))
+ :current-scroll-amount
+ (fn [db _]
+   (:current-scroll-amount db)))
 
 (rf/reg-sub
-  :visible?
-  (fn [db, [_, id]]
-    (get-in db [:visible? id])))
+ :visible?
+ (fn [db, [_, id]]
+   (get-in db [:visible? id])))
 
 (rf/reg-sub
-  :orientation
-  (fn [db, _]
-    (:orientation db)))
+ :orientation
+ (fn [db, _]
+   (:orientation db)))
 
 (def page-props
   {:class ["h-dvh", "overflow-hidden", "flex", "justify-center", "pt-32", "md:pt-20", "snap-start"]})
@@ -105,23 +105,24 @@
 
 (defn init! []
   (rf/dispatch-sync [:initialize])
-  (reagent-dom/render [root]
-                      (.getElementById js/document
-                                       "app")
-                      (fn []
-                        (scrolling/init! :container :main-container
-                                         :pages (keys pages/all))
+  (rdomc/render (rdomc/create-root (.getElementById js/document
+                                                    "app"))
+                [root])
+  (reagent/after-render
+   (fn []
+     (println "Initializing.")
+     (scrolling/init! :container :main-container
+                      :pages (keys pages/all))
 
-                        (back/init!)
-                        (orientation/init!)
-                        (let [page-onstart-s (.-hash (.-location js/window))]
-                          (if (not (empty? page-onstart-s))
-                            (println (gstring/format "Page on start, `%s`."
-                                                     page-onstart-s))
+     (back/init!)
+     (orientation/init!)
+     (let [page-onstart-s (.-hash (.-location js/window))]
+       (if (not (empty? page-onstart-s))
+         (println (gstring/format "Page on start, `%s`."
+                                  page-onstart-s))
                             ;; else
-                            (do
-                              (println "Setting current page to home page.")
-                              (set! js/window.location.hash (name pages/home))))))))
-                        ;; (back/init!)))
+         (do
+           (println "Setting current page to home page.")
+           (set! js/window.location.hash (name pages/home))))))))
 
 (init!)
