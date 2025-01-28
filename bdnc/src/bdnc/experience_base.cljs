@@ -52,38 +52,54 @@
 
 (def comcast {:name "Comcast"
               :path "https://www.todo.com"
-              :title "software developer"
-              :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
+              :title "Software Engineer"
+              :details ["Designed and implemented new API endpoints and enhanced existing services built with the typelevel Http4s framework.",
+                        "Performed code optimizations and bug fixes in domains such as subscription management logic",
+                        "Led the upgrade initiative of several internal and external dependencies such as cats and scala3 for project stability and performance.",
+                        "Configured CI/CD pipelines and updated configuration settings across multiple services to align with build scripts and ensure consistent deployment processes.",
+                        "Strengthened error handling mechanisms and updated test cases to ensure robustness in services."]
               :logo comcast-logo})
 
 (def signalpath {:name "SignalPath"
                  :path "https://www.todo.com"
-                 :title "master chief"
-                 :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
+                 :title "Software Engineer"
+                 :details ["Wrote and maintained Scala core platform services for a clinical trial management app's restful api."
+                           "Partnered with UI engineers and fellow platform engineers in the process of defining and extending a backend api."
+                           "Implemented passive, Kinisis pipeline based backend service functionality to keep distinct microservice data in sync with complex user business rules respected."
+                           "Spearheaded new project to support higher-level facade api to wrap existing api, based on AWS Lambda."
+                           "Performed system administration and performance troubleshooting in development and production environments."]
                  :logo signalpath-logo})
 
 (def icidigital {:name "ici-Digital"
                  :path "https://www.todo.com"
-                 :title "master chief supreme"
-                 :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
+                 :title "Java Developer"
+                 :details ["Developed, implemented, and configured web content management solutions using a Java based CMS: AEM (Adobe CQ)."
+                           "Translated business requirements into technical details relevant to AEM."
+                           "Designed reusable AEM components for authoring content."
+                           "Provided input into estimating engagement activities and execute engagements following the Agile methodology including SCRUM."
+                           "Implemented mobile `hamburger` menu functionality based upon client business requirements in the form of a jQuery plugin."]
                  :logo ici-logo})
 
 (def sciquest {:name "SciQuest"
                :path "https://www.todo.com"
-               :title "master chief supreme"
-               :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
-               :logo sciquest-logo})
+               :title "Software Engineer"
+               :details ["Extended and introduced new functionality to a large proprietary Java based web application tailored for Epro customers."
+                         "Collaborated closely with architecture and senior developers in an Agile team environment to update business functionality based upon new customer needs."
+                         "Worked with many Java based web technologies including JSP custom tags and Lucene search."]
+               :logo sciquest-logo})            
 
 (def cargosphere {:name "Cargo- sphere"
                   :path "https://www.todo.com"
-                  :title "master chief supreme"
-                  :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
+                  :title "Software Engineer"
+                  :details ["Wrote new front end features for an `Excel on the web` user experience based on an existing Javascript spreadsheet library."
+                            "Provided guidance and introductory help for incoming interns and new employees."]
                   :logo cargosphere-logo})
 
 (def hcl {:name "HCL America "
           :path "https://www.todo.com"
-          :title "master chief supreme"
-          :details ["yabadi yabado", "yada yada yada", "yahoo yahoo tang"]
+          :title "Software Engineer"
+          :details ["Worked under senior developer guidance to fulfill feature requests from business analysts."
+                    "Updated several existing Java based web applications that comprised a larger system (an unemployment insurance system) at a full-stack capacity."]
           :logo hcl-logo})
 
 (def items-all {:comcast comcast
@@ -116,14 +132,16 @@
 (defn details-section [props, details-id, company, details]
   (let [visible? @(rf/subscribe [:visible? details-id])]
     [:div.details-section (conj props
-                                {:class ["overflow-hidden"
-                                         "transition-all"
-                                         "duration-300"
-                                         "ease-in-out"
-                                         (if visible?
-                                           "h-32"
-                                           "h-0")]})
-     [:ol {:class ["flex", "flex-col", "gap-2", "list-disc", "list-inside"]}
+                                {:class (concat ["overflow-scroll"
+                                                 "w-dvw"
+                                                 "bg-white"
+                                                 "bg-opacity-50"]
+                                                (if visible?
+                                                  ["h-48"]
+                                                  ["invisible"
+                                                   "h-0"]))})
+
+     [:ol {:class ["ml-4", "mr-4", "pl-4", "flex", "flex-col", "gap-2", "list-disc"]}
       (for [[i, detail] (map-indexed vector details)
             :let [id (gstring/format "detail-item-%s-%i"
                                      company
@@ -134,6 +152,7 @@
   (fn [props]
     [:div (conj props
                 {:id id})
+                ;; {:style {:visibility "hidden"}})
      [:ul {:class ["flex", "flex-col", "gap-8"]}
       (for [[item-id, item] content-all
             :let [company (:name item)
@@ -143,8 +162,9 @@
                   id (gstring/format "%s-item" (name item-id))
                   details-id (keyword (gstring/format "%s-item-details" (name item-id)))
                   logo (:logo item)]]
-        [:li {:key id}
-         [main-section {:class ["flex", "w-[20rem]", "justify-between"]}
+        [:li {:key id
+              :class ["flex", "items-center", "flex-col"]}
+         [main-section {:class ["flex", "w-[20rem]", "justify-between", "mb-4"]}
           details-id
           company
           role
