@@ -1,7 +1,7 @@
 
 dev:
 	@echo "Running figwheel for development."
-	cd bdnc; npm install; lein figwheel
+	cd bdnc; npm install; lein fig -- -b dev -r
 
 css:
 	@echo "Building css."
