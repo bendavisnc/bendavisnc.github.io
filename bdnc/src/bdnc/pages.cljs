@@ -6,6 +6,9 @@
 
 (def experience {:title "experience"})
 
+(def experience-continued {:title "experience-continued"
+                           :title-hidden true})
+
 (def about {:title "about"})
 
 (def about-continued {:title "about-continued"
@@ -21,4 +24,5 @@
           :about-continued about-continued
           :contact contact
           :experience experience
+          :experience-continued experience-continued
           :c c})

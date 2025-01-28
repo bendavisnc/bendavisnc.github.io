@@ -1,3 +1,2 @@
-{:main bdnc.core
- :config-hostname "192.168.86.23"
- :client-hostname "192.168.86.23"}
+^{:ring-server-options  {:host "192.168.86.23"}}
+{:main bdnc.core}

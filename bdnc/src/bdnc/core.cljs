@@ -6,6 +6,7 @@
    [bdnc.background :as background]
    [bdnc.contact :as contact]
    [bdnc.experience :as experience]
+   [bdnc.experience-continued :as experience-continued]
    [bdnc.header :as header]
    [bdnc.mocks :as mocks]
    [bdnc.navigation :as navigation]
@@ -78,6 +79,8 @@
              :props page-props}
    :experience  {:component experience/component
                  :props page-props}
+   :experience-continued  {:component experience-continued/component
+                           :props page-props}
    :about  {:component about/component
             :props page-props}
    :about-continued  {:component about-continued/component
@@ -121,6 +124,4 @@
                               (set! js/window.location.hash (name pages/home))))))))
                         ;; (back/init!)))
 
-
-(.alert js/window "sweett")
 (init!)

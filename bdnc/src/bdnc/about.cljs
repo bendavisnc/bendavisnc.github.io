@@ -1,6 +1,6 @@
 (ns bdnc.about
   (:require
-   [bdnc.about-generic :refer [component* job joy who]]))
+   [bdnc.about-base :refer [component* job joy who]]))
 
 (def component
   (component* :about {:who who
