@@ -111,8 +111,11 @@
   (reagent/after-render
    (fn []
      (println "Initializing.")
-     (scrolling/init! :container :main-container
-                      :pages (keys pages/all))
+     ;; todo - clean up
+     (.setTimeout js/window (fn []
+                              (scrolling/init! :container :main-container
+                                               :pages (keys pages/all)))
+                  500)
 
      (back/init!)
      (orientation/init!)

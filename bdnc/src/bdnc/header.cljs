@@ -4,39 +4,50 @@
    [bdnc.pages :as pages]
    [goog.string :as gstring]
    [goog.string.format]
-   [re-frame.core :as rf]))
-
-(defn map-range
-  "Maps a number `x` from range [a, b] to range [c, d]."
-  [x a b c d]
-  (+ c (* (/ (- x a) (- b a)) (- d c))))
+   [reagent.core :as r]
+   [re-frame.core :as rf]
+   ["react-transition-group" :refer [Transition]]))
 
 (defn site-title [props]
   [:div props
    [:span#site-title
     "bdnc"]])
 
+(def transition-classes {:exited ["-translate-x-[100vw]"]
+                         :exiting ["translate-x-[100vw]"]
+                         :entering ["-translate-x-1/2"]
+                         :entered []})
+
 (defn page-title [props]
-  (let [max-scroll (* -1 100 (count pages/all))
-        current-scroll-amount  @(rf/subscribe [:current-scroll-amount])]
+  (let [animation-duration 333
+        page-active @(rf/subscribe [:page-active])]
     [:div (conj props
-                {:id "page-title"
-                 :style {:left (str (map-range current-scroll-amount 0 1 0 max-scroll)
-                                    "vw")}})
-     (for [[i, page-id] (map-indexed vector (keys pages/all))
-           :let [page (page-id pages/all)
-                 element-id (str "page-title-" (name page-id))
-                 title (:title page)
-                 title-hidden (:title-hidden page)]]
-       [:div.page-title {:key element-id
-                         :id element-id
-                         :class ["relative", "w-[100vw]"]}
-        (if-not title-hidden
-          title)])]))
+                {:id "page-title"})
+     [:div#page-title-container
+      {:class ["relative", "w-dvw", "h-[1.75rem]"]}
+      (for [[page-id, page] pages/all
+            :let [element-id (str "page-title-" (name page-id))
+                  title (:title page)
+                  title-hidden (:title-hidden page)
+                  in (= page-id page-active)]]
+        [:> Transition
+         {:key page-id
+          :in in
+          :timeout animation-duration
+          :unmount-on-exit true}
+           ;; Sliding Element
+         (fn [s]
+           (r/as-element [:div.page-title-indy {:key element-id
+                                                :id element-id
+                                                :class (concat ["absolute", "left-1/2" "-translate-x-1/2", "transition-transform", "duration-[333ms]", "ease-linear"]
+                                                               ((keyword s)
+                                                                transition-classes))}
+                          (if-not title-hidden
+                            title)]))])]]))
 
 (defn component [props]
   [:div#header props
    [site-title {:class ["absolute", "top-2", "left-2", "text-white", "text-sm"]}]
    [:div {:class []}
-    [page-title {:class ["absolute", "bottom-0", "text-white", "text-lg", "flex", "text-center"]}]]
+    [page-title {:class ["absolute", "left-0", "bottom-0", "text-white", "text-lg"]}]]
    [hamburger/component {:class ["absolute", "top-2", "right-2", "min-w-6", "flex", "justify-center", "cursor-pointer"]}]])
