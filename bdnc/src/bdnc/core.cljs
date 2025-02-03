@@ -16,7 +16,7 @@
    [goog.string :as gstring]
    [goog.string.format]
    [re-frame.core :as rf]
-   [reagent.core :as reagent :refer [atom]]
+   [reagent.core :as r :refer [atom]]
    [reagent.dom.client :as rdomc]))
 
 (enable-console-print!)
@@ -103,29 +103,34 @@
                        {:id element-id
                         :key element-id})])]])
 
+(defn after-ready! []
+  (println "Initializing (`after-ready!`)!")
+  (scrolling/init! :container :main-container
+                   :pages (keys pages/all))
+  (back/init!)
+  (orientation/init!)
+  (let [page-onstart-s (.-hash (.-location js/window))]
+    (if (not (empty? page-onstart-s))
+      (println (gstring/format "Page on start, `%s`."
+                               page-onstart-s))
+      ;; else
+      (do
+        (println "Setting current page to home page.")
+        (set! js/window.location.hash (name pages/home))))))
+
 (defn init! []
+  (println "Initializing!")
   (rf/dispatch-sync [:initialize])
+  (.addEventListener js/window 
+                     "load"
+                     (fn []
+                       ;; todo, remove
+                       (.setTimeout js/window 
+                                    after-ready!
+                                    500)))
   (rdomc/render (rdomc/create-root (.getElementById js/document
                                                     "app"))
-                [root])
-  (reagent/after-render
-    (fn []
-      (println "Initializing.")
-      ;; todo - clean up
-      (.setTimeout js/window (fn []
-                               (scrolling/init! :container :main-container
-                                                :pages (keys pages/all)))
-                   500)
-
-      (back/init!)
-      (orientation/init!)
-      (let [page-onstart-s (.-hash (.-location js/window))]
-        (if (not (empty? page-onstart-s))
-          (println (gstring/format "Page on start, `%s`."
-                                   page-onstart-s))
-          ;; else
-          (do
-            (println "Setting current page to home page.")
-            (set! js/window.location.hash (name pages/home))))))))
+                [root]))
 
 (init!)
+

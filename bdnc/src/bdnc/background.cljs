@@ -10,7 +10,10 @@
                                (.load target)))
      :render (fn []
                (let [orientation @(rf/subscribe [:orientation])]
-                 [:div#background props
+                 [:div#background (update-in props
+                                             [:class]
+                                             concat 
+                                             [(name orientation)])
                   [:video {:id "bg-video"
                            :class ["object-cover", "w-dvw", "h-dvh"]
                            :autoPlay true
