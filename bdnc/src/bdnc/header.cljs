@@ -32,7 +32,6 @@
        (for [[page-id, page] pages/all
              :let [element-id (str "page-title-" (name page-id))
                    title (:title page)
-                   title-hidden (:title-hidden page)
                    in (or
                         (= page-id
                            continued)
@@ -51,8 +50,7 @@
                                                  :class (concat ["absolute", "left-1/2" "-translate-x-1/2", "transition-transform", "duration-[333ms]", "ease-linear"]
                                                                 ((keyword s)
                                                                  transition-classes))}
-                           (if-not title-hidden
-                             title)]))])]]]))
+                           title]))])]]]))
 
 (defn component [props]
   [:div#header props
