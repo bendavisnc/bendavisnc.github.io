@@ -53,10 +53,10 @@
 (def comcast {:name "Comcast"
               :path "https://www.todo.com"
               :title "Software Engineer"
-              :details ["Designed and implemented new API endpoints and enhanced existing services built with the typelevel Http4s framework.",
-                        "Performed code optimizations and bug fixes in domains such as subscription management logic",
-                        "Led the upgrade initiative of several internal and external dependencies such as cats and scala3 for project stability and performance.",
-                        "Configured CI/CD pipelines and updated configuration settings across multiple services to align with build scripts and ensure consistent deployment processes.",
+              :details ["Designed and implemented new API endpoints and enhanced existing services built with the typelevel Http4s framework."
+                        "Performed code optimizations and bug fixes in domains such as subscription management logic"
+                        "Led the upgrade initiative of several internal and external dependencies such as cats and scala3 for project stability and performance."
+                        "Configured CI/CD pipelines and updated configuration settings across multiple services to align with build scripts and ensure consistent deployment processes."
                         "Strengthened error handling mechanisms and updated test cases to ensure robustness in services."]
               :logo comcast-logo})
 
@@ -86,7 +86,7 @@
                :details ["Extended and introduced new functionality to a large proprietary Java based web application tailored for Epro customers."
                          "Collaborated closely with architecture and senior developers in an Agile team environment to update business functionality based upon new customer needs."
                          "Worked with many Java based web technologies including JSP custom tags and Lucene search."]
-               :logo sciquest-logo})            
+               :logo sciquest-logo})
 
 (def cargosphere {:name "Cargo- sphere"
                   :path "https://www.todo.com"
