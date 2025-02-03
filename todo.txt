@@ -5,6 +5,8 @@
   - add about page ✅
   - fix background video cropping
   - rework background for desktop size
+  - introduce / identify "snappy" transition function
+  - add og circular header
 
 - navigation
   - add back functionality, via icon ✅

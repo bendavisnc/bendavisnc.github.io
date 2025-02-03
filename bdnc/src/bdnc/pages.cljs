@@ -7,12 +7,12 @@
 (def experience {:title "experience"})
 
 (def experience-continued {:title "experience-continued"
-                           :title-hidden true})
+                           :continued :experience})
 
 (def about {:title "about"})
 
 (def about-continued {:title "about-continued"
-                      :title-hidden true})
+                      :continued :about})
 
 (def c {:title "c"})
 

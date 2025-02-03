@@ -8,6 +8,8 @@
    [re-frame.core :as rf]
    ["react-transition-group" :refer [Transition]]))
 
+(def page-title-animation-duration 333)
+
 (defn site-title [props]
   [:div props
    [:span#site-title
@@ -19,8 +21,9 @@
                          :entered []})
 
 (defn page-title [props]
-  (let [animation-duration 333
-        page-active @(rf/subscribe [:page-active])]
+  (let [page-active-id @(rf/subscribe [:page-active])
+        page-active (page-active-id pages/all)
+        continued (:continued page-active)]
     [:div (conj props
                 {:id "page-title"})
      [:div#page-title-container
@@ -29,11 +32,16 @@
             :let [element-id (str "page-title-" (name page-id))
                   title (:title page)
                   title-hidden (:title-hidden page)
-                  in (= page-id page-active)]]
+                  in (or
+                      (= page-id
+                         continued)
+                      (and (not continued)
+                           (= page-active-id
+                              page-id)))]]
         [:> Transition
          {:key page-id
           :in in
-          :timeout animation-duration
+          :timeout page-title-animation-duration
           :unmount-on-exit true}
            ;; Sliding Element
          (fn [s]
