@@ -121,11 +121,11 @@
 (defn init! []
   (println "Initializing!")
   (rf/dispatch-sync [:initialize])
-  (.addEventListener js/window 
+  (.addEventListener js/window
                      "load"
                      (fn []
                        ;; todo, remove
-                       (.setTimeout js/window 
+                       (.setTimeout js/window
                                     after-ready!
                                     500)))
   (rdomc/render (rdomc/create-root (.getElementById js/document
@@ -133,4 +133,3 @@
                 [root]))
 
 (init!)
-

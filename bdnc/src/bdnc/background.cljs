@@ -12,7 +12,7 @@
                (let [orientation @(rf/subscribe [:orientation])]
                  [:div#background (update-in props
                                              [:class]
-                                             concat 
+                                             concat
                                              [(name orientation)])
                   [:video {:id "bg-video"
                            :class ["object-cover", "w-dvw", "h-dvh"]

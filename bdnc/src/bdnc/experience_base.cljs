@@ -132,22 +132,20 @@
 
 (defn details-section [props, details-id, company, details]
   (let [{:keys [active?]} @(rf/subscribe [:experience/detail details-id])]
-    [:div.details-section (conj props
-                                {:class (concat ["overflow-scroll"
-                                                 "w-dvw"
-                                                 "bg-white"
-                                                 "bg-opacity-50"]
-                                                (if active?
-                                                  ["h-48"]
-                                                  ["invisible"
-                                                   "h-0"]))})
-
-     [:ol {:class ["ml-4", "mr-4", "pl-4", "flex", "flex-col", "gap-2", "list-disc"]}
+    [:div.details-section (update props
+                                  :class
+                                  concat (if active?
+                                           ["h-48"]
+                                           ["invisible", "h-0"]))
+     [:ol {:class ["flex", "overflow-auto", "snap-x", "snap-mandatory"]}
       (for [[i, detail] (map-indexed vector details)
             :let [id (gstring/format "detail-item-%s-%i"
                                      company
                                      i)]]
-        [:li {:key id} detail])]]))
+        [:li {:key id
+              :class ["w-screen", "shrink-0", "snap-start"]}
+         [:span {:class ["ml-4", "mr-4", "inline-block"]}
+          detail]])]]))
 
 (defn component* [id, content-all]
   (fn [props]
@@ -174,7 +172,11 @@
           company
           role
           logo]
-         [details-section {:id (name details-id)}
+         [details-section {:id (name details-id)
+                           :class ["overflow-scroll"
+                                   "w-dvw"
+                                   "text-[#f9eac4]"
+                                   "font-bold"]}
           details-id
           company
           details]])]]))
