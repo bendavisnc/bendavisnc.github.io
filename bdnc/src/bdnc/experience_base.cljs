@@ -1,5 +1,6 @@
 (ns bdnc.experience-base
   (:require
+   [bdnc.helpers]
    [goog.string :as gstring]
    [goog.string.format]
    [re-frame.core :as rf]))
@@ -109,11 +110,11 @@
                 :cargosphere cargosphere})
 
 (defn expand-button [props, details-id]
-  (let [visible? @(rf/subscribe [:visible? details-id])]
+  (let [{:keys [active?]} @(rf/subscribe [:experience/detail details-id])]
     [:button (assoc props
                     :on-click (fn []
-                                (rf/dispatch [:visible? details-id])))
-     (if visible?
+                                (rf/dispatch [:experience/detail details-id :active? (not active?)])))
+     (if active?
        unexpand-icon
        expand-icon)]))
 
@@ -130,13 +131,13 @@
      logo]]])
 
 (defn details-section [props, details-id, company, details]
-  (let [visible? @(rf/subscribe [:visible? details-id])]
+  (let [{:keys [active?]} @(rf/subscribe [:experience/detail details-id])]
     [:div.details-section (conj props
                                 {:class (concat ["overflow-scroll"
                                                  "w-dvw"
                                                  "bg-white"
                                                  "bg-opacity-50"]
-                                                (if visible?
+                                                (if active?
                                                   ["h-48"]
                                                   ["invisible"
                                                    "h-0"]))})
@@ -159,10 +160,14 @@
                   role (:title item)
                   details (:details item)
                   path (:path item)
-                  id (gstring/format "%s-item" (name item-id))
-                  details-id (keyword (gstring/format "%s-item-details" (name item-id)))
+                  item-id-full (keyword (gstring/format "%s-%s" (name id)
+                                                                (name item-id)))
+                  details-id (keyword (gstring/format "%s-%s-%s" (name id)
+                                                                 (name item-id)
+                                                                 "details"))
                   logo (:logo item)]]
-        [:li {:key id
+        [:li {:key item-id-full
+              :id item-id-full
               :class ["flex", "items-center", "flex-col"]}
          [main-section {:class ["flex", "w-[20rem]", "justify-between", "mb-4"]}
           details-id

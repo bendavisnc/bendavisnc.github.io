@@ -38,11 +38,11 @@
     (assoc db :current-scroll-amount i)))
 
 (rf/reg-event-db
-  :visible?
-  (fn [db [_ id]]
-    (update-in db
-               [:visible? id]
-               not)))
+  :experience/detail
+  (fn [db, [k1, k2, k3, v]]
+    (assoc-in db
+              [k1, k2, k3]
+              v)))
 
 (rf/reg-event-db
   :orientation
@@ -60,9 +60,9 @@
     (:current-scroll-amount db)))
 
 (rf/reg-sub
-  :visible?
-  (fn [db, [_, id]]
-    (get-in db [:visible? id])))
+  :experience/detail
+  (fn [db, [k1, k2]]
+    (get-in db [k1, k2])))
 
 (rf/reg-sub
   :orientation
