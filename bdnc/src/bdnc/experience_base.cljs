@@ -1,9 +1,11 @@
 (ns bdnc.experience-base
   (:require
+   ["react" :as react]
    [bdnc.helpers]
    [goog.string :as gstring]
    [goog.string.format]
-   [re-frame.core :as rf]))
+   [re-frame.core :as rf]
+   [reagent.core :as r :refer [atom]]))
 
 (def expand-icon
   [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon", :class "w-6 h-6"}
@@ -113,25 +115,52 @@
                          :deactive ["scale-0"]
                          nil []})
 
-(defn expand-button [props, item-id]
+(defn apply-transition! [container-ref, y-top, item-id-active]
+  (doseq [child (.-children (first (.getElementsByTagName (.-current container-ref)
+                                                          "ul")))]
+    (let [child-active? (and (not (nil? item-id-active))
+                             (= (.-id child)
+                                (name item-id-active)))]
+      (if child-active?
+        (let [delta-y (- (.-top (.getBoundingClientRect child))
+                         @y-top)]
+          (set! (.-transform (.-style child))
+                (gstring/format "translateY(-%spx)"
+                                delta-y)))
+        ;; else
+        (set! (.-transform (.-style child))
+              "")))))
+
+(defn init-y-top! [yt, container-ref]
+  (let [top-child (first (.-children (first (.getElementsByTagName (.-current container-ref)
+                                                                   "ul"))))
+        position-y (.-top (.getBoundingClientRect top-child))]
+    (reset! yt position-y)))
+
+(defn expand-button [props, item-id, container-ref, y-top-ref]
   (let [item-id-active @(rf/subscribe [:experience/detail-active])
         active? (= item-id item-id-active)]
     [:button (assoc props
                     :on-click (fn []
+                                (when (nil? @y-top-ref)
+                                  (init-y-top! y-top-ref container-ref))
+                                (apply-transition!
+                                  container-ref
+                                  y-top-ref
+                                  (when-not active? item-id))
                                 (rf/dispatch [:experience/detail-active (if active? nil item-id)])))
      (if active?
        unexpand-icon
        expand-icon)]))
 
-
-(defn main-section [props, details-id, company, role, logo]
+(defn main-section [props, details-id, company, role, logo, container-ref, y-top]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
     [:div {:class ["text-5xl", "text-[#f9eac4]", "font-bold"]}
      company]
     [:div {:class ["font-light"]}
      role]
-    [expand-button {} details-id]]
+    [expand-button {} details-id, container-ref, y-top]]
    [:div {:class ["flex", "flex-col", "justify-center"]}
     [:div {:class ["w-20", "h-20", "fill-slate-600"]}
      logo]]])
@@ -156,10 +185,12 @@
 
 (defn component* [id, content-all]
   (fn [props]
-    (let [item-id-active @(rf/subscribe [:experience/detail-active])]
+    (let [item-id-active @(rf/subscribe [:experience/detail-active])
+          container-ref (.createRef react)
+          y-top (atom nil)]
       [:div (conj props
-                  {:id id})
-                  ;; {:style {:visibility "hidden"}})
+                  {:id id
+                   :ref container-ref})
        [:ul {:class ["flex", "flex-col", "gap-8"]}
         (for [[item-id, item] content-all
               :let [item-id (keyword (gstring/format "%s-%s" (name id)
@@ -168,7 +199,6 @@
                     role (:title item)
                     details (:details item)
                     path (:path item)
-                   
                     logo (:logo item)
                     transition-class-key (cond (nil? item-id-active)
                                                nil
@@ -185,7 +215,9 @@
             item-id
             company
             role
-            logo]
+            logo
+            container-ref
+            y-top]
            [details-section {:id (str (name item-id) "-details")
                              :class ["overflow-scroll"
                                      "w-dvw"
