@@ -109,14 +109,20 @@
                 :sciquest sciquest
                 :cargosphere cargosphere})
 
-(defn expand-button [props, details-id]
-  (let [{:keys [active?]} @(rf/subscribe [:experience/detail details-id])]
+(def transition-classes {:active []
+                         :deactive ["scale-0"]
+                         nil []})
+
+(defn expand-button [props, item-id]
+  (let [item-id-active @(rf/subscribe [:experience/detail-active])
+        active? (= item-id item-id-active)]
     [:button (assoc props
                     :on-click (fn []
-                                (rf/dispatch [:experience/detail details-id :active? (not active?)])))
+                                (rf/dispatch [:experience/detail-active (if active? nil item-id)])))
      (if active?
        unexpand-icon
        expand-icon)]))
+
 
 (defn main-section [props, details-id, company, role, logo]
   [:div.main-section props
@@ -131,7 +137,8 @@
      logo]]])
 
 (defn details-section [props, details-id, company, details]
-  (let [{:keys [active?]} @(rf/subscribe [:experience/detail details-id])]
+  (let [item-id-active @(rf/subscribe [:experience/detail-active])
+        active? (= details-id item-id-active)]
     [:div.details-section (update props
                                   :class
                                   concat (if active?
@@ -149,34 +156,41 @@
 
 (defn component* [id, content-all]
   (fn [props]
-    [:div (conj props
-                {:id id})
-                ;; {:style {:visibility "hidden"}})
-     [:ul {:class ["flex", "flex-col", "gap-8"]}
-      (for [[item-id, item] content-all
-            :let [company (:name item)
-                  role (:title item)
-                  details (:details item)
-                  path (:path item)
-                  item-id-full (keyword (gstring/format "%s-%s" (name id)
-                                                                (name item-id)))
-                  details-id (keyword (gstring/format "%s-%s-%s" (name id)
-                                                                 (name item-id)
-                                                                 "details"))
-                  logo (:logo item)]]
-        [:li {:key item-id-full
-              :id item-id-full
-              :class ["flex", "items-center", "flex-col"]}
-         [main-section {:class ["flex", "w-[20rem]", "justify-between", "mb-4"]}
-          details-id
-          company
-          role
-          logo]
-         [details-section {:id (name details-id)
-                           :class ["overflow-scroll"
-                                   "w-dvw"
-                                   "text-[#f9eac4]"
-                                   "font-bold"]}
-          details-id
-          company
-          details]])]]))
+    (let [item-id-active @(rf/subscribe [:experience/detail-active])]
+      [:div (conj props
+                  {:id id})
+                  ;; {:style {:visibility "hidden"}})
+       [:ul {:class ["flex", "flex-col", "gap-8"]}
+        (for [[item-id, item] content-all
+              :let [item-id (keyword (gstring/format "%s-%s" (name id)
+                                                             (name item-id)))
+                    company (:name item)
+                    role (:title item)
+                    details (:details item)
+                    path (:path item)
+                   
+                    logo (:logo item)
+                    transition-class-key (cond (nil? item-id-active)
+                                               nil
+                                               (= item-id-active item-id)
+                                               :active
+                                               :else
+                                               :deactive)]]
+          [:li {:key item-id
+                :id item-id
+                :class (concat ["flex", "items-center", "flex-col", "transition", "duration-1000"]
+                               (transition-classes transition-class-key))}
+
+           [main-section {:class ["flex", "w-[20rem]", "justify-between", "mb-4"]}
+            item-id
+            company
+            role
+            logo]
+           [details-section {:id (str (name item-id) "-details")
+                             :class ["overflow-scroll"
+                                     "w-dvw"
+                                     "text-[#f9eac4]"
+                                     "font-bold"]}
+            item-id
+            company
+            details]])]])))

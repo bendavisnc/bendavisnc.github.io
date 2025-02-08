@@ -38,11 +38,9 @@
     (assoc db :current-scroll-amount i)))
 
 (rf/reg-event-db
-  :experience/detail
-  (fn [db, [k1, k2, k3, v]]
-    (assoc-in db
-              [k1, k2, k3]
-              v)))
+  :experience/detail-active
+  (fn [db, [_ id]]
+    (assoc db :experience/detail-active id)))
 
 (rf/reg-event-db
   :orientation
@@ -60,9 +58,9 @@
     (:current-scroll-amount db)))
 
 (rf/reg-sub
-  :experience/detail
-  (fn [db, [k1, k2]]
-    (get-in db [k1, k2])))
+  :experience/detail-active
+  (fn [db _]
+    (:experience/detail-active db)))
 
 (rf/reg-sub
   :orientation
