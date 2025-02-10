@@ -8,14 +8,14 @@
    [reagent.core :as r :refer [atom]]))
 
 (def expand-icon
-  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon", :class "w-6 h-6"}
+  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
         [:path {:style {:fill "black"}
                 :d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
         [:path {:style {:fill "white"}
                 :d "m 11.459799,7.4983244 h 1.080402 v 3.9614746 h 3.961474 v 1.080402 h -3.961474 v 3.961474 H 11.459799 V 12.540201 H 7.4983249 v -1.080402 h 3.9614741 z"}]])
 
 (def unexpand-icon
-  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon", :class "w-6 h-6"}
+  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
         [:path {:style {:fill "black"}
                 :d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
         [:path {:style {:fill "white"}
@@ -156,13 +156,13 @@
 (defn main-section [props, details-id, company, role, logo, container-ref, y-top]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
-    [:div {:class ["text-5xl", "text-[#f9eac4]", "font-bold"]}
+    [:div {:class ["text-5xl", "md:text-3xl", "text-[#f9eac4]", "font-bold"]}
      company]
-    [:div {:class ["font-light"]}
+    [:div {:class ["font-light", "md:text-xs"]}
      role]
-    [expand-button {} details-id, container-ref, y-top]]
+    [expand-button {:class ["w-6", "h-6", "md:w-4", "md:h-4"]} details-id, container-ref, y-top]]
    [:div {:class ["flex", "flex-col", "justify-center"]}
-    [:div {:class ["w-20", "h-20", "fill-slate-600"]}
+    [:div {:class ["w-20", "h-20", "md:w-12", "md:h-12", "fill-slate-600"]}
      logo]]])
 
 (defn details-section [props, details-id, company, details]
@@ -191,7 +191,7 @@
       [:div (conj props
                   {:id id
                    :ref container-ref})
-       [:ul {:class ["flex", "flex-col", "gap-8"]}
+       [:ul {:class ["flex", "flex-col", "gap-8", "md:gap-0"]}
         (for [[item-id, item] content-all
               :let [item-id (keyword (gstring/format "%s-%s" (name id)
                                                              (name item-id)))
@@ -211,7 +211,7 @@
                 :class (concat ["flex", "items-center", "flex-col", "transition", "duration-1000"]
                                (transition-classes transition-class-key))}
 
-           [main-section {:class ["flex", "w-[20rem]", "justify-between", "mb-4"]}
+           [main-section {:class ["flex", "w-[20rem]", "justify-between"]}
             item-id
             company
             role

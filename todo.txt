@@ -17,9 +17,12 @@
 
 - experience
   - make transitioned heights dynamic
-  - pretty up bullet lists
-  - add resume content
+  - pretty up bullet lists ⊘
+  - add resume content ✅
   - fix misaligned logos
+  - add dates
+  - add left right navigation arrows
+  - add navigation bullets
   
 
 - about

@@ -583,9 +583,6 @@ video {
 .flex {
   display: flex;
 }
-.hidden {
-  display: none;
-}
 .h-0 {
   height: 0px;
 }
@@ -782,8 +779,28 @@ video {
 }
 @media (min-width: 768px) {
 
+  .md\:h-12 {
+    height: 3rem;
+  }
+
+  .md\:h-4 {
+    height: 1rem;
+  }
+
   .md\:min-h-16 {
     min-height: 4rem;
+  }
+
+  .md\:w-12 {
+    width: 3rem;
+  }
+
+  .md\:w-4 {
+    width: 1rem;
+  }
+
+  .md\:gap-0 {
+    gap: 0px;
   }
 
   .md\:gap-2 {
@@ -792,6 +809,16 @@ video {
 
   .md\:pt-20 {
     padding-top: 5rem;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .md\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
   }
 
   .md\:leading-6 {
