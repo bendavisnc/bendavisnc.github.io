@@ -568,9 +568,6 @@ video {
 .z-\[-99\] {
   z-index: -99;
 }
-.mb-4 {
-  margin-bottom: 1rem;
-}
 .ml-4 {
   margin-left: 1rem;
 }
@@ -779,49 +776,68 @@ video {
 }
 @media (min-width: 768px) {
 
-  .md\:h-12 {
-    height: 3rem;
-  }
-
   .md\:h-4 {
     height: 1rem;
+  }
+
+  .md\:h-\[12vh\] {
+    height: 12vh;
+  }
+
+  .md\:h-\[6vh\] {
+    height: 6vh;
   }
 
   .md\:min-h-16 {
     min-height: 4rem;
   }
 
-  .md\:w-12 {
-    width: 3rem;
-  }
-
   .md\:w-4 {
     width: 1rem;
   }
 
-  .md\:gap-0 {
-    gap: 0px;
+  .md\:w-\[6vh\] {
+    width: 6vh;
   }
 
   .md\:gap-2 {
     gap: 0.5rem;
   }
 
+  .md\:gap-\[0\] {
+    gap: 0;
+  }
+
+  .md\:gap-\[6vh\] {
+    gap: 6vh;
+  }
+
+  .md\:gap-\[8vh\] {
+    gap: 8vh;
+  }
+
   .md\:pt-20 {
     padding-top: 5rem;
   }
 
-  .md\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+  .md\:text-\[2vh\] {
+    font-size: 2vh;
   }
 
-  .md\:text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
+  .md\:text-\[6vh\] {
+    font-size: 6vh;
+  }
+
+  .md\:text-\[8vh\] {
+    font-size: 8vh;
   }
 
   .md\:leading-6 {
     line-height: 1.5rem;
+  }
+
+  .md\:text-red-600 {
+    --tw-text-opacity: 1;
+    color: rgb(220 38 38 / var(--tw-text-opacity));
   }
 }

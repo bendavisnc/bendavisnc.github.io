@@ -156,13 +156,13 @@
 (defn main-section [props, details-id, company, role, logo, container-ref, y-top]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
-    [:div {:class ["text-5xl", "md:text-3xl", "text-[#f9eac4]", "font-bold"]}
+    [:div {:class ["text-5xl", "md:text-[6vh]", "text-[#f9eac4]", "font-bold"]}
      company]
-    [:div {:class ["font-light", "md:text-xs"]}
+    [:div {:class ["font-light", "md:text-[2vh]"]}
      role]
     [expand-button {:class ["w-6", "h-6", "md:w-4", "md:h-4"]} details-id, container-ref, y-top]]
    [:div {:class ["flex", "flex-col", "justify-center"]}
-    [:div {:class ["w-20", "h-20", "md:w-12", "md:h-12", "fill-slate-600"]}
+    [:div {:class ["w-20", "h-20", "md:w-[6vh]", "md:h-[6vh]", "fill-slate-600"]}
      logo]]])
 
 (defn details-section [props, details-id, company, details]
@@ -191,7 +191,7 @@
       [:div (conj props
                   {:id id
                    :ref container-ref})
-       [:ul {:class ["flex", "flex-col", "gap-8", "md:gap-0"]}
+       [:ul {:class ["flex", "flex-col", "gap-8", "md:gap-[2vh]"]}
         (for [[item-id, item] content-all
               :let [item-id (keyword (gstring/format "%s-%s" (name id)
                                                              (name item-id)))
