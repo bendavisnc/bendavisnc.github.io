@@ -804,8 +804,8 @@ video {
     gap: 0.5rem;
   }
 
-  .md\:gap-\[0\] {
-    gap: 0;
+  .md\:gap-\[2vh\] {
+    gap: 2vh;
   }
 
   .md\:gap-\[6vh\] {
@@ -834,10 +834,5 @@ video {
 
   .md\:leading-6 {
     line-height: 1.5rem;
-  }
-
-  .md\:text-red-600 {
-    --tw-text-opacity: 1;
-    color: rgb(220 38 38 / var(--tw-text-opacity));
   }
 }

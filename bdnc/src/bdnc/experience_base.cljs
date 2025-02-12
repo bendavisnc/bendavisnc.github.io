@@ -179,7 +179,7 @@
                                      company
                                      i)]]
         [:li {:key id
-              :class ["w-screen", "shrink-0", "snap-start"]}
+              :class ["w-screen", "shrink-0", "snap-start", "flex", "justify-center"]}
          [:span {:class ["ml-4", "mr-4", "inline-block"]}
           detail]])]]))
 
