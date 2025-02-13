@@ -22,7 +22,7 @@
 (def all {:navigation navigation
           :about about
           :about-continued about-continued
-          :contact contact
           :experience experience
           :experience-continued experience-continued
+          :contact contact
           :c c})
