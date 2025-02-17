@@ -68,11 +68,11 @@
     (:orientation db)))
 
 (def page-props
-  {:class ["h-dvh", "overflow-hidden", "flex", "justify-center", "pt-32", "md:pt-20", "snap-start"]})
+  {:class ["h-dvh", "overflow-hidden", "flex", "justify-center", "md:pt-20", "snap-start"]})
 
 (def page-content
   {:navigation {:component navigation/component
-                :props page-props}
+                :props (update-in page-props [:class] concat ["pb-[57vh]", "items-end"])}
    :contact {:component contact/component
              :props page-props}
    :experience  {:component experience/component
@@ -82,9 +82,7 @@
    :about  {:component about/component
             :props page-props}
    :about-continued  {:component about-continued/component
-                      :props page-props}
-   :c  {:component mocks/page-c
-        :props page-props}})
+                      :props page-props}})
 
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
@@ -93,7 +91,7 @@
     {:portrait "/videos/bg-loop.mp4"
      :landscape "/videos/bg-loop-landscape.mp4"}]
    [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
-    [header/component {:class ["w-dvw", "min-h-24", "md:min-h-16", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
+    [header/component {:class ["w-dvw", "h-[8vh]", "md:min-h-16", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
     (for [page-id (keys pages/all)
           :let [{:keys [component, props]} (page-id page-content)
                 element-id (name page-id)]]

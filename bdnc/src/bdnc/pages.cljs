@@ -14,8 +14,6 @@
 (def about-continued {:title "about-continued"
                       :continued :about})
 
-(def c {:title "c"})
-
 (def home :about)
 
 ;; This is the actual order of how the pages are presented
@@ -24,5 +22,4 @@
           :about-continued about-continued
           :experience experience
           :experience-continued experience-continued
-          :contact contact
-          :c c})
+          :contact contact})

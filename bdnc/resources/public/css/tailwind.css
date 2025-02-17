@@ -598,11 +598,11 @@ video {
 .h-\[1\.75rem\] {
   height: 1.75rem;
 }
+.h-\[8vh\] {
+  height: 8vh;
+}
 .h-dvh {
   height: 100dvh;
-}
-.min-h-24 {
-  min-height: 6rem;
 }
 .w-12 {
   width: 3rem;
@@ -707,8 +707,8 @@ video {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
-.pt-32 {
-  padding-top: 8rem;
+.pb-\[57vh\] {
+  padding-bottom: 57vh;
 }
 .text-5xl {
   font-size: 3rem;
