@@ -801,10 +801,6 @@ video {
     height: 6vh;
   }
 
-  .md\:min-h-16 {
-    min-height: 4rem;
-  }
-
   .md\:w-4 {
     width: 1rem;
   }
@@ -837,12 +833,22 @@ video {
     line-height: 1.5rem;
   }
 }
+@media (min-width: 1024px) {
+
+  .lg\:h-\[12vh\] {
+    height: 12vh;
+  }
+}
 @media (orientation: portrait) {
 
   @media (min-width: 768px) {
 
     .portrait\:md\:bottom-\[40\%\] {
       bottom: 40%;
+    }
+
+    .portrait\:md\:h-\[12vh\] {
+      height: 12vh;
     }
 
     .portrait\:md\:text-\[10vh\] {

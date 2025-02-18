@@ -92,8 +92,8 @@
     {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
     {:portrait "/videos/bg-loop.mp4"
      :landscape "/videos/bg-loop-landscape.mp4"}]
-   [:div#main-container {:class ["overflow-auto", "h-dvh", "snap-y", "snap-mandatory"]}
-    [header/component {:class ["w-dvw", "h-[8vh]", "md:min-h-16", "fixed", "top-0", "left-0", "bg-[#00000010]", "flex", "justify-center", "items-end"]}]
+   [:div#main-container {:class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
+    [header/component {:class ["bg-[#00000010]", "fixed", "flex", "h-[8vh]", "items-end" "justify-center", "left-0", "lg:h-[12vh]" "portrait:md:h-[12vh]", "top-0", "w-dvw",]}]
     (for [page-id (keys pages/all)
           :let [{:keys [component, props]} (page-id page-content)
                 element-id (name page-id)]]
