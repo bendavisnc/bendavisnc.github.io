@@ -547,8 +547,8 @@ video {
 .bottom-0 {
   bottom: 0px;
 }
-.bottom-\[55\.5\%\] {
-  bottom: 55.5%;
+.bottom-\[56\%\] {
+  bottom: 56%;
 }
 .left-0 {
   left: 0px;
@@ -601,8 +601,8 @@ video {
 .h-\[1\.75rem\] {
   height: 1.75rem;
 }
-.h-\[8vh\] {
-  height: 8vh;
+.h-\[4rem\] {
+  height: 4rem;
 }
 .h-dvh {
   height: 100dvh;
@@ -724,8 +724,8 @@ video {
   font-size: 3rem;
   line-height: 1;
 }
-.text-\[6vh\] {
-  font-size: 6vh;
+.text-\[3rem\] {
+  font-size: 3rem;
 }
 .text-lg {
   font-size: 1.125rem;
@@ -835,24 +835,24 @@ video {
 }
 @media (min-width: 1024px) {
 
-  .lg\:h-\[12vh\] {
-    height: 12vh;
+  .lg\:h-\[8rem\] {
+    height: 8rem;
   }
 }
 @media (orientation: portrait) {
 
   @media (min-width: 768px) {
 
-    .portrait\:md\:bottom-\[40\%\] {
-      bottom: 40%;
+    .portrait\:md\:bottom-\[42\%\] {
+      bottom: 42%;
     }
 
-    .portrait\:md\:h-\[12vh\] {
-      height: 12vh;
+    .portrait\:md\:h-\[8rem\] {
+      height: 8rem;
     }
 
-    .portrait\:md\:text-\[10vh\] {
-      font-size: 10vh;
+    .portrait\:md\:text-\[6rem\] {
+      font-size: 6rem;
     }
   }
 }
@@ -864,15 +864,19 @@ video {
       bottom: 20%;
     }
 
-    .landscape\:md\:text-\[14vh\] {
-      font-size: 14vh;
+    .landscape\:md\:text-\[3rem\] {
+      font-size: 3rem;
     }
   }
 
   @media (min-width: 1024px) {
 
-    .landscape\:lg\:bottom-\[24\%\] {
-      bottom: 24%;
+    .landscape\:lg\:bottom-\[26\%\] {
+      bottom: 26%;
+    }
+
+    .landscape\:lg\:text-\[6rem\] {
+      font-size: 6rem;
     }
   }
 }
