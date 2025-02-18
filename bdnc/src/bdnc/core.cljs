@@ -68,11 +68,13 @@
     (:orientation db)))
 
 (def page-props
-  {:class ["h-dvh", "overflow-hidden", "flex", "justify-center", "md:pt-20", "snap-start"]})
+  {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start"]})
 
 (def page-content
   {:navigation {:component navigation/component
-                :props (update-in page-props [:class] concat ["pb-[57vh]", "items-end"])}
+                :props (merge-with into {:class ["relative"]}
+                                        page-props)}
+   ;; :props (update-in page-props [:class] concat ["pb-[57vh]", "items-end"])}
    :contact {:component contact/component
              :props page-props}
    :experience  {:component experience/component

@@ -547,6 +547,9 @@ video {
 .bottom-0 {
   bottom: 0px;
 }
+.bottom-\[55\.5\%\] {
+  bottom: 55.5%;
+}
 .left-0 {
   left: 0px;
 }
@@ -672,6 +675,9 @@ video {
 .items-center {
   align-items: center;
 }
+.justify-end {
+  justify-content: flex-end;
+}
 .justify-center {
   justify-content: center;
 }
@@ -703,6 +709,10 @@ video {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.object-top {
+  -o-object-position: top;
+     object-position: top;
+}
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -713,6 +723,9 @@ video {
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
+}
+.text-\[6vh\] {
+  font-size: 6vh;
 }
 .text-lg {
   font-size: 1.125rem;
@@ -808,16 +821,8 @@ video {
     gap: 2vh;
   }
 
-  .md\:gap-\[6vh\] {
-    gap: 6vh;
-  }
-
   .md\:gap-\[8vh\] {
     gap: 8vh;
-  }
-
-  .md\:pt-20 {
-    padding-top: 5rem;
   }
 
   .md\:text-\[2vh\] {
@@ -828,11 +833,40 @@ video {
     font-size: 6vh;
   }
 
-  .md\:text-\[8vh\] {
-    font-size: 8vh;
-  }
-
   .md\:leading-6 {
     line-height: 1.5rem;
+  }
+}
+@media (orientation: portrait) {
+
+  @media (min-width: 768px) {
+
+    .portrait\:md\:bottom-\[40\%\] {
+      bottom: 40%;
+    }
+
+    .portrait\:md\:text-\[10vh\] {
+      font-size: 10vh;
+    }
+  }
+}
+@media (orientation: landscape) {
+
+  @media (min-width: 768px) {
+
+    .landscape\:md\:bottom-\[20\%\] {
+      bottom: 20%;
+    }
+
+    .landscape\:md\:text-\[14vh\] {
+      font-size: 14vh;
+    }
+  }
+
+  @media (min-width: 1024px) {
+
+    .landscape\:lg\:bottom-\[24\%\] {
+      bottom: 24%;
+    }
   }
 }

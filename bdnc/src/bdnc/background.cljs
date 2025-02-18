@@ -15,7 +15,7 @@
                                              concat
                                              [(name orientation)])
                   [:video {:id "bg-video"
-                           :class ["object-cover", "w-dvw", "h-dvh"]
+                           :class ["object-cover", "object-top", "w-dvw", "h-dvh"]
                            :autoPlay true
                            :loop true
                            :muted true

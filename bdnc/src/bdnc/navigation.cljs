@@ -8,7 +8,7 @@
 (defn component [props]
   [:div#navigation
    props
-   [:ul {:class ["flex", "flex-col", "gap-8", "md:gap-[6vh]"]}
+   [:ul {:class ["absolute", "bottom-[55.5%]", "flex", "flex-col", "font-black" "justify-end" "landscape:lg:bottom-[24%]", "landscape:md:bottom-[20%]", "landscape:md:text-[14vh]", "portrait:md:bottom-[40%]", "portrait:md:text-[10vh]", "text-[#f9eac4]", "text-[6vh]"]}
     (for [page-id (rest (keys pages/all))
           ;; `rest` because skip navigation itself
           :when (not (:continued (page-id pages/all)))
@@ -23,6 +23,6 @@
       [:li {:key id}
        [:a {:id id
             :href path}
-        [:div {:class ["flex", "items-center", "text-5xl", "md:text-[8vh]", "text-[#f9eac4]", "font-black", "gap-1.5"]}
+        [:div {:class ["flex", "items-center"]}
          [:span {:class []}
           link-name]]]])]])
