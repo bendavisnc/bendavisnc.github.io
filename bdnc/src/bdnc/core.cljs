@@ -93,7 +93,7 @@
     {:portrait "/videos/bg-loop.mp4"
      :landscape "/videos/bg-loop-landscape.mp4"}]
    [:div#main-container {:class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
-    [header/component {:class ["bg-[#00000010]", "fixed", "flex", "h-[8vh]", "items-end" "justify-center", "left-0", "lg:h-[12vh]" "portrait:md:h-[12vh]", "top-0", "w-dvw",]}]
+    [header/component {:class ["bg-[#00000010]", "fixed", "flex", "h-[4rem]", "items-end" "justify-center", "left-0", "lg:h-[8rem]" "portrait:md:h-[8rem]", "top-0", "w-dvw",]}]
     (for [page-id (keys pages/all)
           :let [{:keys [component, props]} (page-id page-content)
                 element-id (name page-id)]]
