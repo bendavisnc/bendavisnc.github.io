@@ -705,13 +705,9 @@ video {
 .fill-slate-600 {
   fill: #475569;
 }
-.object-cover {
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.object-top {
-  -o-object-position: top;
-     object-position: top;
+.object-none {
+  -o-object-fit: none;
+     object-fit: none;
 }
 .px-6 {
   padding-left: 1.5rem;
