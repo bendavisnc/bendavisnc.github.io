@@ -10,7 +10,7 @@
    [bdnc.header :as header]
    [bdnc.mocks :as mocks]
    [bdnc.navigation :as navigation]
-   [bdnc.orientation :as orientation]
+   [bdnc.dimensions :as dimensions]
    [bdnc.pages :as pages]
    [bdnc.scrolling :as scrolling]
    [goog.string :as gstring]
@@ -24,8 +24,7 @@
 (rf/reg-event-db
   :initialize
   (fn [_ _]
-    {:page-active :contact
-     :orientation :portrait}))
+    {:page-active :contact}))
 
 (rf/reg-event-db
   :page-active
@@ -43,9 +42,9 @@
     (assoc db :experience/detail-active id)))
 
 (rf/reg-event-db
-  :orientation
-  (fn [db [_ orientation]]
-    (assoc db :orientation orientation)))
+  :dimensions
+  (fn [db [_ dimensions]]
+    (assoc db :dimensions dimensions)))
 
 (rf/reg-sub
   :page-active
@@ -63,9 +62,9 @@
     (:experience/detail-active db)))
 
 (rf/reg-sub
-  :orientation
+  :dimensions
   (fn [db, _]
-    (:orientation db)))
+    (:dimensions db)))
 
 (def page-props
   {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start"]})
@@ -105,7 +104,7 @@
   (scrolling/init! :container :main-container
                    :pages (keys pages/all))
   (back/init!)
-  (orientation/init!)
+  (dimensions/init!)
   (let [page-onstart-s (.-hash (.-location js/window))]
     (if (not (empty? page-onstart-s))
       (println (gstring/format "Page on start, `%s`."

@@ -8,7 +8,7 @@
 (defn component [props]
   [:div#navigation
    props
-   [:ul {:class ["absolute", "bottom-[56%]", "flex", "flex-col", "font-black" "justify-end" "landscape:lg:bottom-[26%]", "landscape:md:bottom-[20%]", "landscape:md:text-[3rem]", "landscape:lg:text-[6rem]", "portrait:md:bottom-[42%]", "portrait:md:text-[6rem]", "text-[#f9eac4]", "text-[3rem]"]}
+   [:ul {:class ["absolute", "top-[8%]", "flex", "flex-col", "font-black" "justify-end"   "landscape:md:text-[3rem]", "landscape:lg:text-[6rem]", "portrait:md:text-[6rem]", "text-[#f9eac4]", "text-[3rem]"]}
     (for [page-id (rest (keys pages/all))
           ;; `rest` because skip navigation itself
           :when (not (:continued (page-id pages/all)))
