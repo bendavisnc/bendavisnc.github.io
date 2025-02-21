@@ -3,45 +3,41 @@
    ["react" :as react]
    [goog.string :as gstring]
    [goog.string.format]
+   [clojure.string :as string]
    [re-frame.core :as rf]
    [reagent.core :as reagent]
    [bdnc.dimensions :as dimensions]))
 
-(defn position-wide []
+(def bg-img-dimensions {:width 1080
+                        :height 1920})
+
+(defn transforms-calculated [dimensions]
   (let [phi 1.618033988749
         horizon-ratio 0.56
-        image-width 1080
-        image-height 1920
-        device-width (.-width (.getBoundingClientRect (.-body js/document)))
-        device-height (.-height (.getBoundingClientRect (.-body js/document)))
-        image-scale (/ device-width image-width)
+        image-width (:width bg-img-dimensions)
+        image-height (:height bg-img-dimensions)
+        device-width (:width dimensions)
+        device-height (:height dimensions)
+        device-a (/ device-height phi) ;; The distance where we want the horizon to be.
+        img-og-a (* image-height (- 1 horizon-ratio))
+        image-scale-horizon (/ device-a img-og-a)
+        image-scale-width (/ device-width image-width)
+        image-scale (max image-scale-horizon image-scale-width)
         image-scale-percent (* image-scale 100)
-        _ (println (gstring/format "`device-height`, %s" device-height))
-        ;; `device-a` - phi a where a + b = device height
-        device-a (/ device-height phi)
         img-a (* image-scale image-height (- 1 horizon-ratio))
-        translate-y (- img-a device-a)]
-    {:scale image-scale-percent
-     :translate-y translate-y}))
-
-
-(defn position []
-  (let [phi 1.618033988749
-        horizon-ratio 0.56
-        image-width 1080
-        image-height 1920
-        device-width (.-width (.getBoundingClientRect (.-body js/document)))
-        device-height (.-height (.getBoundingClientRect (.-body js/document)))
-        image-scale (/ device-width image-width)
-        _ (println (gstring/format "`device-height`, %s" device-height))
-        ;; `device-a` - phi a where a + b = device height
-        device-a (/ device-height phi)
-        img-a (* image-scale image-height (- 1 horizon-ratio))
-        scale (/ device-a img-a)
-        scale-percent (* 100 scale)
-        _ (println "waaat")
-        _ (println [device-a, img-a, scale])]
-    {:scale scale-percent}))
+        translate-x-centering (/ (- (* image-width image-scale)
+                                    device-width)
+                                 2)
+        translate-x-scale-offset (/ (- image-width (* image-scale image-width))
+                                    2)
+        translate-x (* -1 (+ translate-x-centering translate-x-scale-offset))
+        translate-y-scale-offset (/ (- image-height (* image-scale image-height))
+                                    2)
+        translate-y-horizon-offset (- img-a device-a)
+        translate-y (* -1 (+ translate-y-scale-offset translate-y-horizon-offset))]
+    {:translate-x translate-x
+     :translate-y translate-y
+     :scale image-scale-percent}))
 
 (defn component [props, src]
   [:f> (fn []
@@ -51,16 +47,35 @@
                                     (let [target (some-> (.-current container-ref)
                                                          (.querySelector "#bg-video"))
                                           _ (when (nil? target)
-                                              (throw (new js/Error "`bg-video` is null.")))]
+                                              (throw (new js/Error "`bg-video` is null.")))
+                                          transforms (transforms-calculated dimensions)
+                                          transforms-str (string/join 
+                                                          " "
+                                                          (map 
+                                                           (fn [[k, v]]
+                                                             (cond (= k :scale)
+                                                                   (gstring/format "scale(%s%)" v)
+                                                                   (= k :translate-x)
+                                                                   (gstring/format "translateX(%spx)" v)
+                                                                   (= k :translate-y)
+                                                                   (gstring/format "translateY(%spx)" v)))
+                                                           transforms))]
+                                                          
+                                                      
+                                      (set! (.-transform (.-style target))
+                                            transforms-str)
                                       js/undefined))
                                   (clj->js [dimensions]))]
            [:div#background (merge-with into {:ref container-ref}
                                              props)
-            [:video {:id "bg-video"
-                     :class ["object-none", "w-dvw"]
-                     :autoPlay true
-                     :loop true
-                     :muted true
-                     :playsInline true}
-             [:source {:src src
-                       :type "video/mp4"}]]]))])
+
+             [:div#background-video-container {:class 
+                                               []}
+              [:video {:id "bg-video"
+                       :class ["object-none", "max-w-[initial]", "h-[initial]"]
+                       :autoPlay true
+                       :loop true
+                       :muted true
+                       :playsInline true}
+               [:source {:src src
+                         :type "video/mp4"}]]]]))])

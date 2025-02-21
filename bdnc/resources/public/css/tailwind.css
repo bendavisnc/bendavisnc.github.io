@@ -604,6 +604,9 @@ video {
 .h-\[4rem\] {
   height: 4rem;
 }
+.h-\[initial\] {
+  height: initial;
+}
 .h-dvh {
   height: 100dvh;
 }
@@ -627,6 +630,9 @@ video {
 }
 .min-w-6 {
   min-width: 1.5rem;
+}
+.max-w-\[initial\] {
+  max-width: initial;
 }
 .shrink-0 {
   flex-shrink: 0;
@@ -653,6 +659,9 @@ video {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.resize {
+  resize: both;
 }
 .snap-x {
   scroll-snap-type: x var(--tw-scroll-snap-strictness);
