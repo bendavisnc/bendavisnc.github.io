@@ -1,7 +1,8 @@
 (ns bdnc.about-continued
   (:require
-   [bdnc.about-base :refer [component* thanks what]]))
+   [bdnc.about-base :refer [component* joy thanks what]]))
 
 (def component
-  (component* :about-continued {:what what
+  (component* :about-continued {:joy joy
+                                :what what
                                 :thanks thanks}))

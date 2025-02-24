@@ -4,14 +4,13 @@
    [goog.string.format]
    [re-frame.core :as rf]))
 
-(defn dispatch![]
- (rf/dispatch [:dimensions
-               {:width (.-innerWidth js/window)
-                :height (.-innerHeight js/window)}]))
-
+(defn dispatch! []
+  (rf/dispatch [:dimensions
+                {:width (.-innerWidth js/window)
+                 :height (.-innerHeight js/window)}]))
 
 (defn dimensions-observe! []
-  (.addEventListener js/window 
+  (.addEventListener js/window
                      "resize"
                      (fn []
                        (dispatch!))))

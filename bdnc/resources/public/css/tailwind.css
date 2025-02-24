@@ -550,6 +550,9 @@ video {
 .bottom-\[38\%\] {
   bottom: 38%;
 }
+.bottom-\[39\%\] {
+  bottom: 39%;
+}
 .left-0 {
   left: 0px;
 }
@@ -699,6 +702,9 @@ video {
 .gap-8 {
   gap: 2rem;
 }
+.gap-\[3vh\] {
+  gap: 3vh;
+}
 .overflow-auto {
   overflow: auto;
 }
@@ -729,8 +735,11 @@ video {
   font-size: 3rem;
   line-height: 1;
 }
-.text-\[9vh\] {
-  font-size: 9vh;
+.text-\[max\(2\.5vh\2c _2vw\)\] {
+  font-size: max(2.5vh, 2vw);
+}
+.text-\[min\(15vw\2c _10vh\)\] {
+  font-size: min(15vw, 10vh);
 }
 .text-lg {
   font-size: 1.125rem;
@@ -739,10 +748,6 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 .font-black {
   font-weight: 900;
@@ -764,10 +769,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.shadow-slate-950\/50 {
-  --tw-shadow-color: rgb(2 6 23 / 0.5);
-  --tw-shadow: var(--tw-shadow-colored);
-}
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -788,9 +789,6 @@ video {
 }
 .ease-linear {
   transition-timing-function: linear;
-}
-.text-shadow-sm {
-  text-shadow: 0 1px 2px var(--tw-shadow-color);
 }
 @media (min-width: 768px) {
 
@@ -814,10 +812,6 @@ video {
     width: 6vh;
   }
 
-  .md\:gap-2 {
-    gap: 0.5rem;
-  }
-
   .md\:gap-\[2vh\] {
     gap: 2vh;
   }
@@ -832,10 +826,6 @@ video {
 
   .md\:text-\[6vh\] {
     font-size: 6vh;
-  }
-
-  .md\:leading-6 {
-    line-height: 1.5rem;
   }
 }
 @media (min-width: 1024px) {

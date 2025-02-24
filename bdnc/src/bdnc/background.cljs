@@ -1,12 +1,12 @@
 (ns bdnc.background
   (:require
    ["react" :as react]
+   [bdnc.dimensions :as dimensions]
+   [clojure.string :as string]
    [goog.string :as gstring]
    [goog.string.format]
-   [clojure.string :as string]
    [re-frame.core :as rf]
-   [reagent.core :as reagent]
-   [bdnc.dimensions :as dimensions]))
+   [reagent.core :as reagent]))
 
 (def bg-img-dimensions {:width 1080
                         :height 1920})
@@ -49,19 +49,17 @@
                                           _ (when (nil? target)
                                               (throw (new js/Error "`bg-video` is null.")))
                                           transforms (transforms-calculated dimensions)
-                                          transforms-str (string/join 
-                                                          " "
-                                                          (map 
-                                                           (fn [[k, v]]
-                                                             (cond (= k :scale)
-                                                                   (gstring/format "scale(%s%)" v)
-                                                                   (= k :translate-x)
-                                                                   (gstring/format "translateX(%spx)" v)
-                                                                   (= k :translate-y)
-                                                                   (gstring/format "translateY(%spx)" v)))
-                                                           transforms))]
-                                                          
-                                                      
+                                          transforms-str (string/join
+                                                           " "
+                                                           (map
+                                                             (fn [[k, v]]
+                                                               (cond (= k :scale)
+                                                                     (gstring/format "scale(%s%)" v)
+                                                                     (= k :translate-x)
+                                                                     (gstring/format "translateX(%spx)" v)
+                                                                     (= k :translate-y)
+                                                                     (gstring/format "translateY(%spx)" v)))
+                                                             transforms))]
                                       (set! (.-transform (.-style target))
                                             transforms-str)
                                       js/undefined))
@@ -69,13 +67,13 @@
            [:div#background (merge-with into {:ref container-ref}
                                              props)
 
-             [:div#background-video-container {:class 
-                                               []}
-              [:video {:id "bg-video"
-                       :class ["object-none", "max-w-[initial]", "h-[initial]"]
-                       :autoPlay true
-                       :loop true
-                       :muted true
-                       :playsInline true}
-               [:source {:src src
-                         :type "video/mp4"}]]]]))])
+            [:div#background-video-container {:class
+                                              []}
+             [:video {:id "bg-video"
+                      :class ["object-none", "max-w-[initial]", "h-[initial]"]
+                      :autoPlay true
+                      :loop true
+                      :muted true
+                      :playsInline true}
+              [:source {:src src
+                        :type "video/mp4"}]]]]))])

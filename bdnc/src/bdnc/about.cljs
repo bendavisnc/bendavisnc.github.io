@@ -4,5 +4,4 @@
 
 (def component
   (component* :about {:who who
-                      :job job
-                      :joy joy}))
+                      :job job}))

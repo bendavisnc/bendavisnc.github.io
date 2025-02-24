@@ -5,12 +5,12 @@
    [bdnc.back :as back]
    [bdnc.background :as background]
    [bdnc.contact :as contact]
+   [bdnc.dimensions :as dimensions]
    [bdnc.experience :as experience]
    [bdnc.experience-continued :as experience-continued]
    [bdnc.header :as header]
    [bdnc.mocks :as mocks]
    [bdnc.navigation :as navigation]
-   [bdnc.dimensions :as dimensions]
    [bdnc.pages :as pages]
    [bdnc.scrolling :as scrolling]
    [goog.string :as gstring]
@@ -67,12 +67,11 @@
     (:dimensions db)))
 
 (def page-props
-  {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start"]})
+  {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start", "relative"]})
 
 (def page-content
   {:navigation {:component navigation/component
-                :props (merge-with into {:class ["relative"]}
-                                        page-props)}
+                :props page-props}
    ;; :props (update-in page-props [:class] concat ["pb-[57vh]", "items-end"])}
    :contact {:component contact/component
              :props page-props}
@@ -128,4 +127,5 @@
                                                     "app"))
                 [root]))
 
-(init!)
+(defonce _
+  (init!))
