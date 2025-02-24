@@ -113,6 +113,9 @@
         (println "Setting current page to home page.")
         (set! js/window.location.hash (name pages/home))))))
 
+(defonce root-container
+ (rdomc/create-root (.getElementById js/document
+                                     "app")))
 (defn init! []
   (println "Initializing!")
   (rf/dispatch-sync [:initialize])
@@ -123,9 +126,7 @@
                        (.setTimeout js/window
                                     after-ready!
                                     500)))
-  (rdomc/render (rdomc/create-root (.getElementById js/document
-                                                    "app"))
+  (rdomc/render root-container
                 [root]))
 
-(defonce _
-  (init!))
+(init!)

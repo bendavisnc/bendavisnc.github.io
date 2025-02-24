@@ -735,8 +735,8 @@ video {
   font-size: 3rem;
   line-height: 1;
 }
-.text-\[max\(2\.5vh\2c _2vw\)\] {
-  font-size: max(2.5vh, 2vw);
+.text-\[1\.1rem\] {
+  font-size: 1.1rem;
 }
 .text-\[min\(15vw\2c _10vh\)\] {
   font-size: min(15vw, 10vh);
@@ -833,6 +833,10 @@ video {
   .lg\:h-\[8rem\] {
     height: 8rem;
   }
+
+  .lg\:text-\[1\.75rem\] {
+    font-size: 1.75rem;
+  }
 }
 @media (orientation: portrait) {
 
@@ -840,6 +844,17 @@ video {
 
     .portrait\:md\:h-\[8rem\] {
       height: 8rem;
+    }
+
+    .portrait\:md\:text-\[1\.75rem\] {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+
+    .portrait\:lg\:text-\[2rem\] {
+      font-size: 2rem;
     }
   }
 }

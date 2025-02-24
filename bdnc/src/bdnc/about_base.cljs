@@ -13,10 +13,11 @@
   (fn [props]
     [:div (conj props
                 {:id id})
-     [:div {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "font-extrabold", "gap-[3vh]", "px-6", "text-[max(2.5vh,_2vw)]", "text-[#f9eac4]"]}
+     [:div {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "font-extrabold", "gap-[3vh]", "px-6", "text-[1.1rem]", "portrait:md:text-[1.75rem]","lg:text-[1.75rem]", "portrait:lg:text-[2rem]" "text-[#f9eac4]"]}
       (for [[content-id, content] content-all
             :let [text (:text content)
                   id (gstring/format "%s-content" (name content-id))]]
         [:p {:key id
              :id id}
          text])]]))
+
