@@ -44,25 +44,28 @@
          (let [dimensions @(rf/subscribe [:dimensions])
                container-ref (.createRef react)
                _ (react/useEffect (fn []
-                                    (let [target (some-> (.-current container-ref)
-                                                         (.querySelector "#bg-video"))
-                                          _ (when (nil? target)
-                                              (throw (new js/Error "`bg-video` is null.")))
-                                          transforms (transforms-calculated dimensions)
-                                          transforms-str (string/join
-                                                           " "
-                                                           (map
-                                                             (fn [[k, v]]
-                                                               (cond (= k :scale)
-                                                                     (gstring/format "scale(%s%)" v)
-                                                                     (= k :translate-x)
-                                                                     (gstring/format "translateX(%spx)" v)
-                                                                     (= k :translate-y)
-                                                                     (gstring/format "translateY(%spx)" v)))
-                                                             transforms))]
-                                      (set! (.-transform (.-style target))
-                                            transforms-str)
-                                      js/undefined))
+                                    (when (seq dimensions)
+                                      (let [target (some-> (.-current container-ref)
+                                                           (.querySelector "#bg-video"))
+                                            _ (when (nil? target)
+                                                (throw (new js/Error "`bg-video` is null.")))
+                                            transforms (transforms-calculated dimensions)
+                                            transforms-str (string/join
+                                                             " "
+                                                             (map
+                                                               (fn [[k, v]]
+                                                                 (cond (= k :scale)
+                                                                       (gstring/format "scale(%s%)" v)
+                                                                       (= k :translate-x)
+                                                                       (gstring/format "translateX(%spx)" v)
+                                                                       (= k :translate-y)
+                                                                       (gstring/format "translateY(%spx)" v)))
+                                                               transforms))
+                                            _ (println (gstring/format "Dimensions dynamically set `%s` -> `%s`."
+                                                                       dimensions, transforms-str))] 
+                                        (set! (.-transform (.-style target))
+                                              transforms-str)))
+                                    js/undefined)
                                   (clj->js [dimensions]))]
            [:div#background (merge-with into {:ref container-ref}
                                              props)
