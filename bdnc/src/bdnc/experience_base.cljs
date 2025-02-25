@@ -191,7 +191,7 @@
       [:div (conj props
                   {:id id
                    :ref container-ref})
-       [:ul {:class ["flex", "flex-col", "gap-8", "md:gap-[2vh]"]}
+       [:ul {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "gap-8", "md:gap-[2vh]"]}
         (for [[item-id, item] content-all
               :let [item-id (keyword (gstring/format "%s-%s" (name id)
                                                              (name item-id)))

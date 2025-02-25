@@ -1,4 +1,4 @@
-(ns bdnc.core
+(ns ^:figwheel-hooks bdnc.core
   (:require
    [bdnc.about :as about]
    [bdnc.about-continued :as about-continued]
@@ -114,8 +114,13 @@
         (set! js/window.location.hash (name pages/home))))))
 
 (defonce root-container
- (rdomc/create-root (.getElementById js/document
-                                     "app")))
+  (rdomc/create-root (.getElementById js/document
+                                      "app")))
+(defn mount! []
+  (println "Mounting!")
+  (rdomc/render root-container
+                [root]))
+
 (defn init! []
   (println "Initializing!")
   (rf/dispatch-sync [:initialize])
@@ -126,7 +131,10 @@
                        (.setTimeout js/window
                                     after-ready!
                                     500)))
-  (rdomc/render root-container
-                [root]))
+  (mount!)
+  true)
 
-(init!)
+(defonce initialized? (init!))
+
+(defn ^:after-load re-render []
+  (mount!))

@@ -20,4 +20,3 @@
         [:p {:key id
              :id id}
          text])]]))
-

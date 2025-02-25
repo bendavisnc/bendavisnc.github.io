@@ -5,9 +5,16 @@
    [re-frame.core :as rf]))
 
 (defn dispatch! []
-  (rf/dispatch [:dimensions
-                {:width (.-innerWidth js/window)
-                 :height (.-innerHeight js/window)}]))
+  (let [width (.-innerWidth js/window)
+        height (.-innerHeight js/window)]
+    (if (or (nil? width)
+            (nil? height))
+      (println "dimensions are nil, `%s`."
+               [width, height])
+      ;; else
+      (rf/dispatch [:dimensions
+                    {:width width
+                     :height height}]))))
 
 (defn dimensions-observe! []
   (.addEventListener js/window
