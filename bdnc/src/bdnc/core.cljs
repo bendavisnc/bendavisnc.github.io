@@ -1,4 +1,5 @@
-(ns ^:figwheel-hooks bdnc.core
+(ns bdnc.core
+  {:figwheel-hooks true}
   (:require
    [bdnc.about :as about]
    [bdnc.about-continued :as about-continued]

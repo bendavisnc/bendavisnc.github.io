@@ -91,7 +91,7 @@
                          "Worked with many Java based web technologies including JSP custom tags and Lucene search."]
                :logo sciquest-logo})
 
-(def cargosphere {:name "Cargo- sphere"
+(def cargosphere {:name "Cargosphere"
                   :path "https://www.todo.com"
                   :title "Software Engineer"
                   :details ["Wrote new front end features for an `Excel on the web` user experience based on an existing Javascript spreadsheet library."
@@ -156,13 +156,13 @@
 (defn main-section [props, details-id, company, role, logo, container-ref, y-top]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
-    [:div {:class ["text-5xl", "md:text-[6vh]", "text-[#f9eac4]", "font-bold"]}
+    [:div {:class ["portrait:md:text-[4rem]", "text-[#f9eac4]", "text-[2rem]", ]}
      company]
-    [:div {:class ["font-light", "md:text-[2vh]"]}
+    [:div {:class ["font-light", "portrait:md:text-[1.5rem]"]}
      role]
-    [expand-button {:class ["w-6", "h-6", "md:w-4", "md:h-4"]} details-id, container-ref, y-top]]
+    [expand-button {:class ["w-[1rem]", "h-auto", "md:w-[1.5rem]"]} details-id, container-ref, y-top]]
    [:div {:class ["flex", "flex-col", "justify-center"]}
-    [:div {:class ["w-20", "h-20", "md:w-[6vh]", "md:h-[6vh]", "fill-slate-600"]}
+    [:div {:class ["w-[4rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
      logo]]])
 
 (defn details-section [props, details-id, company, details]
@@ -191,7 +191,7 @@
       [:div (conj props
                   {:id id
                    :ref container-ref})
-       [:ul {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "gap-8", "md:gap-[2vh]"]}
+       [:ul {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "gap-[1.5rem]"]}
         (for [[item-id, item] content-all
               :let [item-id (keyword (gstring/format "%s-%s" (name id)
                                                              (name item-id)))
@@ -211,7 +211,7 @@
                 :class (concat ["flex", "items-center", "flex-col", "transition", "duration-1000"]
                                (transition-classes transition-class-key))}
 
-           [main-section {:class ["flex", "w-[20rem]", "justify-between"]}
+           [main-section {:class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
             item-id
             company
             role
@@ -219,10 +219,7 @@
             container-ref
             y-top]
            [details-section {:id (str (name item-id) "-details")
-                             :class ["overflow-scroll"
-                                     "w-dvw"
-                                     "text-[#f9eac4]"
-                                     "font-bold"]}
+                             :class ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]}
             item-id
             company
             details]])]])))

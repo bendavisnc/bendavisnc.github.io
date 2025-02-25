@@ -60,13 +60,9 @@
                                     (let [target (some-> (.-current container-ref)
                                                          (.querySelector "#bg-video"))
                                           _ (when (nil? target)
-                                              (throw (new js/Error "`bg-video` is null.")))
-                                          transforms-not-set? (empty? (.-transform (.-style target)))
-                                          set-transforms? (and (seq dimensions)
-                                                               transforms-not-set?)]
-                                      (when set-transforms?
-                                        (let [
-                                              transforms (-> dimensions transforms-calculated transforms-str)
+                                              (throw (new js/Error "`bg-video` is null.")))]
+                                      (when (seq dimensions)
+                                        (let [transforms (-> dimensions transforms-calculated transforms-str)
                                               _ (println (gstring/format "Dimensions dynamically set `%s` -> `%s`."
                                                                          dimensions, transforms))]
                                           (set! (.-transform (.-style target))
@@ -86,5 +82,3 @@
                       :playsInline true}
               [:source {:src src
                         :type "video/mp4"}]]]]))])
-
-

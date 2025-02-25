@@ -58,4 +58,3 @@
    [:div {:class []}
     [page-title {:class ["absolute", "left-0", "bottom-0", "text-white", "text-lg"]}]]
    [hamburger/component {:class ["absolute", "top-2", "right-2", "min-w-6", "flex", "justify-center", "cursor-pointer"]}]])
-
