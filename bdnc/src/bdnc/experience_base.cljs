@@ -116,29 +116,31 @@
                          :vanished ["scale-0"]})
 
 (defn apply-transition! [container-ref, y-top, item-id-active]
-  (let [elements (.-children (first (.getElementsByTagName (.-current container-ref)
-                                                           "ul")))
-        _ (assert (= 3 (.-length elements)))]
-    (doseq [child elements] 
-      (let [child-active? (and (not (nil? item-id-active))
-                               (= (.-id child)
-                                  (name item-id-active)))]
-        (if child-active?
-          (let [delta-y (- (.-top (.getBoundingClientRect child))
-                           @y-top)]
-            (println (gstring/format "Setting `translateY` transform of `%s` child element `%s` (-%s)."
-                                     (.-id (.-current container-ref))
-                                     (.-id child) 
-                                     delta-y))
-            (set! (.-transform (.-style child))
-                  (gstring/format "translateY(-%spx)"
-                                  delta-y)))
-          ;; else
-          (do (println (gstring/format "Unsetting `translateY` transform of `%s` child element `%s`."
-                                     (.-id (.-current container-ref))
-                                     (.-id child))) 
-              (set! (.-transform (.-style child))
-                    "")))))))
+  (.requestAnimationFrame js/window
+                          (fn []
+                            (let [elements (.-children (first (.getElementsByTagName (.-current container-ref)
+                                                                                     "ul")))
+                                  _ (assert (= 3 (.-length elements)))]
+                              (doseq [child elements]
+                                (let [child-active? (and (not (nil? item-id-active))
+                                                         (= (.-id child)
+                                                            (name item-id-active)))]
+                                  (if child-active?
+                                    (let [delta-y (- (.-top (.getBoundingClientRect child))
+                                                     @y-top)]
+                                      (println (gstring/format "Setting `translateY` transform of `%s` child element `%s` (-%s)."
+                                                               (.-id (.-current container-ref))
+                                                               (.-id child)
+                                                               delta-y))
+                                      (set! (.-transform (.-style child))
+                                            (gstring/format "translateY(-%spx)"
+                                                            delta-y)))
+                                    ;; else
+                                    (do (println (gstring/format "Unsetting `translateY` transform of `%s` child element `%s`."
+                                                   (.-id (.-current container-ref))
+                                                   (.-id child)))
+                                        (set! (.-transform (.-style child))
+                                              "")))))))))
 
 (defn init-y-top! [yt, container-ref]
   (let [top-child (first (.-children (first (.getElementsByTagName (.-current container-ref)
@@ -191,7 +193,7 @@
                                      company
                                      i)]]
         [:li {:key id
-              :class ["w-screen", "shrink-0", "snap-start", "flex", "justify-center"]}
+              :class ["flex", "justify-center", "shrink-0", "snap-start", "w-screen"]}
          [:span {:class ["ml-4", "mr-4", "inline-block"]}
           detail]])]]))
 
@@ -209,32 +211,32 @@
                                    :one-and-only
                                    :else
                                    :vanished)]
-    [:li props
-      [main-section {:class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
-                    id
-                    company
-                    role
-                    logo
-                    container-ref
-                    y-top]
-      [details-section {:id (str (name id) "-details")
-                        :class ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]}
-                       id
-                       company
-                       details]]))
+    [:li (update-in props [:class] concat (transition-class-key transition-classes))
+     [main-section {:class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
+                   id
+                   company
+                   role
+                   logo
+                   container-ref
+                   y-top]
+     [details-section {:id (str (name id) "-details")
+                       :class ["absolute", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "top-[100%]" "w-dvw"]}
+                      id
+                      company
+                      details]]))
 
 (defn experience-items [props, component-id, items, container-ref, y-top]
-  [:ul props 
-    (for [[item-id, item] items
-          :let [item-id-full (keyword (gstring/format "%s-%s" (name component-id)
-                                                              (name item-id)))]]
-      [experience-item {:key item-id-full
-                        :id item-id-full
-                        :class ["flex", "items-center", "flex-col", "transition", "duration-1000"]}
-                       item-id-full, 
-                       item, 
-                       container-ref, 
-                       y-top])])
+  [:ul props
+   (for [[item-id, item] items
+         :let [item-id-full (keyword (gstring/format "%s-%s" (name component-id)
+                                                             (name item-id)))]]
+     [experience-item {:key item-id-full
+                       :id item-id-full
+                       :class ["duration-1000", "flex", "flex-col", "items-center", "transition", "relative"]}
+                      item-id-full
+                      item
+                      container-ref
+                      y-top])])
 
 (defn component* [id, content-all]
   (fn [props]
@@ -244,9 +246,8 @@
              [:div (conj props
                          {:id id
                           :ref container-ref})
-               [experience-items {:class ["flex", "flex-col", "justify-end", "absolute", "bottom-[39%]", "h-[50%]", "gap-[1.5rem]"]}
-                                 id
-                                 content-all
-                                 container-ref
-                                 y-top]])])))
-                
+              [experience-items {:class ["flex", "flex-col", "justify-end", "absolute", "bottom-[39%]", "h-[50%]", "gap-[1.5rem]"]}
+                                id
+                                content-all
+                                container-ref
+                                y-top]])])))
