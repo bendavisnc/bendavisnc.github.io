@@ -604,6 +604,9 @@ video {
 .h-\[4rem\] {
   height: 4rem;
 }
+.h-\[50\%\] {
+  height: 50%;
+}
 .h-\[initial\] {
   height: initial;
 }
