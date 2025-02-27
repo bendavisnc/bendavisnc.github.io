@@ -7,20 +7,6 @@
    [re-frame.core :as rf]
    [reagent.core :as r :refer [atom]]))
 
-(def expand-icon
-  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
-        [:path {:style {:fill "black"}
-                :d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
-        [:path {:style {:fill "white"}
-                :d "m 11.459799,7.4983244 h 1.080402 v 3.9614746 h 3.961474 v 1.080402 h -3.961474 v 3.961474 H 11.459799 V 12.540201 H 7.4983249 v -1.080402 h 3.9614741 z"}]])
-
-(def unexpand-icon
-  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
-        [:path {:style {:fill "black"}
-                :d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
-        [:path {:style {:fill "white"}
-                :d "m 16.501675,11.459799 v 1.080402 c 0,0 -1.003584,0 -9.0033501,0 v -1.080402 c 0,0 1.0035834,0 9.0033501,0 z"}]])
-
 (def comcast-logo
   [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
         [:path {:stroke-linecap "round", :stroke-linejoin "round", :d "m 14.823748,5.2199321 c -1.145025,-0.016499 -2.302144,0.9390613 -2.391896,2.0676393 -0.05304,0.6757156 -0.04445,0.6859625 0.634691,0.741816 l 0.688829,0.056443 -0.660032,0.6410258 C 12.561497,9.248139 12.456721,9.4550867 12.547617,9.8367 c 0.120607,0.504757 0.364772,2.256561 0.614532,4.414612 0.08547,0.73893 0.255887,1.466056 0.380699,1.615523 0.288561,0.348061 0.540812,0.348002 0.540812,0 0,-0.149406 0.07156,-0.412026 0.158385,-0.583432 0.08723,-0.171404 0.238096,-0.513469 0.335775,-0.760246 0.09768,-0.246776 0.349232,-0.832181 0.559242,-1.301057 l 0.763702,-1.704795 c 0.21001,-0.468876 0.461562,-1.054857 0.559241,-1.301634 0.09809,-0.2467765 0.249526,-0.5888409 0.336352,-0.760246 0.08683,-0.1714037 0.15896,-0.4334512 0.15896,-0.5828553 0,-0.1494127 0.08008,-0.2718459 0.179119,-0.2718459 0.271873,3e-7 0.214104,-1.3104212 -0.08409,-1.9086787 -0.32207,-0.6456576 -1.168155,-1.2944142 -1.872394,-1.4352525 -0.116999,-0.023399 -0.235755,-0.035154 -0.354206,-0.03686 z M 9.3309692,5.4128734 C 8.6814107,5.3978698 8.0406238,5.6962818 7.5288389,6.3044348 6.7886492,7.1842292 6.9053699,8.1867019 8.0414318,10.699464 c 0.5270592,1.165215 1.2293431,2.787077 1.5602312,3.603682 0.482426,1.190033 0.64608,1.439215 0.824752,1.256135 0.24664,-0.253034 0.980501,-5.18153 1.097173,-7.3663255 C 11.597526,6.8060408 11.594656,6.7938043 10.98796,6.1875181 10.48373,5.6831785 9.9041089,5.4261113 9.3309692,5.4128734 Z m 9.9223648,3.3721525 c -0.650499,0.012125 -1.281956,0.2798688 -1.707674,0.7994105 -0.275672,0.3362753 -0.892729,1.5246916 -1.371899,2.6407036 -0.478899,1.116011 -1.102283,2.513803 -1.385146,3.106067 -0.282455,0.592265 -0.56879,1.309937 -0.635266,1.595365 l -0.121524,0.518926 0.563849,-0.332896 c 0.310131,-0.183322 0.564425,-0.396578 0.564425,-0.474002 0,-0.07742 0.08844,-0.141107 0.196973,-0.141107 0.279607,0 4.979044,-3.166782 5.681113,-3.8283 0.526382,-0.49583 0.582855,-0.650301 0.582855,-1.577511 0,-0.90566 -0.06476,-1.0923261 -0.545419,-1.5729031 -0.502165,-0.5022445 -1.171788,-0.745878 -1.822287,-0.733753 z M 4.7971366,8.7971208 C 4.3115227,8.7865153 3.8445395,8.8625021 3.5778646,9.0372895 2.4956603,9.7462325 2.1060545,11.265498 2.7542642,12.248754 c 0.1842343,0.279125 1.818938,1.505544 3.6330546,2.725367 3.098869,2.083416 3.5679736,2.367235 3.5679736,2.156335 0,-0.183529 -1.1125451,-2.871759 -1.7059472,-4.122608 C 7.904485,12.28103 7.622143,11.640598 7.622143,11.58469 7.622143,11.273418 6.6942069,9.5257968 6.3758007,9.2377182 6.0765825,8.966912 5.4214991,8.8107562 4.7971366,8.7971208 Z M 2.8481433,13.939726 c -0.3178784,-0.0053 -0.6002175,0.07948 -0.9243916,0.224618 -1.05819198,0.473754 -1.41223782,1.203345 -1.32812528,2.731127 0.0320155,0.572298 1.06939748,1.689641 1.68002728,1.80904 0.8377342,0.163898 8.0980173,0.03676 8.1536403,-0.142834 0.03052,-0.09871 -1.3935983,-1.139231 -3.1653871,-2.311839 C 4.7040862,14.55552 3.6604998,13.953157 2.8481433,13.939726 Z m 18.5402157,0.01785 c -0.680017,-0.0019 -1.59747,0.5429 -3.500012,1.803857 -1.474277,0.97707 -2.857934,1.966243 -3.075542,2.198379 l -0.395097,0.422166 0.685373,0.10943 c 0.376878,0.06003 2.025285,0.120194 3.66358,0.134195 2.347555,0.02007 3.094988,-0.03214 3.527082,-0.247656 0.794457,-0.39626 1.122515,-1.004715 1.122515,-2.081462 0,-0.854867 -0.06025,-0.987931 -0.72569,-1.621283 -0.482689,-0.459063 -0.836935,-0.716339 -1.302209,-0.717626 z"}]])
@@ -105,6 +91,43 @@
                     "Updated several existing Java based web applications that comprised a larger system (an unemployment insurance system) at a full-stack capacity."]
           :logo hcl-logo})
 
+(def expand-icon
+  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
+        [:path {:style {:fill "black"}
+                :d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
+        [:path {:style {:fill "white"}
+                :d "m 11.459799,7.4983244 h 1.080402 v 3.9614746 h 3.961474 v 1.080402 h -3.961474 v 3.961474 H 11.459799 V 12.540201 H 7.4983249 v -1.080402 h 3.9614741 z"}]])
+
+(def unexpand-icon
+  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
+        [:path {:style {:fill "black"}
+                :d "M 22.065089,12 A 10.06511,10.06511 0 0 1 12.000051,22.065109 10.06511,10.06511 0 0 1 1.9349112,12 10.06511,10.06511 0 0 1 12.000051,1.9348907 10.06511,10.06511 0 0 1 22.065089,12 Z"}]
+        [:path {:style {:fill "white"}
+                :d "m 16.501675,11.459799 v 1.080402 c 0,0 -1.003584,0 -9.0033501,0 v -1.080402 c 0,0 1.0035834,0 9.0033501,0 z"}]])
+
+(def circles-icon
+  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
+        [:circle {:style {:fill "black"}
+                  :cx "6.9121757"
+                  :cy "12"
+                  :r "1.8243507"}]
+        [:circle {:style {:fill "black"}
+                  :cx "12"
+                  :cy "12"
+                  :r "1.8243507"}]
+        [:circle {:style {:fill "black"}
+                  :cx "17.087826"
+                  :cy "12"
+                  :r "1.8243507"}]
+        [:circle {:style {:fill "black"}
+                  :cx "22.17565"
+                  :cy "12"
+                  :r "1.8243507"}]
+        [:circle {:style {:fill "black"}
+                  :cx "1.8243507"
+                  :cy "12"
+                  :r "1.8243507"}]])
+
 (def items-all {:comcast comcast
                 :signalpath signalpath
                 :icidigital icidigital
@@ -117,8 +140,8 @@
 
 (defn apply-transition! [container-ref, y-top, item-id-active]
   (let [elements (.-children (first (.getElementsByTagName (.-current container-ref)
-                                                           "ul")))
-        _ (assert (= 3 (.-length elements)))]
+                                                           "ul")))]
+    ;; _ (assert (= 3 (.-length elements)))]
     (doseq [child elements]
       (let [child-active? (and (not (nil? item-id-active))
                                (= (.-id child)
@@ -149,55 +172,45 @@
                              position-y))
     (reset! yt position-y)))
 
-(defn expand-button [props, item-id, container-ref, y-top-ref]
-  (let [item-id-active @(rf/subscribe [:experience/detail-active])
-        active? (= item-id item-id-active)]
-    [:button (assoc props
-                    :on-click (fn []
-                                (when (nil? @y-top-ref)
-                                  (init-y-top! y-top-ref container-ref))
-                                (apply-transition!
-                                  container-ref
-                                  y-top-ref
-                                  (when-not active? item-id))
-                                (rf/dispatch [:experience/detail-active (if active? nil item-id)])))
-     (if active?
-       unexpand-icon
-       expand-icon)]))
+(defn expand-button [props is-active?]
+  [:button props
+   (if is-active? unexpand-icon expand-icon)])
 
-(defn main-section [props, details-id, company, role, logo, container-ref, y-top]
+(defn circles [props]
+  [:div props
+   circles-icon])
+
+(defn main-section [props, is-active?, onclick, {:keys [name, title, logo]}]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
     [:div {:class ["portrait:md:text-[4rem]", "text-[#f9eac4]", "text-[2rem]"]}
-     company]
+     name]
     [:div {:class ["font-light", "portrait:md:text-[1.5rem]"]}
-     role]
-    [expand-button {:class ["w-[1rem]", "h-auto", "md:w-[1.5rem]"]} details-id, container-ref, y-top]]
+     title]
+    [expand-button
+     {:class ["w-[1rem]", "h-auto", "md:w-[1.5rem]"]
+      :on-click onclick}
+     is-active?]]
    [:div {:class ["flex", "flex-col", "justify-center"]}
     [:div {:class ["w-[4rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
      logo]]])
 
-(defn details-section [props, details-id, company, details]
-  (let [item-id-active @(rf/subscribe [:experience/detail-active])
-        active? (= details-id item-id-active)]
-    [:div.details-section (update props
-                                  :class
-                                  concat (if active?
-                                           ["h-48"]
-                                           ["invisible", "h-0"]))
-     [:ol {:class ["flex", "overflow-auto", "snap-x", "snap-mandatory"]}
-      (for [[i, detail] (map-indexed vector details)
-            :let [id (gstring/format "detail-item-%s-%i"
-                                     company
-                                     i)]]
-        [:li {:key id
-              :class ["flex", "justify-center", "shrink-0", "snap-start", "w-screen"]}
-         [:span {:class ["ml-4", "mr-4", "inline-block"]}
-          detail]])]]))
+(defn details-section [props, is-active?, company, details]
+  [:div.details-section props
+   [:ol {:class ["flex", "overflow-auto", "snap-x", "snap-mandatory"]}
+    (for [[i, detail] (map-indexed vector details)
+          :let [id (gstring/format "detail-item-%s-%i"
+                                   company
+                                   i)]]
+      [:li {:key id
+            :class ["flex", "justify-center", "shrink-0", "snap-start", "w-screen"]}
+       [:span {:class ["ml-4", "mr-4", "inline-block"]}
+        detail]])]])
 
+;; Contains everything under a single company experience, eg `comcast`.
 (defn experience-item [props, id, item, container-ref, y-top]
   (let [item-id-active @(rf/subscribe [:experience/detail-active])
-        ;; item-id-active :experience-icidigital
+        is-active? (= id item-id-active)
         company (:name item)
         role (:title item)
         details (:details item)
@@ -210,18 +223,31 @@
                                    :else
                                    :vanished)]
     [:li (update-in props [:class] concat (transition-class-key transition-classes))
-     [main-section {:class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
-                   id
-                   company
-                   role
-                   logo
-                   container-ref
-                   y-top]
+     [main-section {:id id
+                    :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
+                   is-active?
+                   (fn []
+                     (when (nil? @y-top)
+                       (init-y-top! y-top container-ref))
+                     (apply-transition!
+                       container-ref
+                       y-top
+                       (when-not is-active? id))
+                     (rf/dispatch [:experience/detail-active (if is-active? nil id)]))
+                   item]
      [details-section {:id (str (name id) "-details")
-                       :class ["absolute", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "top-[100%]" "w-dvw"]}
-                      id
+                       :class (concat ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]
+                                      (if is-active?
+                                        ["h-48"]
+                                        ["invisible", "h-0"]))}
                       company
-                      details]]))
+                      details]
+     [circles {:id (str (name id)
+                        "-circles")
+               :class (concat ["w-[4rem]"]
+                              (if is-active?
+                                ["h-auto"]
+                                ["invisible", "h-0"]))}]]))
 
 (defn experience-items [props, component-id, items, container-ref, y-top]
   [:ul props
@@ -230,7 +256,7 @@
                                                              (name item-id)))]]
      [experience-item {:key item-id-full
                        :id item-id-full
-                       :class ["duration-1000", "flex", "flex-col", "items-center", "transition", "relative"]}
+                       :class ["duration-1000", "flex", "flex-col", "items-center", "transition"]}
                       item-id-full
                       item
                       container-ref
