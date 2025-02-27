@@ -116,31 +116,29 @@
                          :vanished ["scale-0"]})
 
 (defn apply-transition! [container-ref, y-top, item-id-active]
-  (.requestAnimationFrame js/window
-                          (fn []
-                            (let [elements (.-children (first (.getElementsByTagName (.-current container-ref)
-                                                                                     "ul")))
-                                  _ (assert (= 3 (.-length elements)))]
-                              (doseq [child elements]
-                                (let [child-active? (and (not (nil? item-id-active))
-                                                         (= (.-id child)
-                                                            (name item-id-active)))]
-                                  (if child-active?
-                                    (let [delta-y (- (.-top (.getBoundingClientRect child))
-                                                     @y-top)]
-                                      (println (gstring/format "Setting `translateY` transform of `%s` child element `%s` (-%s)."
-                                                               (.-id (.-current container-ref))
-                                                               (.-id child)
-                                                               delta-y))
-                                      (set! (.-transform (.-style child))
-                                            (gstring/format "translateY(-%spx)"
-                                                            delta-y)))
-                                    ;; else
-                                    (do (println (gstring/format "Unsetting `translateY` transform of `%s` child element `%s`."
-                                                   (.-id (.-current container-ref))
-                                                   (.-id child)))
-                                        (set! (.-transform (.-style child))
-                                              "")))))))))
+  (let [elements (.-children (first (.getElementsByTagName (.-current container-ref)
+                                                           "ul")))
+        _ (assert (= 3 (.-length elements)))]
+    (doseq [child elements]
+      (let [child-active? (and (not (nil? item-id-active))
+                               (= (.-id child)
+                                  (name item-id-active)))]
+        (if child-active?
+          (let [delta-y (- (.-top (.getBoundingClientRect child))
+                           @y-top)]
+            (println (gstring/format "Setting `translateY` transform of `%s` child element `%s` (-%s)."
+                                     (.-id (.-current container-ref))
+                                     (.-id child)
+                                     delta-y))
+            (set! (.-transform (.-style child))
+                  (gstring/format "translateY(-%spx)"
+                                  delta-y)))
+          ;; else
+          (do (println (gstring/format "Unsetting `translateY` transform of `%s` child element `%s`."
+                         (.-id (.-current container-ref))
+                         (.-id child)))
+              (set! (.-transform (.-style child))
+                    "")))))))
 
 (defn init-y-top! [yt, container-ref]
   (let [top-child (first (.-children (first (.getElementsByTagName (.-current container-ref)
@@ -242,12 +240,11 @@
   (fn [props]
     (let [container-ref (.createRef react)
           y-top (atom nil)]
-      [:f> (fn []
-             [:div (conj props
-                         {:id id
-                          :ref container-ref})
-              [experience-items {:class ["flex", "flex-col", "justify-end", "absolute", "bottom-[39%]", "h-[50%]", "gap-[1.5rem]"]}
-                                id
-                                content-all
-                                container-ref
-                                y-top]])])))
+      [:div (conj props
+                  {:id id
+                   :ref container-ref})
+       [experience-items {:class ["flex", "flex-col", "justify-end", "absolute", "bottom-[39%]", "h-[50%]", "gap-[1.5rem]"]}
+                         id
+                         content-all
+                         container-ref
+                         y-top]])))
