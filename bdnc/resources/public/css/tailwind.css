@@ -574,11 +574,14 @@ video {
 .z-\[-99\] {
   z-index: -99;
 }
-.ml-4 {
-  margin-left: 1rem;
+.ml-\[6rem\] {
+  margin-left: 6rem;
 }
-.mr-4 {
-  margin-right: 1rem;
+.mr-\[6rem\] {
+  margin-right: 6rem;
+}
+.mt-\[4\%\] {
+  margin-top: 4%;
 }
 .inline-block {
   display: inline-block;
@@ -739,6 +742,9 @@ video {
 }
 .pb-\[57vh\] {
   padding-bottom: 57vh;
+}
+.pt-\[20\%\] {
+  padding-top: 20%;
 }
 .text-5xl {
   font-size: 3rem;

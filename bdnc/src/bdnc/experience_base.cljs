@@ -195,16 +195,16 @@
     [:div {:class ["w-[4rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
      logo]]])
 
-(defn details-section [props, is-active?, company, details]
+(defn details-section [props, company, details]
   [:div.details-section props
-   [:ol {:class ["flex", "overflow-auto", "snap-x", "snap-mandatory"]}
+   [:ol {:class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x"]}
     (for [[i, detail] (map-indexed vector details)
           :let [id (gstring/format "detail-item-%s-%i"
                                    company
                                    i)]]
       [:li {:key id
             :class ["flex", "justify-center", "shrink-0", "snap-start", "w-screen"]}
-       [:span {:class ["ml-4", "mr-4", "inline-block"]}
+       [:span {:class ["ml-[6rem]", "mr-[6rem]", "inline-block"]}
         detail]])]])
 
 ;; Contains everything under a single company experience, eg `comcast`.
@@ -237,6 +237,7 @@
                    item]
      [details-section {:id (str (name id) "-details")
                        :class (concat ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]
+                                      ;; ["invisible", "h-0"])}
                                       (if is-active?
                                         ["h-48"]
                                         ["invisible", "h-0"]))}
@@ -269,7 +270,7 @@
       [:div (conj props
                   {:id id
                    :ref container-ref})
-       [experience-items {:class ["flex", "flex-col", "justify-end", "absolute", "bottom-[39%]", "h-[50%]", "gap-[1.5rem]"]}
+       [experience-items {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "pt-[20%]", "h-[50%]", "gap-[1.5rem]"]}
                          id
                          content-all
                          container-ref
