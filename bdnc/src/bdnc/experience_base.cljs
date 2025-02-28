@@ -105,28 +105,31 @@
         [:path {:style {:fill "white"}
                 :d "m 16.501675,11.459799 v 1.080402 c 0,0 -1.003584,0 -9.0033501,0 v -1.080402 c 0,0 1.0035834,0 9.0033501,0 z"}]])
 
-(def circles-icon
-  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
-        [:circle {:style {:fill "black"}
-                  :cx "6.9121757"
-                  :cy "12"
-                  :r "1.8243507"}]
-        [:circle {:style {:fill "black"}
-                  :cx "12"
-                  :cy "12"
-                  :r "1.8243507"}]
-        [:circle {:style {:fill "black"}
-                  :cx "17.087826"
-                  :cy "12"
-                  :r "1.8243507"}]
-        [:circle {:style {:fill "black"}
-                  :cx "22.17565"
-                  :cy "12"
-                  :r "1.8243507"}]
-        [:circle {:style {:fill "black"}
-                  :cx "1.8243507"
-                  :cy "12"
-                  :r "1.8243507"}]])
+(defn circles-icon [count, active]
+  (let [box-dimension 24
+        max-count 10
+        _ (when (> count max-count)
+            (throw (new js/Error (gstring/format "Unexpected count of circles to draw (%s)." count))))
+        cy (/ box-dimension 2)
+        margin-percent (/ 1.0 50)
+        margin (* box-dimension margin-percent)
+        r (/ (- box-dimension
+               (* (dec max-count) margin))
+             (* 2 max-count))]
+    [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
+     (for [i (range count)
+           :let [cx (+ (* (+ (* 2 r)
+                             margin)
+                          i)
+                       (+ r
+                          (* 2 r (.ceil js/Math
+                                        (/ (- max-count count)
+                                           2)))))]]
+       [:circle {:style {:fill "black"}
+                 :key i
+                 :r r
+                 :cx cx
+                 :cy cy}])]))
 
 (def items-all {:comcast comcast
                 :signalpath signalpath
@@ -176,9 +179,9 @@
   [:button props
    (if is-active? unexpand-icon expand-icon)])
 
-(defn circles [props]
+(defn circles [props count active-index]
   [:div props
-   circles-icon])
+   [circles-icon count, active-index]])
 
 (defn main-section [props, is-active?, onclick, {:keys [name, title, logo]}]
   [:div.main-section props
@@ -245,10 +248,11 @@
                       details]
      [circles {:id (str (name id)
                         "-circles")
-               :class (concat ["w-[4rem]"]
+               :class (concat ["w-[12rem]"]
                               (if is-active?
                                 ["h-auto"]
-                                ["invisible", "h-0"]))}]]))
+                                ["invisible", "h-0"]))}
+              (count details)]]))
 
 (defn experience-items [props, component-id, items, container-ref, y-top]
   [:ul props
