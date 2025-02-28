@@ -43,6 +43,11 @@
     (assoc db :experience/detail-active id)))
 
 (rf/reg-event-db
+  :detailz-active
+  (fn [db, [_ i]]
+    (assoc db :detailz-active i)))
+
+(rf/reg-event-db
   :dimensions
   (fn [db [_ dimensions]]
     (assoc db :dimensions dimensions)))
@@ -61,6 +66,13 @@
   :experience/detail-active
   (fn [db _]
     (:experience/detail-active db)))
+
+(rf/reg-sub
+  :detailz-active
+  (fn [db _]
+    (:detailz-active db)))
+
+
 
 (rf/reg-sub
   :dimensions

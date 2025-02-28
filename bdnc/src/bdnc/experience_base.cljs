@@ -105,7 +105,7 @@
         [:path {:style {:fill "white"}
                 :d "m 16.501675,11.459799 v 1.080402 c 0,0 -1.003584,0 -9.0033501,0 v -1.080402 c 0,0 1.0035834,0 9.0033501,0 z"}]])
 
-(defn circles-icon [count, active]
+(defn circles-icon [count, active-index]
   (let [box-dimension 24
         max-count 10
         _ (when (> count max-count)
@@ -125,7 +125,9 @@
                           (* 2 r (.ceil js/Math
                                         (/ (- max-count count)
                                            2)))))]]
-       [:circle {:style {:fill "black"}
+       [:circle {:style {:fill (if (= active-index i)
+                                 "green"
+                                 "black")}
                  :key i
                  :r r
                  :cx cx
@@ -175,13 +177,30 @@
                              position-y))
     (reset! yt position-y)))
 
+(defn init-details-observer! [container-ref]
+  (let [target-container (.querySelector (.-current container-ref)
+                                         ".details")]
+    (doseq [target (.-children target-container)]
+      (let [observer (new js/IntersectionObserver (fn [entries]
+                                                    (doseq [entry entries]
+                                                      (when (.-isIntersecting entry)
+                                                        (let [target (.-target entry)
+                                                              i (js/parseInt (.getAttribute target
+                                                                                            "data-i"))]
+                                                          (rf/dispatch [:detailz-active i])))))
+                                                  (clj->js {:root target-container
+                                                            :threshold 0.5}))]
+        (.observe observer target)))))
+
 (defn expand-button [props is-active?]
   [:button props
    (if is-active? unexpand-icon expand-icon)])
 
-(defn circles [props count active-index]
-  [:div props
-   [circles-icon count, active-index]])
+(defn circles [props count]
+  (let [active-index (or @(rf/subscribe [:detailz-active])
+                         0)]
+    [:div props
+     [circles-icon count, active-index]]))
 
 (defn main-section [props, is-active?, onclick, {:keys [name, title, logo]}]
   [:div.main-section props
@@ -200,59 +219,73 @@
 
 (defn details-section [props, company, details]
   [:div.details-section props
-   [:ol {:class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x"]}
+   [:ol.details {:class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x"]}
     (for [[i, detail] (map-indexed vector details)
           :let [id (gstring/format "detail-item-%s-%i"
                                    company
                                    i)]]
       [:li {:key id
-            :class ["flex", "justify-center", "shrink-0", "snap-start", "w-screen"]}
+            :id id
+            :class ["flex", "justify-center", "shrink-0", "snap-start", "w-screen"]
+            :data-i i}
        [:span {:class ["ml-[6rem]", "mr-[6rem]", "inline-block"]}
         detail]])]])
 
 ;; Contains everything under a single company experience, eg `comcast`.
 (defn experience-item [props, id, item, container-ref, y-top]
-  (let [item-id-active @(rf/subscribe [:experience/detail-active])
-        is-active? (= id item-id-active)
-        company (:name item)
-        role (:title item)
-        details (:details item)
-        path (:path item)
-        logo (:logo item)
-        transition-class-key (cond (nil? item-id-active)
-                                   :together
-                                   (= item-id-active id)
-                                   :one-and-only
-                                   :else
-                                   :vanished)]
-    [:li (update-in props [:class] concat (transition-class-key transition-classes))
-     [main-section {:id id
-                    :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
-                   is-active?
-                   (fn []
-                     (when (nil? @y-top)
-                       (init-y-top! y-top container-ref))
-                     (apply-transition!
-                       container-ref
-                       y-top
-                       (when-not is-active? id))
-                     (rf/dispatch [:experience/detail-active (if is-active? nil id)]))
-                   item]
-     [details-section {:id (str (name id) "-details")
-                       :class (concat ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]
-                                      ;; ["invisible", "h-0"])}
-                                      (if is-active?
-                                        ["h-48"]
-                                        ["invisible", "h-0"]))}
-                      company
-                      details]
-     [circles {:id (str (name id)
-                        "-circles")
-               :class (concat ["w-[12rem]"]
-                              (if is-active?
-                                ["h-auto"]
-                                ["invisible", "h-0"]))}
-              (count details)]]))
+  [:f> (fn []
+         (let [details-container-ref (do
+                                       (println (gstring/format "Creating container ref for `%s`."
+                                                                (name id)))
+                                       (.createRef react))
+               _ (react/useEffect (fn []
+                                    (init-details-observer! details-container-ref)
+                                    js/undefined))]
+
+           [:f> (fn []
+                  (let [item-id-active @(rf/subscribe [:experience/detail-active])
+                        is-active? (= id item-id-active)
+                        company (:name item)
+                        role (:title item)
+                        details (:details item)
+                        path (:path item)
+                        logo (:logo item)
+                        transition-class-key (cond (nil? item-id-active)
+                                                   :together
+                                                   (= item-id-active id)
+                                                   :one-and-only
+                                                   :else
+                                                   :vanished)]
+                    [:li (update-in props [:class] concat (transition-class-key transition-classes))
+                     [main-section {:id id
+                                    :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
+                                   is-active?
+                                   (fn []
+                                     (when (nil? @y-top)
+                                       (init-y-top! y-top container-ref))
+                                     (apply-transition!
+                                       container-ref
+                                       y-top
+                                       (when-not is-active? id))
+                                     (rf/dispatch [:experience/detail-active (if is-active? nil id)]))
+                                   item]
+                     [details-section {:id (str (name id) "-details")
+                                       :class (concat ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]
+                                                      ;; ["invisible", "h-0"])}
+                                                      (if is-active?
+                                                        ["h-48"]
+                                                        ["invisible", "h-0"]))
+
+                                       :ref details-container-ref}
+                                      company
+                                      details]
+                     [circles {:id (str (name id)
+                                        "-circles")
+                               :class (concat ["w-[12rem]"]
+                                              (if is-active?
+                                                ["h-auto"]
+                                                ["invisible", "h-0"]))}
+                              (count details)]]))]))])
 
 (defn experience-items [props, component-id, items, container-ref, y-top]
   [:ul props
