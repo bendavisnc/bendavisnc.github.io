@@ -177,27 +177,29 @@
                              position-y))
     (reset! yt position-y)))
 
-(defn init-details-observer! [container-ref]
+(defn init-details-observer! [container-ref, company]
+  (println "Setting up details scroll observer!")
   (let [target-container (.querySelector (.-current container-ref)
-                                         ".details")]
+                                         ".details")
+        observer (new js/IntersectionObserver (fn [entries]
+                                                (doseq [entry entries]
+                                                  (when (.-isIntersecting entry)
+                                                    (let [target (.-target entry)
+                                                          i (js/parseInt (.getAttribute target
+                                                                                        "data-i"))]
+                                                      (println (gstring/format "Setting new active detail at index, `%s` (%s)" i (.-id target-container)))
+                                                      (rf/dispatch [:detailz-active company i])))))
+                                              (clj->js {:root target-container
+                                                        :threshold 0.5}))]
     (doseq [target (.-children target-container)]
-      (let [observer (new js/IntersectionObserver (fn [entries]
-                                                    (doseq [entry entries]
-                                                      (when (.-isIntersecting entry)
-                                                        (let [target (.-target entry)
-                                                              i (js/parseInt (.getAttribute target
-                                                                                            "data-i"))]
-                                                          (rf/dispatch [:detailz-active i])))))
-                                                  (clj->js {:root target-container
-                                                            :threshold 0.5}))]
-        (.observe observer target)))))
+      (.observe observer target))))
 
 (defn expand-button [props is-active?]
   [:button props
    (if is-active? unexpand-icon expand-icon)])
 
-(defn circles [props count]
-  (let [active-index (or @(rf/subscribe [:detailz-active])
+(defn circles [props, count, company]
+  (let [active-index (or @(rf/subscribe [:detailz-active company]) 
                          0)]
     [:div props
      [circles-icon count, active-index]]))
@@ -219,10 +221,11 @@
 
 (defn details-section [props, company, details]
   [:div.details-section props
-   [:ol.details {:class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x"]}
+   [:ol.details {:id (str (name company) "-details")
+                 :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x"]}
     (for [[i, detail] (map-indexed vector details)
           :let [id (gstring/format "detail-item-%s-%i"
-                                   company
+                                   (name company)
                                    i)]]
       [:li {:key id
             :id id
@@ -232,24 +235,20 @@
         detail]])]])
 
 ;; Contains everything under a single company experience, eg `comcast`.
-(defn experience-item [props, id, item, container-ref, y-top]
+(defn experience-item [props, id, company, item, container-ref, y-top]
   [:f> (fn []
          (let [details-container-ref (do
                                        (println (gstring/format "Creating container ref for `%s`."
                                                                 (name id)))
                                        (.createRef react))
                _ (react/useEffect (fn []
-                                    (init-details-observer! details-container-ref)
+                                    (init-details-observer! details-container-ref company)
                                     js/undefined))]
 
            [:f> (fn []
                   (let [item-id-active @(rf/subscribe [:experience/detail-active])
                         is-active? (= id item-id-active)
-                        company (:name item)
-                        role (:title item)
                         details (:details item)
-                        path (:path item)
-                        logo (:logo item)
                         transition-class-key (cond (nil? item-id-active)
                                                    :together
                                                    (= item-id-active id)
@@ -285,7 +284,8 @@
                                               (if is-active?
                                                 ["h-auto"]
                                                 ["invisible", "h-0"]))}
-                              (count details)]]))]))])
+                              (count details)
+                              company]]))]))])
 
 (defn experience-items [props, component-id, items, container-ref, y-top]
   [:ul props
@@ -296,6 +296,7 @@
                        :id item-id-full
                        :class ["duration-1000", "flex", "flex-col", "items-center", "transition"]}
                       item-id-full
+                      item-id
                       item
                       container-ref
                       y-top])])

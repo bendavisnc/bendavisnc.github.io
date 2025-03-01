@@ -44,8 +44,8 @@
 
 (rf/reg-event-db
   :detailz-active
-  (fn [db, [_ i]]
-    (assoc db :detailz-active i)))
+  (fn [db, [k1 k2 i]]
+    (assoc-in db [k1 k2] i)))
 
 (rf/reg-event-db
   :dimensions
@@ -69,10 +69,8 @@
 
 (rf/reg-sub
   :detailz-active
-  (fn [db _]
-    (:detailz-active db)))
-
-
+  (fn [db k]
+    (get-in db k)))
 
 (rf/reg-sub
   :dimensions
