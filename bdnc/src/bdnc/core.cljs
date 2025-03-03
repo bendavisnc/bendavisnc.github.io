@@ -40,7 +40,10 @@
 (rf/reg-event-db
   :experience/detail-active
   (fn [db, [_ id]]
-    (assoc db :experience/detail-active id)))
+    (println db)
+    (-> db
+        (assoc :experience/detail-active id)
+        (assoc :detailz-active nil))))
 
 (rf/reg-event-db
   :detailz-active

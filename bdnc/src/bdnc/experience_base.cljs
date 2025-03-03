@@ -115,19 +115,21 @@
         margin (* box-dimension margin-percent)
         r (/ (- box-dimension
                (* (dec max-count) margin))
-             (* 2 max-count))]
+             (* 2 max-count))
+        style-active {:fill "#f9eac4"}
+        style-default {:fill "white"
+                       :opacity (/ 2 3)}]
     [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
      (for [i (range count)
-           :let [cx (+ (* (+ (* 2 r)
+           :let [is-active? (= active-index i)
+                 cx (+ (* (+ (* 2 r)
                              margin)
                           i)
                        (+ r
                           (* 2 r (.ceil js/Math
                                         (/ (- max-count count)
                                            2)))))]]
-       [:circle {:style {:fill (if (= active-index i)
-                                 "green"
-                                 "black")}
+       [:circle {:style (if is-active? style-active style-default)
                  :key i
                  :r r
                  :cx cx
@@ -188,6 +190,10 @@
                                                           i (js/parseInt (.getAttribute target
                                                                                         "data-i"))]
                                                       (println (gstring/format "Setting new active detail at index, `%s` (%s)" i (.-id target-container)))
+                                                      (println (.-offsetParent target))
+                                                      (println (.-id  target))
+                                                      (println (.-id  target-container))
+                                                      (println (.-id (.-offsetParent target)))
                                                       (rf/dispatch [:detailz-active company i])))))
                                               (clj->js {:root target-container
                                                         :threshold 0.5}))]
