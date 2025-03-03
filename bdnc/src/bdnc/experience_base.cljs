@@ -190,11 +190,7 @@
                                                           i (js/parseInt (.getAttribute target
                                                                                         "data-i"))]
                                                       (println (gstring/format "Setting new active detail at index, `%s` (%s)" i (.-id target-container)))
-                                                      (println (.-offsetParent target))
-                                                      (println (.-id  target))
-                                                      (println (.-id  target-container))
-                                                      (println (.-id (.-offsetParent target)))
-                                                      (rf/dispatch [:detailz-active company i])))))
+                                                      (rf/dispatch [:experience/item-detail-active company i])))))
                                               (clj->js {:root target-container
                                                         :threshold 0.5}))]
     (doseq [target (.-children target-container)]
@@ -205,7 +201,7 @@
    (if is-active? unexpand-icon expand-icon)])
 
 (defn circles [props, count, company]
-  (let [active-index (or @(rf/subscribe [:detailz-active company]) 
+  (let [active-index (or @(rf/subscribe [:experience/item-detail-active company])
                          0)]
     [:div props
      [circles-icon count, active-index]]))
@@ -252,7 +248,7 @@
                                     js/undefined))]
 
            [:f> (fn []
-                  (let [item-id-active @(rf/subscribe [:experience/detail-active])
+                  (let [item-id-active @(rf/subscribe [:experience/item-active])
                         is-active? (= id item-id-active)
                         details (:details item)
                         transition-class-key (cond (nil? item-id-active)
@@ -272,7 +268,7 @@
                                        container-ref
                                        y-top
                                        (when-not is-active? id))
-                                     (rf/dispatch [:experience/detail-active (if is-active? nil id)]))
+                                     (rf/dispatch [:experience/item-active (if is-active? nil id)]))
                                    item]
                      [details-section {:id (str (name id) "-details")
                                        :class (concat ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]
