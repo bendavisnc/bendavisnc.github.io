@@ -105,6 +105,11 @@
         [:path {:style {:fill "white"}
                 :d "m 16.501675,11.459799 v 1.080402 c 0,0 -1.003584,0 -9.0033501,0 v -1.080402 c 0,0 1.0035834,0 9.0033501,0 z"}]])
 
+(def previous-icon
+  [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
+        [:path {:style {:fill "none"}
+                :d "M 17.651505,1.0288952 6.6817382,11.999931 17.651505,22.971107"}]])
+
 (defn circles-icon [count, active-index]
   (let [box-dimension 24
         max-count 10
@@ -206,6 +211,14 @@
     [:div props
      [circles-icon count, active-index]]))
 
+(defn previous-button [props]
+  [:button props
+   previous-icon])
+
+(defn next-button [props]
+  [:button (update-in props [:class] conj "transform rotate-180")
+   previous-icon])
+
 (defn main-section [props, is-active?, onclick, {:keys [name, title, logo]}]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
@@ -221,20 +234,38 @@
     [:div {:class ["w-[4rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
      logo]]])
 
+(defn details-button-click [direction, company, details]
+  (let [active-index @(rf/subscribe [:experience/item-detail-active company])
+        new-index (cond (= direction :next)
+                        (if (= active-index (dec (count details)))
+                          0
+                          (inc active-index))
+                        (= direction :previous)
+                        (if (= active-index 0)
+                          (dec (count details))
+                          (dec active-index)))]
+    (rf/dispatch [:experience/item-detail-active company new-index])))
+
 (defn details-section [props, company, details]
   [:div.details-section props
+   [previous-button {:class ["details-previous-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
+                     :on-click (fn []
+                                 (details-button-click :previous company details))}]
    [:ol.details {:id (str (name company) "-details")
-                 :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x"]}
+                 :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]}
     (for [[i, detail] (map-indexed vector details)
           :let [id (gstring/format "detail-item-%s-%i"
                                    (name company)
                                    i)]]
       [:li {:key id
             :id id
-            :class ["flex", "justify-center", "shrink-0", "snap-start", "w-screen"]
+            :class ["shrink-0", "snap-start", "w-[40rem]"]
             :data-i i}
-       [:span {:class ["ml-[6rem]", "mr-[6rem]", "inline-block"]}
-        detail]])]])
+       [:span {:class ["inline-block"]}
+        detail]])]
+   [next-button {:class ["details-next-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
+                 :on-click (fn []
+                             (details-button-click :next company details))}]])
 
 ;; Contains everything under a single company experience, eg `comcast`.
 (defn experience-item [props, id, company, item, container-ref, y-top]
@@ -271,7 +302,7 @@
                                      (rf/dispatch [:experience/item-active (if is-active? nil id)]))
                                    item]
                      [details-section {:id (str (name id) "-details")
-                                       :class (concat ["font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw"]
+                                       :class (concat ["flex", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
                                                       ;; ["invisible", "h-0"])}
                                                       (if is-active?
                                                         ["h-48"]
