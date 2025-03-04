@@ -184,22 +184,28 @@
                              position-y))
     (reset! yt position-y)))
 
-(defn init-details-observer! [container-ref, company]
+(defn init-details-scroll-observer! 
+  "Sets up an observer to dispatch an event when a detail item is scrolled into view."
+  [container-ref, id, company]
   (println "Setting up details scroll observer!")
-  (let [target-container (.querySelector (.-current container-ref)
-                                         ".details")
-        observer (new js/IntersectionObserver (fn [entries]
-                                                (doseq [entry entries]
-                                                  (when (.-isIntersecting entry)
-                                                    (let [target (.-target entry)
-                                                          i (js/parseInt (.getAttribute target
-                                                                                        "data-i"))]
-                                                      (println (gstring/format "Setting new active detail at index, `%s` (%s)" i (.-id target-container)))
-                                                      (rf/dispatch [:experience/item-detail-active company i])))))
-                                              (clj->js {:root target-container
-                                                        :threshold 0.5}))]
-    (doseq [target (.-children target-container)]
-      (.observe observer target))))
+  (let [target-ancestor (.-current container-ref)
+        scroll-parent (some-> target-ancestor
+                              (.querySelector (str "#" (name id)))
+                              (.querySelector ".details"))]
+    (if (nil? scroll-parent)
+      (println (gstring/format "Can't init details scroll observer for `%s`." id))
+      (let [observer (new js/IntersectionObserver (fn [entries]
+                                                    (doseq [entry entries]
+                                                      (when (.-isIntersecting entry)
+                                                        (let [target (.-target entry)
+                                                              i (js/parseInt (.getAttribute target
+                                                                                            "data-i"))]
+                                                          (println (gstring/format "Requesting new active state, `%s` for experience item detail, `%s`." i company))
+                                                          (rf/dispatch [:experience/item-detail-active-request company i]))))
+                                                    (clj->js {:root scroll-parent
+                                                              :threshold 0.5})))]
+        (doseq [target (.-children scroll-parent)]
+          (.observe observer target))))))
 
 (defn expand-button [props is-active?]
   [:button props
@@ -235,52 +241,68 @@
      logo]]])
 
 (defn details-button-click [direction, company, details]
-  (let [active-index @(rf/subscribe [:experience/item-detail-active company])
-        new-index (cond (= direction :next)
-                        (if (= active-index (dec (count details)))
-                          0
-                          (inc active-index))
+  (let [event-key (cond (= direction :next)
+                        :experience/item-detail-active-next
                         (= direction :previous)
-                        (if (= active-index 0)
-                          (dec (count details))
-                          (dec active-index)))]
-    (rf/dispatch [:experience/item-detail-active company new-index])))
+                        :experience/item-detail-active-previous
+                        :else
+                        (throw (new js/Error (gstring/format "Unexpected direction `%s`." direction))))]
+    (rf/dispatch [event-key company details])))
 
-(defn details-section [props, company, details]
-  [:div.details-section props
-   [previous-button {:class ["details-previous-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
-                     :on-click (fn []
-                                 (details-button-click :previous company details))}]
-   [:ol.details {:id (str (name company) "-details")
-                 :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]}
-    (for [[i, detail] (map-indexed vector details)
-          :let [id (gstring/format "detail-item-%s-%i"
-                                   (name company)
-                                   i)]]
-      [:li {:key id
-            :id id
-            :class ["shrink-0", "snap-start", "w-[40rem]"]
-            :data-i i}
-       [:span {:class ["inline-block"]}
-        detail]])]
-   [next-button {:class ["details-next-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
-                 :on-click (fn []
-                             (details-button-click :next company details))}]])
+(defn apply-details-scroll-reaction! [container-ref, experience-item-id, company, active-index]
+  (println (gstring/format "Setting up details scroll reaction for `%s` (%s)." active-index company))
+  (let [target-ancestor (.-current container-ref)
+        _ (assert (not (nil? target-ancestor))
+                  "`container-ref` is empty.")
+        target (aget (.-children (.querySelector (.querySelector target-ancestor
+                                                                 (str "#" (name experience-item-id)))
+                                                 ".details"))
+                     active-index)]
+    (println (gstring/format "Scrolling to detail item `%s`." (.-id target)))
+    (.scrollIntoView target (clj->js {:behavior "smooth"
+                                      :block "end"
+                                      :inline "nearest"}))))
+
+(defn details-section [props, parent-id, container-ref, company, details]
+  [:f> (fn []
+         (let [detail-item-id-active @(rf/subscribe [:experience/item-detail-active company])
+               _ (react/useEffect (fn []
+                                    (apply-details-scroll-reaction! container-ref
+                                                                    parent-id
+                                                                    company
+                                                                    (or detail-item-id-active 0))
+                                    js/undefined)
+                                  (clj->js [detail-item-id-active]))]
+              [:div.details-section props
+               [previous-button {:class ["details-previous-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
+                                 :on-click (fn []
+                                             (details-button-click :previous company details))}]
+               [:ol.details {:id (str (name company) "-details")
+                             :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]}
+                (for [[i, detail] (map-indexed vector details)
+                      :let [id (gstring/format "detail-item-%s-%i"
+                                               (name company)
+                                               i)]]
+                  [:li {:key id
+                        :id id
+                        :class ["shrink-0", "snap-start", "w-[40rem]"]
+                        :data-i i}
+                   [:span {:class ["inline-block"]}
+                    detail]])]
+               [next-button {:class ["details-next-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
+                             :on-click (fn []
+                                         (details-button-click :next company details))}]]))])
 
 ;; Contains everything under a single company experience, eg `comcast`.
 (defn experience-item [props, id, company, item, container-ref, y-top]
   [:f> (fn []
-         (let [details-container-ref (do
-                                       (println (gstring/format "Creating container ref for `%s`."
-                                                                (name id)))
-                                       (.createRef react))
-               _ (react/useEffect (fn []
-                                    (init-details-observer! details-container-ref company)
+         (let [_ (react/useEffect (fn []
+                                    ;; (init-details-scroll-observer! container-ref, id, company)
                                     js/undefined))]
 
            [:f> (fn []
                   (let [item-id-active @(rf/subscribe [:experience/item-active])
-                        is-active? (= id item-id-active)
+                        is-active? (= company item-id-active)
                         details (:details item)
                         transition-class-key (cond (nil? item-id-active)
                                                    :together
@@ -295,20 +317,23 @@
                                    (fn []
                                      (when (nil? @y-top)
                                        (init-y-top! y-top container-ref))
-                                     (apply-transition!
-                                       container-ref
-                                       y-top
-                                       (when-not is-active? id))
-                                     (rf/dispatch [:experience/item-active (if is-active? nil id)]))
+                                     (when (.-current container-ref)
+                                       (apply-transition!
+                                         container-ref
+                                         y-top
+                                         (when-not is-active? id)))
+                                     (let [item-active (if is-active? nil company)]
+                                       (println (gstring/format "Setting new active state, `%s` for experience item, `%s`." item-active company))
+                                       (rf/dispatch [:experience/item-active item-active]))) 
                                    item]
                      [details-section {:id (str (name id) "-details")
                                        :class (concat ["flex", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
                                                       ;; ["invisible", "h-0"])}
                                                       (if is-active?
                                                         ["h-48"]
-                                                        ["invisible", "h-0"]))
-
-                                       :ref details-container-ref}
+                                                        ["invisible", "h-0"]))}
+                                      id
+                                      container-ref
                                       company
                                       details]
                      [circles {:id (str (name id)

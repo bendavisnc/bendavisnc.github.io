@@ -45,9 +45,26 @@
         (assoc :experience/item-detail-active nil))))
 
 (rf/reg-event-db
-  :experience/item-detail-active
-  (fn [db, [k1 k2 i]]
-    (assoc-in db [k1 k2] i)))
+  :experience/item-detail-active-request
+  (fn [db, [event company i]]
+    (if-not (= (:experience/item-active db) company)
+      db
+      (do
+        (println (gstring/format "Setting new active detail at index, `%s` (%s)" i company))
+        (assoc-in db [event company] i)))))
+
+(rf/reg-event-db
+  :experience/item-detail-active-next
+  (fn [db, [_, company, details]]
+    (if-not (= (:experience/item-active db) company)
+      db
+      (update-in
+        db
+        [:experience/item-detail-active company]
+        (fn [i]
+          (if (= i (dec (count details)))
+            0
+            (inc i)))))))
 
 (rf/reg-event-db
   :dimensions
@@ -71,8 +88,13 @@
 
 (rf/reg-sub
   :experience/item-detail-active
-  (fn [db k]
-    (get-in db k)))
+  (fn [db [k1, k2]]
+    ;; (println "wa2")
+    ;; (println [k1, k2])
+    ;; (println db)
+    ;; (println (get-in db [k1, k2]))
+    ;; (println db)
+    (get-in db [k1, k2])))
 
 (rf/reg-sub
   :dimensions
