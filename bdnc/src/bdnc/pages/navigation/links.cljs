@@ -1,4 +1,4 @@
-(ns bdnc.links)
+(ns bdnc.pages.navigation.links)
 
 (def contact {:name "contact"
               :path "#contact"})

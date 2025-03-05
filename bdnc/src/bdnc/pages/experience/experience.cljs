@@ -1,6 +1,6 @@
-(ns bdnc.experience
+(ns bdnc.pages.experience.experience
   (:require
-   [bdnc.experience-base :refer [comcast component* icidigital signalpath]]))
+   [bdnc.pages.experience.base :refer [comcast component* signalpath]]))
 
 (def component
   (component* :experience {:comcast comcast

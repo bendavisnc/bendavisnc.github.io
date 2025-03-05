@@ -1,7 +1,7 @@
-(ns bdnc.header
+(ns bdnc.header.header
   (:require
    ["react-transition-group" :refer [Transition TransitionGroup]]
-   [bdnc.hamburger :as hamburger]
+   [bdnc.header.hamburger :as hamburger]
    [bdnc.pages :as pages]
    [goog.string :as gstring]
    [goog.string.format]

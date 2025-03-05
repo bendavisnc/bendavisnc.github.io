@@ -1,6 +1,6 @@
-(ns bdnc.experience-continued
+(ns bdnc.pages.experience.experience-continued
   (:require
-   [bdnc.experience-base :refer [cargosphere component* hcl sciquest]]))
+   [bdnc.pages.experience.base :refer [cargosphere component* hcl sciquest]]))
 
 (def component
   (component* :experience-continued {:sciquest sciquest

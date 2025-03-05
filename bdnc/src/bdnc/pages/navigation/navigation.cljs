@@ -1,7 +1,7 @@
-(ns bdnc.navigation
+(ns bdnc.pages.navigation.navigation
   (:require
-   [bdnc.links :as links]
    [bdnc.pages :as pages]
+   [bdnc.pages.navigation.links :as links]
    [goog.string :as gstring]
    [goog.string.format]))
 
