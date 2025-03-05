@@ -1,6 +1,6 @@
-(ns bdnc.about-continued
+(ns bdnc.pages.about.about-continued
   (:require
-   [bdnc.about-base :refer [component* joy thanks what]]))
+   [bdnc.pages.about.base :refer [component* joy thanks what]]))
 
 (def component
   (component* :about-continued {:joy joy

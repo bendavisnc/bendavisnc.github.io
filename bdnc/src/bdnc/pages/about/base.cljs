@@ -1,4 +1,4 @@
-(ns bdnc.about-base
+(ns bdnc.pages.about.base
   (:require
    [goog.string :as gstring]
    [goog.string.format]))
