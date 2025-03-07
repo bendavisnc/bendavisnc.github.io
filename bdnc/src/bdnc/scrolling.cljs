@@ -19,6 +19,7 @@
                                                         :threshold 0.5}))]
     (.observe observer target)))
 
+;; todo, remove
 (defn scroll-observe-current-scroll-amount! [container]
   (let [target (.getElementById js/document (name container))
         _ (when (nil? target)
