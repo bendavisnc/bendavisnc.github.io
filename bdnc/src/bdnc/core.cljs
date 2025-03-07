@@ -71,7 +71,7 @@
       ;; else
       (do
         (println "Setting current page to home page.")
-        (set! js/window.location.hash (name pages/home))))))
+        (set! js/window.location.hash (name pages/home-page))))))
 
 (defonce root-container
   (rdomc/create-root (.getElementById js/document

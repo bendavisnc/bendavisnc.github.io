@@ -1,11 +1,10 @@
 (ns bdnc.background
   (:require
-   ["react" :as react]
    [bdnc.dimensions :as dimensions]
    [clojure.string :as string]
    [goog.string :as gstring]
    [goog.string.format]
-   [re-frame.core :as rf]
+   [re-frame.core :as reframe]
    [reagent.core :as reagent]))
 
 (def bg-img-dimensions {:width 1080
@@ -52,33 +51,33 @@
               (gstring/format "translateY(%spx)" v)))
       transforms)))
 
-(defn component [props, src]
-  [:f> (fn []
-         (let [dimensions @(rf/subscribe [:dimensions])
-               container-ref (.createRef react)
-               _ (react/useEffect (fn []
-                                    (let [target (some-> (.-current container-ref)
-                                                         (.querySelector "#bg-video"))
-                                          _ (when (nil? target)
-                                              (throw (new js/Error "`bg-video` is null.")))]
-                                      (when (seq dimensions)
-                                        (let [transforms (-> dimensions transforms-calculated transforms-str)
-                                              _ (println (gstring/format "Dimensions dynamically set `%s` -> `%s`."
-                                                                         dimensions, transforms))]
-                                          (set! (.-transform (.-style target))
-                                                transforms)))
-                                      js/undefined))
-                                  (clj->js [dimensions]))]
-           [:div#background (merge-with into {:ref container-ref}
-                                             props)
+(defn apply-img-resize-transforms! [target, dimensions]
+  (let [transforms (-> dimensions transforms-calculated transforms-str)]
+    (set! (.-transform (.-style target))
+          transforms)
+    (println (gstring/format "Dimensions dynamically set to `%s`, `%s` -> `%s`."
+                             (.-id target)
+                             dimensions
+                             transforms))))
 
-            [:div#background-video-container {:class
-                                              []}
-             [:video {:id "bg-video"
-                      :class ["object-none", "max-w-[initial]", "h-[initial]"]
-                      :autoPlay true
-                      :loop true
-                      :muted true
-                      :playsInline true}
-              [:source {:src src
-                        :type "video/mp4"}]]]]))])
+(defn component [props, src]
+  [:f>
+   (fn []
+     (let [dimensions @(reframe/subscribe [:dimensions])]
+       [:div#background (merge props {:ref (fn [target-parent]
+                                             (let [target (some-> target-parent
+                                                                  (.querySelector "#bg-video"))]
+                                               (if (nil? target)
+                                                 (println (gstring/format "`bg-video` not found for `%s`."
+                                                                          (some-> target-parent .-id)))
+                                                 (apply-img-resize-transforms! target dimensions))))})
+        [:div#background-video-container {:class
+                                          []}
+         [:video {:id "bg-video"
+                  :class ["object-none", "max-w-[initial]", "h-[initial]"]
+                  :autoPlay true
+                  :loop true
+                  :muted true
+                  :playsInline true}
+          [:source {:src src
+                    :type "video/mp4"}]]]]))])

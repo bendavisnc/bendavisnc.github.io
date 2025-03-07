@@ -1,25 +1,25 @@
 (ns bdnc.pages)
 
-(def nav {:title "navigation"})
+(def navigation-page {:title "navigation"})
 
-(def contact {:title "contact"})
+(def contact-page {:title "contact"})
 
-(def exp {:title "experience"})
+(def experience-page {:title "experience"})
 
-(def experience-continued {:title "experience-continued"
-                           :continued :experience})
+(def experience-continued-page {:title "experience-continued"
+                                :continued :experience})
 
-(def about {:title "about"})
+(def about-page {:title "about"})
 
-(def about-continued {:title "about-continued"
-                      :continued :about})
+(def about-continued-page {:title "about-continued"
+                           :continued :about})
 
-(def home :about)
+(def home-page :about)
 
 ;; This is the actual order of how the pages are presented
-(def all {:navigation nav
-          :about about
-          :about-continued about-continued
-          :experience exp
-          :experience-continued experience-continued
-          :contact contact})
+(def all {:navigation navigation-page
+          :about about-page
+          :about-continued about-continued-page
+          :experience experience-page
+          :experience-continued experience-continued-page
+          :contact contact-page})
