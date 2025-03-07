@@ -110,14 +110,14 @@
 
 (defn details-section [props, parent-id, container-ref, company, details]
   [:f> (fn []
-         (let [detail-item-id-active @(rf/subscribe [:experience/item-detail-active company])
-               _ (react/useEffect (fn []
-                                    (apply-details-scroll-reaction! container-ref
-                                                                    parent-id
-                                                                    company
-                                                                    (or detail-item-id-active 0))
-                                    js/undefined)
-                                  (clj->js [detail-item-id-active]))]
+         (let [detail-item-id-active @(rf/subscribe [:experience/item-detail-active company])]
+              ;;  _ (react/useEffect (fn []
+              ;;                       (apply-details-scroll-reaction! container-ref
+              ;;                                                       parent-id
+              ;;                                                       company
+              ;;                                                       (or detail-item-id-active 0))
+              ;;                       js/undefined)
+              ;;                     (clj->js [detail-item-id-active]))]
               [:div.details-section props
                [buttons/previous-button {:class ["details-previous-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
                                          :on-click (fn []
@@ -141,9 +141,10 @@
 ;; Contains everything under a single company experience, eg `comcast`.
 (defn experience-item [props, id, company, item, container-ref, y-top]
   [:f> (fn []
-         (let [_ (react/useEffect (fn []
-                                    ;; (init-details-scroll-observer! container-ref, id, company)
-                                    js/undefined))]
+         (let []
+              ;;  _ (react/useEffect (fn []
+              ;;                       ;; (init-details-scroll-observer! container-ref, id, company)
+              ;;                       js/undefined))]
 
            [:f> (fn []
                   (let [item-id-active @(rf/subscribe [:experience/item-active])
@@ -206,13 +207,15 @@
 
 (defn component* [id, content-all]
   (fn [props]
-    (let [container-ref (.createRef react)
+    (let [
+          ;; container-ref (.createRef react)
           y-top (atom nil)]
       [:div (conj props
-                  {:id id
-                   :ref container-ref})
+                  {:id id})
+                  ;;  :ref container-ref})
        [experience-items {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "pt-[20%]", "h-[50%]", "gap-[1.5rem]"]}
                          id
                          content-all
-                         container-ref
+                         nil
+                        ;;  container-ref
                          y-top]])))
