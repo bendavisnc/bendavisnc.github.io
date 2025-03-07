@@ -4,6 +4,8 @@
    [bdnc.back :as back]
    [bdnc.background :as background]
    [bdnc.dimensions :as dimensions]
+   [bdnc.events]
+   [bdnc.subscriptions]
    [bdnc.header.header :as header]
    [bdnc.mocks :as mocks]
    [bdnc.pages :as pages]
@@ -21,85 +23,6 @@
    [reagent.dom.client :as rdomc]))
 
 (enable-console-print!)
-
-(rf/reg-event-db
-  :initialize
-  (fn [_ _]
-    {:page-active :contact}))
-
-(rf/reg-event-db
-  :page-active
-  (fn [db [_ id]]
-    (assoc db :page-active id)))
-
-(rf/reg-event-db
-  :current-scroll-amount
-  (fn [db [_ i]]
-    (assoc db :current-scroll-amount i)))
-
-(rf/reg-event-db
-  :experience/item-active
-  (fn [db, [_ id]]
-    (-> db
-        (assoc :experience/item-active id)
-        (assoc :experience/item-detail-active nil))))
-
-(rf/reg-event-db
-  :experience/item-detail-active-request
-  (fn [db, [event company i]]
-    (if-not (= (:experience/item-active db) company)
-      db
-      (do
-        (println (gstring/format "Setting new active detail at index, `%s` (%s)" i company))
-        (assoc-in db [event company] i)))))
-
-(rf/reg-event-db
-  :experience/item-detail-active-next
-  (fn [db, [_, company, details]]
-    (if-not (= (:experience/item-active db) company)
-      db
-      (update-in
-        db
-        [:experience/item-detail-active company]
-        (fn [i]
-          (if (= i (dec (count details)))
-            0
-            (inc i)))))))
-
-(rf/reg-event-db
-  :dimensions
-  (fn [db [_ dimensions]]
-    (assoc db :dimensions dimensions)))
-
-(rf/reg-sub
-  :page-active
-  (fn [db _]
-    (:page-active db)))
-
-(rf/reg-sub
-  :current-scroll-amount
-  (fn [db _]
-    (:current-scroll-amount db)))
-
-(rf/reg-sub
-  :experience/item-active
-  (fn [db _]
-    (:experience/item-active db)))
-
-(rf/reg-sub
-  :experience/item-detail-active
-  (fn [db [k1, k2]]
-    ;; (println "wa2")
-    ;; (println [k1, k2])
-    ;; (println db)
-    ;; (println (get-in db [k1, k2]))
-    ;; (println db)
-    (get-in db [k1, k2])))
-
-(rf/reg-sub
-  :dimensions
-  (fn [db, _]
-    (:dimensions db)))
 
 (def page-props
   {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start", "relative"]})
