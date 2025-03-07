@@ -1,6 +1,6 @@
 (ns bdnc.pages.experience.companies
-  (:require [bdnc.pages.experience.svgs :as svgs]))
-    
+  (:require
+   [bdnc.pages.experience.svgs :as svgs]))
 (def comcast {:name "Comcast"
               :path "https://www.todo.com"
               :title "Software Engineer"
@@ -52,4 +52,3 @@
           :details ["Worked under senior developer guidance to fulfill feature requests from business analysts."
                     "Updated several existing Java based web applications that comprised a larger system (an unemployment insurance system) at a full-stack capacity."]
           :logo svgs/hcl-logo})
-
