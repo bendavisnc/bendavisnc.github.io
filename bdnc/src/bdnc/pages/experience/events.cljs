@@ -33,3 +33,13 @@
           (if (= i (dec (count details)))
             0
             (inc i)))))))
+
+(rf/reg-event-db
+  :experience/top-position-memo
+  (fn [db, [_ y-position]]
+    (assoc db :experience/top-position-memo y-position)))
+
+(rf/reg-event-db
+  :experience/item-translation
+  (fn [db, [_ company y-translation]]
+    (assoc-in db [:experience/item-translation company] y-translation)))
