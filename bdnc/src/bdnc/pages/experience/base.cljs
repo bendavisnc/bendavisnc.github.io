@@ -36,27 +36,42 @@
     [:div {:class ["w-[4rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
      logo]]])
 
+(defn invoke-details-scroll-fn [target-container-ref, company, target-index]
+  (fn []
+    (println (gstring/format "Scrolling to new (%s) details item (index, `%s`)" company, target-index))
+    (let [target (aget (.-children @target-container-ref)
+                      target-index)]
+      (println (gstring/format "Scrolling to detail item `%s`." (.-id target)))
+      (.scrollIntoView target (clj->js {:behavior "smooth"
+                                        :block "end"
+                                        :inline "nearest"})))))
+
 (defn details-section [props, company, details]
-  [:div.details-section props
-   [buttons/previous-button {:class ["details-previous-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
-                             :on-click dispatches/previous-detail-click}]
-   [:ol.details {:id (str (name company) "-details")
-                 :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]
-                 :ref (fn [target]
-                        (when target
-                          (dispatches/details-scroll! target company)))}
-    (for [[i, detail] (map-indexed vector details)
-          :let [id (gstring/format "detail-item-%s-%i"
-                                    (name company)
-                                    i)]]
-      [:li {:key id
-            :id id
-            :class ["shrink-0", "snap-start", "w-[40rem]"]
-            :data-i i}
-       [:span {:class ["inline-block"]}
-        detail]])]
-   [buttons/next-button {:class ["details-next-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
-                         :on-click dispatches/next-detail-click}]])
+  (let [item-detail-id-active @(reframe/subscribe [:experience/item-detail-active company])
+        target-container-ref (clojure.core/atom nil)]
+    [:div.details-section props
+      [buttons/previous-button {:class ["details-previous-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
+                                :on-click (invoke-details-scroll-fn target-container-ref company (max (dec item-detail-id-active)
+                                                                                                       0))}]        
+      [:ol.details {:id (str (name company) "-details")
+                    :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]
+                    :ref (fn [target]
+                            (when target
+                              (reset! target-container-ref target)
+                              (dispatches/details-scroll! target company)))}
+        (for [[i, detail] (map-indexed vector details)
+              :let [id (gstring/format "detail-item-%s-%i"
+                                        (name company)
+                                        i)]]
+          [:li {:key id
+                :id id
+                :class ["shrink-0", "snap-start", "w-[40rem]"]
+                :data-i i}
+            [:span {:class ["inline-block"]}
+              detail]])]
+      [buttons/next-button {:class ["details-next-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
+                            :on-click (invoke-details-scroll-fn target-container-ref company (min (inc item-detail-id-active)
+                                                                                                   (dec (count details))))}]]))        
 
 ;; Contains everything under a single company experience, eg `comcast`.
 (defn experience-item [props, id, company, item]
