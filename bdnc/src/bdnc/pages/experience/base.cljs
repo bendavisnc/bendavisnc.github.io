@@ -3,10 +3,10 @@
    [bdnc.helpers]
    [bdnc.pages.experience.buttons :as buttons]
    [bdnc.pages.experience.circles :as circles]
+   [bdnc.pages.experience.dispatches :as dispatches]
    [goog.string :as gstring]
    [goog.string.format]
-   [re-frame.core :as reframe]
-   [reagent.core :as r :refer [atom]]))
+   [re-frame.core :as reframe]))
 
 (def css-by-state {:one-and-only {}
                    :together {}
@@ -36,22 +36,15 @@
     [:div {:class ["w-[4rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
      logo]]])
 
-(defn details-button-click [direction, company, details]
-  (let [event-key (cond (= direction :next)
-                        :experience/item-detail-active-next
-                        (= direction :previous)
-                        :experience/item-detail-active-previous
-                        :else
-                        (throw (new js/Error (gstring/format "Unexpected direction `%s`." direction))))]
-    (reframe/dispatch [event-key company details])))
-
 (defn details-section [props, company, details]
   [:div.details-section props
    [buttons/previous-button {:class ["details-previous-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
-                             :on-click (fn []
-                                         (details-button-click :previous company details))}]
+                             :on-click dispatches/previous-detail-click}]
    [:ol.details {:id (str (name company) "-details")
-                 :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]}
+                 :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]
+                 :ref (fn [target]
+                        (when target
+                          (dispatches/details-scroll! target company)))}
     (for [[i, detail] (map-indexed vector details)
           :let [id (gstring/format "detail-item-%s-%i"
                                     (name company)
@@ -63,8 +56,7 @@
        [:span {:class ["inline-block"]}
         detail]])]
    [buttons/next-button {:class ["details-next-button" "w-[1rem]", "h-auto", "stroke-white", "stroke-[0.25rem]"]
-                         :on-click (fn []
-                                     (details-button-click :next company details))}]])
+                         :on-click dispatches/next-detail-click}]])
 
 ;; Contains everything under a single company experience, eg `comcast`.
 (defn experience-item [props, id, company, item]
@@ -88,14 +80,10 @@
             [main-section {:id id
                            :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
                           is-active?
-                          (fn []
-                            (let [item-active (if is-active? nil company)]
-                              (println (gstring/format "Setting new active state, `%s` for experience item, `%s`." item-active company))
-                              (reframe/dispatch [:experience/item-active item-active])))
+                          (dispatches/expand-click company (if is-active? nil company))
                           item]
             [details-section {:id (str (name id) "-details")
                               :class (concat ["flex", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
-                                       ;; ["invisible", "h-0"])}
                                        (if is-active?
                                          ["h-48"]
                                          ["invisible", "h-0"]))}

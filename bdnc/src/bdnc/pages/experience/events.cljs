@@ -14,12 +14,12 @@
 
 (rf/reg-event-db
   :experience/item-detail-active-request
-  (fn [db, [event company i]]
+  (fn [db, [_ company i]]
     (if-not (= (:experience/item-active db) company)
       db
       (do
         (println (gstring/format "Setting new active detail at index, `%s` (%s)" i company))
-        (assoc-in db [event company] i)))))
+        (assoc-in db [:experience/item-detail-active company] i)))))
 
 (rf/reg-event-db
   :experience/item-detail-active-next
