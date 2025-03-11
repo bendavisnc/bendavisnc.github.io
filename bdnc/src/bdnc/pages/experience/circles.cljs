@@ -5,29 +5,40 @@
    [re-frame.core :as reframe]))
 
 (defn circles-icon [count, active-index]
-  (let [box-dimension 24
+  (let [
         max-count 10
         _ (when (> count max-count)
             (throw (new js/Error (gstring/format "Unexpected count of circles to draw (%s)." count))))
-        cy (/ box-dimension 2)
-        margin-percent (/ 1.0 50)
-        margin (* box-dimension margin-percent)
-        r (/ (- box-dimension
-               (* (dec max-count) margin))
-             (* 2 max-count))
+        box-height 8
+        r (/ box-height 2)
+        cy r
+        phi 1.61803398875
+        margin (/ (* 2 r)
+                  phi)
+        box-width (+ (* 2 r max-count)
+                     (* margin (dec count)))
+        centering-diff (.ceil js/Math (/ count
+                                         2))
+        centering-offset-odd (- (/ box-width 2)
+                                (+ (* 2 r (dec centering-diff))
+                                   (* margin (dec centering-diff))))
+        centering-offset-even (+ (- (/ box-width 2)
+                                    (/ (+ (* (* 2 r) count)
+                                          (* margin (dec count)))
+                                       2))
+                                 r)
+        centering-offset (if (odd? count) centering-offset-odd centering-offset-even)  
         style-active {:fill "#f9eac4"}
         style-default {:fill "white"
-                       :opacity (/ 2 3)}]
-    [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox "0 0 24 24", :aria-hidden "true", :data-slot "icon"}
+                       :opacity (/ 2 3)}
+        view-box (gstring/format "0 0 %s %s" box-width box-height)]
+    [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox view-box, :aria-hidden "true", :data-slot "icon"}
      (for [i (range count)
            :let [is-active? (= active-index i)
                  cx (+ (* (+ (* 2 r)
                              margin)
                           i)
-                       (+ r
-                          (* 2 r (.ceil js/Math
-                                        (/ (- max-count count)
-                                           2)))))]]
+                       centering-offset)]]  
        [:circle {:style (if is-active? style-active style-default)
                  :key i
                  :r r
