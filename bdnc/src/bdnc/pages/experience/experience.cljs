@@ -5,4 +5,5 @@
 
 (def component
   (component* :experience {:comcast companies/comcast
-                           :signalpath companies/signalpath}))
+                           :signalpath companies/signalpath
+                           :ici companies/icidigital}))
