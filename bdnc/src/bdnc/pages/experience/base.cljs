@@ -97,9 +97,9 @@
                           (dispatches/expand-click company (if is-active? nil company))
                           item]
             [details-section {:id (str (name id) "-details")
-                              :class (concat ["flex", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
+                              :class (concat ["flex", "shrink-0", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
                                        (if is-active?
-                                         ["h-48"]
+                                         ["h-[100%]"]
                                          ["invisible", "h-0"]))}
                              company
                              details]
@@ -134,6 +134,6 @@
   (fn [props]
     [:div (conj props
                 {:id id})
-     [experience-items {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "pt-[20%]", "h-[50%]", "gap-[1.5rem]"]}
+     [experience-items {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "h-[32rem]", "gap-[1.5rem]"]}
                        id
                        content-all]]))
