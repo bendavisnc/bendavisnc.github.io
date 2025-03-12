@@ -21,7 +21,7 @@
             company (keyword (.getAttribute child "data-company"))]
         (reframe/dispatch [:experience/item-translation company y])))))
 
-(defn main-section [props, is-active?, onclick, {:keys [name, title, logo]}]
+(defn main-section [props, is-active?, {:keys [name, title, logo]}]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
     [:div {:class ["portrait:md:text-[4rem]", "text-[#f9eac4]", "text-[2rem]"]}
@@ -29,8 +29,7 @@
     [:div {:class ["font-light", "portrait:md:text-[1.5rem]"]}
      title]
     [buttons/expand-button
-     {:class ["w-[1rem]", "h-auto", "md:w-[1.5rem]"]
-      :on-click onclick}
+     {:class ["w-[1rem]", "h-auto", "md:w-[1.5rem]"]}
      is-active?]]
    [:div {:class ["flex", "flex-col", "justify-center"]}
     [:div {:class ["w-[4rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
@@ -54,7 +53,7 @@
                                :on-click (invoke-details-scroll-fn target-container-ref company (max (dec item-detail-id-active)
                                                                                                   0))}]
      [:ol.details {:id (str (name company) "-details")
-                   :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[40rem]"]
+                   :class ["flex", "mt-[4%]", "overflow-auto", "snap-mandatory", "snap-x", "w-[78vw]"]
                    :ref (fn [target]
                           (when target
                             (reset! target-container-ref target)
@@ -65,7 +64,7 @@
                                       i)]]
         [:li {:key id
               :id id
-              :class ["shrink-0", "snap-start", "w-[40rem]"]
+              :class ["shrink-0", "snap-start", "w-[78vw]"]
               :data-i i}
          [:span {:class ["inline-block"]}
           detail]])]
@@ -92,9 +91,9 @@
                     {:style {:transform (gstring/format "translateY(-%spx)" item-translation)}}
                     {}))
             [main-section {:id id
-                           :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]}
+                           :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]"]
+                           :on-click (dispatches/expand-click company (if is-active? nil company))}
                           is-active?
-                          (dispatches/expand-click company (if is-active? nil company))
                           item]
             [details-section {:id (str (name id) "-details")
                               :class (concat ["grow", "flex", "shrink-0", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
@@ -115,11 +114,12 @@
 (defn experience-items [props, component-id, items]
   [:f>
    (fn []
-     (let [top-position-memo @(reframe/subscribe [:experience/top-position-memo])]
+     (let [_ @(reframe/subscribe [:dimensions])]
        [:ul (merge props {:ref (fn [target]
-                                 (cond (nil? target) (println (gstring/format "`ul` not found for `%s`."
-                                                                              (name component-id)))
-                                       (nil? top-position-memo) (init-top-positions-memo! target)))})
+                                 (if (nil? target) 
+                                   (println (gstring/format "`ul` not found for `%s`."
+                                                            (name component-id)))
+                                   (init-top-positions-memo! target)))})
         (for [[item-id, item] items
               :let [item-id-full (keyword (gstring/format "%s-%s" (name component-id)
                                                                   (name item-id)))]]
@@ -134,6 +134,6 @@
   (fn [props]
     [:div (conj props
                 {:id id})
-     [experience-items {:class ["flex", "flex-col", "absolute", "bottom-[39%]", "h-[32rem]", "gap-[1.5rem]"]}
+     [experience-items {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "gap-[1.5rem]", "h-[48vh]", "pt-[8vh]", "portrait:md:pt-0", "md:pt-[5.5vh]"]}
                        id
                        content-all]]))
