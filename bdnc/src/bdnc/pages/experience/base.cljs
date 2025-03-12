@@ -8,7 +8,7 @@
    [goog.string.format]
    [re-frame.core :as reframe]))
 
-(def css-by-state {:one-and-only {}
+(def css-by-state {:one-and-only {:class ["grow", "shrink-0", "h-[100%]"]}
                    :together {}
                    :vanished {:class ["scale-0"]}})
 
@@ -97,9 +97,9 @@
                           (dispatches/expand-click company (if is-active? nil company))
                           item]
             [details-section {:id (str (name id) "-details")
-                              :class (concat ["flex", "shrink-0", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
+                              :class (concat ["grow", "flex", "shrink-0", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "w-dvw", "justify-around"]
                                        (if is-active?
-                                         ["h-[100%]"]
+                                         []
                                          ["invisible", "h-0"]))}
                              company
                              details]
