@@ -5,8 +5,7 @@
    [re-frame.core :as reframe]))
 
 (defn circles-icon [count, active-index]
-  (let [
-        max-count 10
+  (let [max-count 10
         _ (when (> count max-count)
             (throw (new js/Error (gstring/format "Unexpected count of circles to draw (%s)." count))))
         box-height 8
@@ -27,7 +26,7 @@
                                           (* margin (dec count)))
                                        2))
                                  r)
-        centering-offset (if (odd? count) centering-offset-odd centering-offset-even)  
+        centering-offset (if (odd? count) centering-offset-odd centering-offset-even)
         style-active {:fill "#f9eac4"}
         style-default {:fill "white"
                        :opacity (/ 2 3)}
@@ -38,7 +37,7 @@
                  cx (+ (* (+ (* 2 r)
                              margin)
                           i)
-                       centering-offset)]]  
+                       centering-offset)]]
        [:circle {:style (if is-active? style-active style-default)
                  :key i
                  :r r

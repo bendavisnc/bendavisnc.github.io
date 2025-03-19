@@ -116,7 +116,7 @@
    (fn []
      (let [_ @(reframe/subscribe [:dimensions])]
        [:ul (merge props {:ref (fn [target]
-                                 (if (nil? target) 
+                                 (if (nil? target)
                                    (println (gstring/format "`ul` not found for `%s`."
                                                             (name component-id)))
                                    (init-top-positions-memo! target)))})

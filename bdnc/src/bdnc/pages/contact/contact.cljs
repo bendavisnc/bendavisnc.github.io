@@ -28,7 +28,7 @@
 (defn component [props]
   [:div#contact
    props
-   [:ul {:class ["flex", "flex-col", "gap-8", "md:h-[12vh]", "md:gap-[8vh]"]}
+   [:ul {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "gap-8", "md:h-[12vh]", "md:gap-[8vh]", "pt-[8vh]"]}
     (for [[link-id, link] links-all
           :let [link-name (:name link)
                 path (:path link)
