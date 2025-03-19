@@ -1,5 +1,8 @@
 (ns bdnc.subscriptions
   (:require
+   [bdnc.pages :as pages]
+   [goog.string :as gstring]
+   [goog.string.format]
    [re-frame.core :as rf]))
 
 (rf/reg-sub
@@ -8,19 +11,19 @@
     (:page-active db)))
 
 (rf/reg-sub
+  :page-active-index
+  (fn [_, _]
+    [(rf/subscribe [:page-active])])
+  (fn [[page-active] _]
+    (let [index (.indexOf (keys pages/all) page-active)]
+      (if (= -1 index)
+        (throw (new js/Error (gstring/format "Unexpected `page-active` key, %s" page-active)))
+        index))))
+
+(rf/reg-sub
   :current-scroll-amount
   (fn [db _]
     (:current-scroll-amount db)))
-
-(rf/reg-sub
-  :experience/item-active
-  (fn [db _]
-    (:experience/item-active db)))
-
-(rf/reg-sub
-  :experience/item-detail-active
-  (fn [db [k1, k2]]
-    (get-in db [k1, k2])))
 
 (rf/reg-sub
   :dimensions

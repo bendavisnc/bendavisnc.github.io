@@ -16,6 +16,7 @@
    [bdnc.pages.experience.experience-continued :as experience-continued]
    [bdnc.pages.experience.subscriptions]
    [bdnc.pages.navigation.navigation :as navigation]
+   [bdnc.progress-circles :as progress-circles]
    [bdnc.scrolling :as scrolling]
    [bdnc.subscriptions]
    [goog.string :as gstring]
@@ -29,7 +30,7 @@
 (def page-props
   {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start", "relative"]})
 
-(def page-content
+(def pages-and-props
   {:navigation {:component navigation/component
                 :props page-props}
    ;; :props (update-in page-props [:class] concat ["pb-[57vh]", "items-end"])}
@@ -44,6 +45,13 @@
    :about-continued  {:component about-continued/component
                       :props page-props}})
 
+ 
+(defn pages-progress-circles [props]
+  [:div props
+    [progress-circles/component {:class ["m-auto", "w-[12rem]", "h-auto"]}
+                                (count pages-and-props)
+                                [:page-active-index]]])
+
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
    [background/component
@@ -51,8 +59,10 @@
     "/videos/bg-loop.mp4"]
    [:div#main-container {:class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
     [header/component {:class ["bg-[#00000010]", "fixed", "flex", "h-[4rem]", "items-end" "justify-center", "left-0", "lg:h-[8rem]" "portrait:md:h-[8rem]", "top-0", "w-dvw"]}]
+    [pages-progress-circles {:id "pages-progress-circles"
+                             :class ["fixed", "w-[100vw]", "bottom-[1rem]"]}]
     (for [page-id (keys pages/all)
-          :let [{:keys [component, props]} (page-id page-content)
+          :let [{:keys [component, props]} (page-id pages-and-props)
                 element-id (name page-id)]]
       [component (conj props
                        {:id element-id

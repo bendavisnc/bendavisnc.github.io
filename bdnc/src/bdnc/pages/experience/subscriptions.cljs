@@ -23,3 +23,13 @@
     (let [is-active? (= company (:experience/item-active db))]
       (when is-active?
         (get-in db [:experience/item-translation company])))))
+
+(rf/reg-sub
+  :experience/item-active
+  (fn [db _]
+    (:experience/item-active db)))
+
+(rf/reg-sub
+  :experience/item-detail-active
+  (fn [db [k1, k2]]
+    (get-in db [k1, k2])))
