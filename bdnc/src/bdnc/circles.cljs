@@ -1,4 +1,4 @@
-(ns bdnc.pages.experience.circles
+(ns bdnc.circles
   (:require
    [goog.string :as gstring]
    [goog.string.format]

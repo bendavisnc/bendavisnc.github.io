@@ -2,7 +2,7 @@
   (:require
    [bdnc.helpers]
    [bdnc.pages.experience.buttons :as buttons]
-   [bdnc.pages.experience.circles :as circles]
+   [bdnc.circles :as circles]
    [bdnc.pages.experience.dispatches :as dispatches]
    [goog.string :as gstring]
    [goog.string.format]
