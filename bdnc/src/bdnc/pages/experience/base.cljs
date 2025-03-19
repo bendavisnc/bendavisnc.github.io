@@ -2,7 +2,7 @@
   (:require
    [bdnc.helpers]
    [bdnc.pages.experience.buttons :as buttons]
-   [bdnc.circles :as circles]
+   [bdnc.progress-circles :as progress-circles]
    [bdnc.pages.experience.dispatches :as dispatches]
    [goog.string :as gstring]
    [goog.string.format]
@@ -102,14 +102,14 @@
                                          ["invisible", "h-0"]))}
                              company
                              details]
-            [circles/circles {:id (str (name id)
-                                    "-circles")
-                              :class (concat ["w-[12rem]"]
-                                       (if is-active?
-                                         ["h-auto"]
-                                         ["invisible", "h-0"]))}
-                             (count details)
-                             company]]))])
+            [progress-circles/component {:id (str (name id)
+                                                  "-progress-circles")
+                                         :class (concat ["w-[12rem]"]
+                                                        (if is-active?
+                                                          ["h-auto"]
+                                                          ["invisible", "h-0"]))}
+                                        (count details)
+                                        [:experience/item-detail-active company]]]))])
 
 (defn experience-items [props, component-id, items]
   [:f>

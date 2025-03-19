@@ -1,13 +1,13 @@
-(ns bdnc.circles
+(ns bdnc.progress-circles
   (:require
    [goog.string :as gstring]
    [goog.string.format]
    [re-frame.core :as reframe]))
 
-(defn circles-icon [count, active-index]
+(defn progress-circles-icon [count, active-index]
   (let [max-count 10
         _ (when (> count max-count)
-            (throw (new js/Error (gstring/format "Unexpected count of circles to draw (%s)." count))))
+            (throw (new js/Error (gstring/format "Unexpected count of `progress-circles` to draw (%s)." count))))
         box-height 8
         r (/ box-height 2)
         cy r
@@ -44,8 +44,8 @@
                  :cx cx
                  :cy cy}])]))
 
-(defn circles [props, count, company]
-  (let [active-index (or @(reframe/subscribe [:experience/item-detail-active company])
+(defn component [props, count, subscription-query]
+  (let [active-index (or @(reframe/subscribe subscription-query)
                          0)]
     [:div props
-     [circles-icon count, active-index]]))
+     [progress-circles-icon count, active-index]]))
