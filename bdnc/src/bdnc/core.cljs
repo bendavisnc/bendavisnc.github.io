@@ -47,10 +47,17 @@
 
  
 (defn pages-progress-circles [props]
-  [:div props
-    [progress-circles/component {:class ["m-auto", "w-[12rem]", "h-auto"]}
-                                (count pages-and-props)
-                                [:page-active-index]]])
+  (let [phi 1.618033988749
+        opacity-active (/ 1 2)
+        opacity-default (/ (/ opacity-active phi) phi)]
+    [:div props
+      [progress-circles/component {:class ["m-auto", "w-[12rem]", "h-auto"]}
+                                  (count pages-and-props)
+                                  [:page-active-index]
+                                  {:fill "black"
+                                   :opacity opacity-active}
+                                  {:fill "black"
+                                   :opacity opacity-default}]]))
 
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}

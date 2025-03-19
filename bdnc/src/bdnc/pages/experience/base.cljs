@@ -109,7 +109,10 @@
                                                           ["h-auto"]
                                                           ["invisible", "h-0"]))}
                                         (count details)
-                                        [:experience/item-detail-active company]]]))])
+                                        [:experience/item-detail-active company]
+                                        {:fill "#f9eac4"}
+                                        {:fill "white"
+                                         :opacity (/ 2 3)}]]))])
 
 (defn experience-items [props, component-id, items]
   [:f>

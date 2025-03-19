@@ -4,7 +4,7 @@
    [goog.string.format]
    [re-frame.core :as reframe]))
 
-(defn progress-circles-icon [count, active-index]
+(defn progress-circles-icon [count, active-index, style-active, style-default]
   (let [max-count 10
         _ (when (> count max-count)
             (throw (new js/Error (gstring/format "Unexpected count of `progress-circles` to draw (%s)." count))))
@@ -27,9 +27,9 @@
                                        2))
                                  r)
         centering-offset (if (odd? count) centering-offset-odd centering-offset-even)
-        style-active {:fill "#f9eac4"}
-        style-default {:fill "white"
-                       :opacity (/ 2 3)}
+      ;;   style-active {:fill "#f9eac4"}
+      ;;   style-default {:fill "white"
+      ;;                  :opacity (/ 2 3)}
         view-box (gstring/format "0 0 %s %s" box-width box-height)]
     [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox view-box, :aria-hidden "true", :data-slot "icon"}
      (for [i (range count)
@@ -44,8 +44,8 @@
                  :cx cx
                  :cy cy}])]))
 
-(defn component [props, count, subscription-query]
+(defn component [props, count, subscription-query, style-active, style-default]
   (let [active-index (or @(reframe/subscribe subscription-query)
                          0)]
     [:div props
-     [progress-circles-icon count, active-index]]))
+     [progress-circles-icon count, active-index, style-active, style-default]]))
