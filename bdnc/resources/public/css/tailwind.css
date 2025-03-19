@@ -547,6 +547,9 @@ video {
 .bottom-0 {
   bottom: 0px;
 }
+.bottom-\[1rem\] {
+  bottom: 1rem;
+}
 .bottom-\[38\%\] {
   bottom: 38%;
 }
@@ -573,6 +576,12 @@ video {
 }
 .z-\[-99\] {
   z-index: -99;
+}
+.z-\[1\] {
+  z-index: 1;
+}
+.m-auto {
+  margin: auto;
 }
 .mt-\[4\%\] {
   margin-top: 4%;
@@ -624,6 +633,9 @@ video {
 }
 .w-6 {
   width: 1.5rem;
+}
+.w-\[100vw\] {
+  width: 100vw;
 }
 .w-\[12rem\] {
   width: 12rem;

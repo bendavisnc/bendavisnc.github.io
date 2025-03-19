@@ -65,7 +65,7 @@
     {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
     "/videos/bg-loop.mp4"]
    [:div#main-container {:class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
-    [header/component {:class ["bg-[#00000010]", "fixed", "flex", "h-[4rem]", "items-end" "justify-center", "left-0", "lg:h-[8rem]" "portrait:md:h-[8rem]", "top-0", "w-dvw"]}]
+    [header/component {:class ["bg-[#00000010]", "fixed", "flex", "h-[4rem]", "items-end" "justify-center", "left-0", "lg:h-[8rem]" "portrait:md:h-[8rem]", "top-0", "w-dvw" "z-[1]"]}]
     [pages-progress-circles {:id "pages-progress-circles"
                              :class ["fixed", "w-[100vw]", "bottom-[1rem]"]}]
     (for [page-id (keys pages/all)
