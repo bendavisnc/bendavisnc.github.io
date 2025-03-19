@@ -2,8 +2,8 @@
   (:require
    [bdnc.helpers]
    [bdnc.pages.experience.buttons :as buttons]
-   [bdnc.progress-circles :as progress-circles]
    [bdnc.pages.experience.dispatches :as dispatches]
+   [bdnc.progress-circles :as progress-circles]
    [goog.string :as gstring]
    [goog.string.format]
    [re-frame.core :as reframe]))

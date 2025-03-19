@@ -27,9 +27,6 @@
                                        2))
                                  r)
         centering-offset (if (odd? count) centering-offset-odd centering-offset-even)
-      ;;   style-active {:fill "#f9eac4"}
-      ;;   style-default {:fill "white"
-      ;;                  :opacity (/ 2 3)}
         view-box (gstring/format "0 0 %s %s" box-width box-height)]
     [:svg {:xmlns "http://www.w3.org/2000/svg", :viewBox view-box, :aria-hidden "true", :data-slot "icon"}
      (for [i (range count)
