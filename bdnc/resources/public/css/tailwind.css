@@ -841,6 +841,10 @@ video {
 }
 @media (min-width: 768px) {
 
+  .md\:bottom-\[0\.5rem\] {
+    bottom: 0.5rem;
+  }
+
   .md\:w-\[1\.5rem\] {
     width: 1.5rem;
   }
@@ -855,6 +859,10 @@ video {
 
   .md\:pt-\[5\.5vh\] {
     padding-top: 5.5vh;
+  }
+
+  .md\:text-\[2rem\] {
+    font-size: 2rem;
   }
 }
 @media (min-width: 1024px) {
