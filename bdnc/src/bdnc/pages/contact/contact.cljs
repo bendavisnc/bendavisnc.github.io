@@ -7,7 +7,7 @@
 (defn component [props]
   [:div#contact
    props
-   [:ul {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "gap-8", "md:gap-[8vh]", "pt-[8vh]"]}
+   [:ul {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "gap-8", "md:gap-[5vh]", "pt-[8vh]"]}
     (for [[link-id, link] links
           :let [link-name (:name link)
                 path (:path link)
@@ -16,8 +16,8 @@
       [:li {:key id}
        [:a {:id id
             :href path}
-        [:div {:class ["flex", "items-center", "text-5xl", "text-[#f9eac4]", "font-black", "gap-1.5"]}
-         [:div {:class ["fill-slate-600"]}
+        [:div {:class ["flex", "items-center", "text-5xl", "text-[5rem]", "landscape:md:text-[3rem]", "text-[#f9eac4]", "font-black", "gap-1.5"]}
+         [:div {:class ["fill-slate-600", "w-12", "md:w-[5rem]", "landscape:md:w-[3rem]", "h-auto"]}
           logo]
          [:span {:class []}
           link-name]]]])]])
