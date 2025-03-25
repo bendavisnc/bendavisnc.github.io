@@ -1,35 +1,14 @@
 (ns bdnc.pages.contact.contact
   (:require
-   [bdnc.pages.contact.svgs :refer [email-logo github-logo linkedin-logo resume-logo]]
+   [bdnc.pages.about.links :refer [links]]
    [goog.string :as gstring]
    [goog.string.format]))
-
-(def github {:name "github"
-             :path "https://github.com/bendavisnc"
-             :logo github-logo})
-
-(def linkedin {:name "linked in"
-               :path "https://www.linkedin.com/in/ben-davis-9b708548/"
-               :logo linkedin-logo})
-
-(def email {:name "email"
-            :path "mailto:bendavisnc@gmail.com"
-            :logo email-logo})
-
-(def resume {:name "resume"
-             :path "todo"
-             :logo resume-logo})
-
-(def links-all {:github github
-                :linkedin linkedin
-                :email email
-                :resume resume})
 
 (defn component [props]
   [:div#contact
    props
-   [:ul {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "gap-8", "md:h-[12vh]", "md:gap-[8vh]", "pt-[8vh]"]}
-    (for [[link-id, link] links-all
+   [:ul {:class ["absolute", "bottom-[39%]", "flex", "flex-col", "gap-8", "md:gap-[8vh]", "pt-[8vh]"]}
+    (for [[link-id, link] links
           :let [link-name (:name link)
                 path (:path link)
                 id (gstring/format "%s-link" (name link-id))
