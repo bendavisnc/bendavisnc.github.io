@@ -1,22 +1,23 @@
 (ns bdnc.background
   (:require
-   [bdnc.dimensions :as dimensions]
    [clojure.string :as string]
    [goog.string :as gstring]
    [goog.string.format]
-   [re-frame.core :as reframe]
-   [reagent.core :as reagent]))
+   [re-frame.core :as reframe]))
 
-(def bg-img-dimensions {:width 1080
-                        :height 1920})
+(def bg-video-dimensions {:width 1080
+                          :height 1920})
 
-(defn transforms-calculated [dimensions]
+(def bg-image-dimensions {:width 2160
+                          :height 3840})
+
+(defn transforms-calculated [dimensions-initial, dimensions-target]
   (let [phi 1.618033988749
         horizon-ratio 0.56
-        image-width (:width bg-img-dimensions)
-        image-height (:height bg-img-dimensions)
-        device-width (:width dimensions)
-        device-height (:height dimensions)
+        image-width (:width dimensions-initial)
+        image-height (:height dimensions-initial)
+        device-width (:width dimensions-target)
+        device-height (:height dimensions-target)
         device-a (/ device-height phi) ;; The distance where we want the horizon to be.
         img-og-a (* image-height (- 1 horizon-ratio))
         image-scale-horizon (/ device-a img-og-a)
@@ -51,33 +52,59 @@
               (gstring/format "translateY(%spx)" v)))
       transforms)))
 
-(defn apply-img-resize-transforms! [target, dimensions]
-  (let [transforms (-> dimensions transforms-calculated transforms-str)]
+(defn apply-img-resize-transforms! [target, dimensions-initial, dimensions-target]
+  (let [transforms (transforms-str (transforms-calculated dimensions-initial dimensions-target))]
     (set! (.-transform (.-style target))
           transforms)
     (println (gstring/format "Dimensions dynamically set to `%s`, `%s` -> `%s`."
                              (.-id target)
-                             dimensions
+                             dimensions-target
                              transforms))))
 
-(defn component [props, src]
+(defn is-super-wide-width? [width]
+  (> width 1536))
+
+(defn background-video [props, src]
+  [:video (merge
+            props
+            {:id "bg-video"
+             :autoPlay true
+             :loop true
+             :muted true
+             :playsInline true})
+   [:source {:src src
+             :type "video/mp4"}]])
+
+(defn background-image [props, src]
+  [:img (merge
+          props
+          {:id "bg-image"
+           :src src})])
+(defn component [props, sources]
   [:f>
    (fn []
-     (let [dimensions @(reframe/subscribe [:dimensions])]
+     (let [dimensions @(reframe/subscribe [:dimensions])
+           is-super-wide? (is-super-wide-width? (:width dimensions))
+           bg-element-id (if is-super-wide?
+                           "bg-image"
+                           "bg-video")]
        [:div#background (merge props {:ref (fn [target-parent]
                                              (let [target (some-> target-parent
-                                                                  (.querySelector "#bg-video"))]
+                                                                  (.querySelector (str "#" bg-element-id)))]
                                                (if (nil? target)
                                                  (println (gstring/format "`bg-video` not found for `%s`."
                                                                           (some-> target-parent .-id)))
-                                                 (apply-img-resize-transforms! target dimensions))))})
-        [:div#background-video-container {:class
-                                          []}
-         [:video {:id "bg-video"
-                  :class ["object-none", "max-w-[initial]", "h-[initial]"]
-                  :autoPlay true
-                  :loop true
-                  :muted true
-                  :playsInline true}
-          [:source {:src src
-                    :type "video/mp4"}]]]]))])
+                                                 (apply-img-resize-transforms!
+                                                   target
+                                                   (if is-super-wide?
+                                                     bg-image-dimensions
+                                                     bg-video-dimensions)
+                                                   dimensions))))})
+        [:div#background-container {}
+         (if is-super-wide?
+           [background-image
+            {:class ["max-w-[initial]", "h-[initial]"]}
+            (:image sources)]
+           [background-video
+            {:class ["object-none", "max-w-[initial]", "h-[initial]"]}
+            (:video sources)])]]))])
