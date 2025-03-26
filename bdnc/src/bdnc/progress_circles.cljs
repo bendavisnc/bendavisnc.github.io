@@ -4,7 +4,7 @@
    [goog.string.format]
    [re-frame.core :as reframe]))
 
-(defn progress-circles-icon [count, active-index, style-active, style-default]
+(defn progress-circles-icon [count, active-index, props-active, props-default]
   (let [max-count 10
         _ (when (> count max-count)
             (throw (new js/Error (gstring/format "Unexpected count of `progress-circles` to draw (%s)." count))))
@@ -35,14 +35,16 @@
                              margin)
                           i)
                        centering-offset)]]
-       [:circle {:style (if is-active? style-active style-default)
-                 :key i
-                 :r r
-                 :cx cx
-                 :cy cy}])]))
+       [:circle (merge {:key i
+                        :r r
+                        :cx cx
+                        :cy cy}
+                       (if is-active?
+                         props-active
+                         props-default))])]))
 
-(defn component [props, count, subscription-query, style-active, style-default]
+(defn component [props, count, subscription-query, props-active, props-default]
   (let [active-index (or @(reframe/subscribe subscription-query)
                          0)]
     [:div props
-     [progress-circles-icon count, active-index, style-active, style-default]]))
+     [progress-circles-icon count, active-index, props-active, props-default]]))

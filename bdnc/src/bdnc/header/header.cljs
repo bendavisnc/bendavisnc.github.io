@@ -54,7 +54,7 @@
 
 (defn component [props]
   [:div#header props
-   [site-title {:class ["absolute", "top-2", "left-2", "text-white", "text-sm"]}]
+   [site-title {:class ["absolute", "top-2", "left-2", "text-white", "text-sm", "md:text-[1.25rem]"]}]
    [:div {:class []}
     [page-title {:class ["absolute", "left-0", "bottom-0", "md:bottom-[0.5rem]", "text-white", "text-lg", "md:text-[2rem]"]}]]
    [hamburger/component {:class ["absolute", "top-2", "right-2", "min-w-6", "flex", "justify-center", "cursor-pointer"]}]])

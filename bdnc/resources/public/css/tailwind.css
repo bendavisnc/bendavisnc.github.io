@@ -751,8 +751,14 @@ video {
 .bg-\[\#00000010\] {
   background-color: #00000010;
 }
+.fill-\[\#f9eac4\] {
+  fill: #f9eac4;
+}
 .fill-slate-600 {
   fill: #475569;
+}
+.fill-white {
+  fill: #fff;
 }
 .stroke-white {
   stroke: #fff;
@@ -818,6 +824,9 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+.opacity-\[0\.67\] {
+  opacity: 0.67;
+}
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -861,6 +870,10 @@ video {
     padding-top: 5.5vh;
   }
 
+  .md\:text-\[1\.25rem\] {
+    font-size: 1.25rem;
+  }
+
   .md\:text-\[2rem\] {
     font-size: 2rem;
   }
@@ -873,6 +886,87 @@ video {
 
   .lg\:text-\[1\.75rem\] {
     font-size: 1.75rem;
+  }
+}
+@media (min-width: 1536px) {
+
+  .\32xl\:bottom-\[12\%\] {
+    bottom: 12%;
+  }
+
+  .\32xl\:bottom-\[6\%\] {
+    bottom: 6%;
+  }
+
+  .\32xl\:h-\[70vh\] {
+    height: 70vh;
+  }
+
+  .\32xl\:w-\[12rem\] {
+    width: 12rem;
+  }
+
+  .\32xl\:w-\[2rem\] {
+    width: 2rem;
+  }
+
+  .\32xl\:w-\[47vw\] {
+    width: 47vw;
+  }
+
+  .\32xl\:w-\[60vw\] {
+    width: 60vw;
+  }
+
+  .\32xl\:w-\[70rem\] {
+    width: 70rem;
+  }
+
+  .\32xl\:grow-\[0\.5\] {
+    flex-grow: 0.5;
+  }
+
+  .\32xl\:bg-\[\#00000050\] {
+    background-color: #00000050;
+  }
+
+  .\32xl\:fill-\[\#3fc7b5\] {
+    fill: #3fc7b5;
+  }
+
+  .\32xl\:stroke-\[0\.25rem\] {
+    stroke-width: 0.25rem;
+  }
+
+  .\32xl\:px-\[6rem\] {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+
+  .\32xl\:text-\[10rem\] {
+    font-size: 10rem;
+  }
+
+  .\32xl\:text-\[2rem\] {
+    font-size: 2rem;
+  }
+
+  .\32xl\:text-\[3\.5rem\] {
+    font-size: 3.5rem;
+  }
+
+  .\32xl\:text-\[7rem\] {
+    font-size: 7rem;
+  }
+
+  .\32xl\:text-\[\#3fc7b5\] {
+    --tw-text-opacity: 1;
+    color: rgb(63 199 181 / var(--tw-text-opacity));
+  }
+
+  .\32xl\:text-slate-600 {
+    --tw-text-opacity: 1;
+    color: rgb(71 85 105 / var(--tw-text-opacity));
   }
 }
 @media (orientation: portrait) {
