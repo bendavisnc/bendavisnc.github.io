@@ -5,15 +5,16 @@
    [goog.string.format]
    [re-frame.core :as reframe]))
 
-(def bg-video-dimensions {:width 1080
-                          :height 1920})
+(def bg-video-measurements {:width 1080
+                            :height 1920
+                            :horizon-ratio (/ 56 100)})
 
-(def bg-image-dimensions {:width 2160
-                          :height 3840})
+(def bg-image-measurements {:width 2425
+                            :height 3248
+                            :horizon-ratio (/ 33 100)})
 
-(defn transforms-calculated [dimensions-initial, dimensions-target]
+(defn transforms-calculated [horizon-ratio, dimensions-initial, dimensions-target]
   (let [phi 1.618033988749
-        horizon-ratio 0.56
         image-width (:width dimensions-initial)
         image-height (:height dimensions-initial)
         device-width (:width dimensions-target)
@@ -52,8 +53,8 @@
               (gstring/format "translateY(%spx)" v)))
       transforms)))
 
-(defn apply-img-resize-transforms! [target, dimensions-initial, dimensions-target]
-  (let [transforms (transforms-str (transforms-calculated dimensions-initial dimensions-target))]
+(defn apply-img-resize-transforms! [target, horizon-ratio, dimensions-initial, dimensions-target]
+  (let [transforms (transforms-str (transforms-calculated horizon-ratio, dimensions-initial dimensions-target))]
     (set! (.-transform (.-style target))
           transforms)
     (println (gstring/format "Dimensions dynamically set to `%s`, `%s` -> `%s`."
@@ -87,7 +88,14 @@
            is-super-wide? (is-super-wide-width? (:width dimensions))
            bg-element-id (if is-super-wide?
                            "bg-image"
-                           "bg-video")]
+                           "bg-video")
+           bg-measurements (if is-super-wide?
+                             bg-image-measurements
+                             bg-video-measurements)
+           horizon-ratio (:horizon-ratio bg-measurements)
+           dimensions-initial (if is-super-wide?
+                                bg-image-measurements
+                                bg-video-measurements)]
        [:div#background (merge props {:ref (fn [target-parent]
                                              (let [target (some-> target-parent
                                                                   (.querySelector (str "#" bg-element-id)))]
@@ -96,9 +104,8 @@
                                                                           (some-> target-parent .-id)))
                                                  (apply-img-resize-transforms!
                                                    target
-                                                   (if is-super-wide?
-                                                     bg-image-dimensions
-                                                     bg-video-dimensions)
+                                                   horizon-ratio
+                                                   dimensions-initial
                                                    dimensions))))})
         [:div#background-container {}
          (if is-super-wide?
