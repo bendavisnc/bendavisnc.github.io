@@ -787,9 +787,6 @@ video {
 .text-\[2rem\] {
   font-size: 2rem;
 }
-.text-\[5rem\] {
-  font-size: 5rem;
-}
 .text-\[min\(15vw\2c _10vh\)\] {
   font-size: min(15vw, 10vh);
 }

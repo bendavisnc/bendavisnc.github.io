@@ -16,7 +16,7 @@
       [:li {:key id}
        [:a {:id id
             :href path}
-        [:div {:class ["flex", "items-center", "text-5xl", "text-[5rem]", "portrait:md:text-[5rem]", "md:text-[3rem]", "2xl:text-[8rem]", "text-[#f9eac4]", "2xl:text-[#3fc7b5]", "font-black", "gap-1.5"]}
+        [:div {:class ["flex", "items-center", "text-5xl", "portrait:md:text-[5rem]", "md:text-[3rem]", "2xl:text-[8rem]", "text-[#f9eac4]", "2xl:text-[#3fc7b5]", "font-black", "gap-1.5"]}
          [:div {:class ["fill-slate-600", "w-12", "md:w-[5rem]", "2xl:w-[8rem]", "md:w-[3rem]", "portrait:md:w-[5rem]", "h-auto"]}
           logo]
          [:span {:class []}
