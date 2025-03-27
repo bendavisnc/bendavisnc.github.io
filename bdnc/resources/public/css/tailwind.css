@@ -754,6 +754,9 @@ video {
 .fill-white {
   fill: #fff;
 }
+.stroke-black {
+  stroke: #000;
+}
 .stroke-white {
   stroke: #fff;
 }
@@ -813,6 +816,10 @@ video {
 .text-\[\#f9eac4\] {
   --tw-text-opacity: 1;
   color: rgb(249 234 196 / var(--tw-text-opacity));
+}
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 .text-white {
   --tw-text-opacity: 1;
@@ -940,6 +947,10 @@ video {
     fill: #3fc7b5;
   }
 
+  .\32xl\:stroke-white {
+    stroke: #fff;
+  }
+
   .\32xl\:stroke-\[0\.25rem\] {
     stroke-width: 0.25rem;
   }
@@ -977,6 +988,11 @@ video {
   .\32xl\:text-slate-600 {
     --tw-text-opacity: 1;
     color: rgb(71 85 105 / var(--tw-text-opacity));
+  }
+
+  .\32xl\:text-white {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 }
 @media (orientation: portrait) {
