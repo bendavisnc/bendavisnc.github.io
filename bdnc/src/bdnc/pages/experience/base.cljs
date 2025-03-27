@@ -41,9 +41,9 @@
     (let [target (aget (.-children @target-container-ref)
                    target-index)]
       (println (gstring/format "Scrolling to detail item `%s`." (.-id target)))
-      (.scrollIntoView target (clj->js {:behavior "smooth"
-                                        :block "end"
-                                        :inline "nearest"})))))
+      (.scrollTo @target-container-ref (clj->js {:left (.-offsetLeft target)
+                                                 :top 0
+                                                 :behavior "smooth"})))))
 
 (defn details-section [props, company, details]
   (let [item-detail-id-active @(reframe/subscribe [:experience/item-detail-active company])
