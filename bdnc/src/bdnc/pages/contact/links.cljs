@@ -1,4 +1,4 @@
-(ns bdnc.pages.about.links
+(ns bdnc.pages.contact.links
   (:require
    [bdnc.pages.contact.svgs :as svgs]))
 

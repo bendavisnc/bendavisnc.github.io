@@ -1,6 +1,6 @@
 (ns bdnc.pages.contact.contact
   (:require
-   [bdnc.pages.about.links :refer [links]]
+   [bdnc.pages.contact.links :refer [links]]
    [goog.string :as gstring]
    [goog.string.format]))
 
