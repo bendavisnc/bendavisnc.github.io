@@ -62,8 +62,8 @@
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
    [background/component
     {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
-    {:image "/images/bg-hermansyah2.png"
-     :video "/videos/bg-loop.mp4"}]
+    {:image "./images/bg-hermansyah2.jpg"
+     :video "./videos/bg-loop.mp4"}]
    [:div#main-container {:class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
     [header/component {:class ["bg-[#00000010]", "2xl:bg-[#00000050]", "fixed", "flex", "h-[4rem]", "items-end" "justify-center", "left-0", "lg:h-[8rem]" "portrait:md:h-[8rem]", "top-0", "w-dvw" "z-[1]"]}]
     [pages-progress-circles {:id "pages-progress-circles"

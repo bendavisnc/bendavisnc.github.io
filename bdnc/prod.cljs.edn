@@ -1,0 +1,4 @@
+^{:auto-bundle :webpack}
+{:main bdnc.core
+ :optimizations :advanced}
+
