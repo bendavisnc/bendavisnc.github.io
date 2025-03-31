@@ -18,6 +18,11 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Install Leiningen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y leiningen
+
       - name: Run Makefile to generate static files
         run: make rollout
 
