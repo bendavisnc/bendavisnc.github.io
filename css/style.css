@@ -1,0 +1,7 @@
+/* some style */
+
+
+.background {
+  background-image: url("../images/background_static.png");
+  background-size: cover;
+}
