@@ -7,6 +7,8 @@
   - rework background for desktop size
   - introduce / identify "snappy" transition function
   - add og circular header
+  - improve responsiveness for large screens
+  - improve responsiveness for limited vertical space
 
 - navigation
   - add back functionality, via icon ✅
