@@ -1,0 +1,1 @@
+Gist is to have a SPA much like going through a menu at a takeout sight. The background and the header will be attached to the user's scroll behavior.

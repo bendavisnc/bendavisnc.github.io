@@ -1,0 +1,4 @@
+^{:auto-bundle :webpack
+  :ring-server-options  {:host "192.168.86.23"}
+  :css-dirs ["resources/public/css"]}
+{:main bdnc.core}

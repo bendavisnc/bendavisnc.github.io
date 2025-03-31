@@ -1,0 +1,39 @@
+- misc
+  - add dynamic title ✅
+  - add sticky pages ✅
+  - add background animation ✅
+  - add about page ✅
+  - fix background video cropping
+  - rework background for desktop size
+  - introduce / identify "snappy" transition function
+  - add og circular header
+  - improve responsiveness for large screens
+  - improve responsiveness for limited vertical space
+
+- navigation
+  - add back functionality, via icon ✅
+  - add back functionality, via gesture ✅
+
+- hamburger
+  - pretty up close button
+
+- experience
+  - make transitioned heights dynamic
+  - pretty up bullet lists ⊘
+  - add resume content ✅
+  - fix misaligned logos
+  - add dates
+  - add left right navigation arrows
+  - add navigation bullets
+  
+
+- about
+  - improve colors
+  - dry up ✅
+
+- stretch
+  - personalize title 
+  - add interests page
+  - add footer
+  - add routing library
+
