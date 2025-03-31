@@ -25,7 +25,7 @@ buildonce:
 
 rollout: buildonce
 	@echo "Preparing static site."
-	rm -r bdncout
+	rm -rf bdncout
 	mkdir bdncout
 	cp -r bdnc/resources/public/ bdncout
 	mkdir bdncout/public/js
