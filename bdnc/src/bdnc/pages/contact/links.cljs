@@ -15,7 +15,7 @@
             :logo svgs/email-logo})
 
 (def resume {:name "resume"
-             :path "todo"
+             :path "https://github.com/bendavisnc/resume.md/releases/download/latest/resume.pdf"
              :logo svgs/resume-logo})
 
 (def links {:github github
