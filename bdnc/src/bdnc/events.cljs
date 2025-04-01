@@ -17,8 +17,6 @@
         (assoc :experience/item-active nil)
         (assoc :experience/item-detail-active nil))))
 
-
-
 (rf/reg-event-db
   :current-scroll-amount
   (fn [db [_ i]]

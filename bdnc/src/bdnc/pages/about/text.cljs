@@ -5,4 +5,3 @@
 (def joy {:text "I enjoy working as part of a small team and am happy when accountability and comradery make for real results being achieved. "})
 (def what {:text "Here you'll find links to my resume as well as associated things such as my linkedin and github accounts. "})
 (def thanks {:text "Thanks for checking me out - and if you're a fellow programmer or someone who's looking for one, I'd love to chat and talk about potentially working on something that's compelling and meaningful."})
-

@@ -6,7 +6,7 @@
 
 (defn hello [props]
   [:div props
-    svgs/hello-graphic])
+   svgs/hello-graphic])
 
 (defn component* [id, content-all]
   (fn [props]
