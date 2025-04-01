@@ -12,7 +12,12 @@
 (rf/reg-event-db
   :page-active
   (fn [db [_ id]]
-    (assoc db :page-active id)))
+    (-> db
+        (assoc :page-active id)
+        (assoc :experience/item-active nil)
+        (assoc :experience/item-detail-active nil))))
+
+
 
 (rf/reg-event-db
   :current-scroll-amount

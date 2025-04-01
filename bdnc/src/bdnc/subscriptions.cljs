@@ -14,7 +14,7 @@
   :page-active-index
   (fn [_, _]
     [(rf/subscribe [:page-active])])
-  (fn [[page-active] _]
+  (fn [[page-active], _]
     (let [index (.indexOf (keys pages/all) page-active)]
       (if (= -1 index)
         (throw (new js/Error (gstring/format "Unexpected `page-active` key, %s" page-active)))
