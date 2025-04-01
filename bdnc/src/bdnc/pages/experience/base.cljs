@@ -24,7 +24,7 @@
 (defn main-section [props, is-active?, {:keys [name, title, logo]}]
   [:div.main-section props
    [:div {:class ["flex", "flex-col"]}
-    [:div {:class ["portrait:md:text-[4rem]", "text-[#f9eac4]", "2xl:text-[#3fc7b5]", "text-[2rem]", "2xl:text-[7rem]"]}
+    [:div {:class ["portrait:md:text-[4rem]", "text-[#f9eac4]", "2xl:text-[#3fc7b5]", "text-[2rem]", "2xl:text-[4rem]"]}
      name]
     [:div {:class ["font-light", "portrait:md:text-[1.5rem]", "2xl:text-[2rem]"]}
      title]
@@ -32,7 +32,7 @@
      {:class ["w-[1rem]", "h-auto", "md:w-[1.5rem]"]}
      is-active?]]
    [:div {:class ["flex", "flex-col", "justify-center"]}
-    [:div {:class ["w-[4rem]", "2xl:w-[12rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
+    [:div {:class ["w-[4rem]", "2xl:w-[8rem]", "h-auto", "portrait:md:w-[8rem]", "fill-slate-600"]}
      logo]]])
 
 (defn invoke-details-scroll-fn [target-container-ref, company, target-index]
@@ -91,12 +91,12 @@
                     {:style {:transform (gstring/format "translateY(-%spx)" item-translation)}}
                     {}))
             [main-section {:id id
-                           :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]", "2xl:w-[70rem]"]
+                           :class ["flex", "font-bold" "justify-between", "w-[20rem]", "portrait:md:w-[40rem]", "2xl:w-[42rem]"]
                            :on-click (dispatches/expand-click company (if is-active? nil company))}
                           is-active?
                           item]
             [details-section {:id (str (name id) "-details")
-                              :class (concat ["grow", "2xl:grow-[0.5]", "flex", "shrink-0", "font-bold", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "2xl:text-slate-600", "w-dvw", "2xl:w-[60vw]", "justify-around", "2xl:text-[2rem]"]
+                              :class (concat ["grow", "2xl:grow-[0.5]", "flex", "shrink-0", "font-bold",  "2xl:font-normal", "overflow-scroll", "portrait:md:text-[1.5rem]", "text-[#f9eac4]", "2xl:text-slate-600", "w-dvw", "2xl:w-[60vw]", "justify-around", "2xl:text-[2rem]"]
                                        (if is-active?
                                          []
                                          ["invisible", "h-0"]))}
