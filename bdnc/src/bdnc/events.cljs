@@ -7,7 +7,7 @@
 (rf/reg-event-db
   :initialize
   (fn [_ _]
-    {:page-active :contact}))
+    {:page-active :about}))
 
 (rf/reg-event-db
   :page-active

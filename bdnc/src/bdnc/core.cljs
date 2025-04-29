@@ -84,7 +84,9 @@
    [:div#main-container 
     {:ref (fn [target]
             (scrolling/init! :pages (keys pages/all)
-                             :container target))
+                             :container target)
+            (back/init!)
+            (dimensions/init!))
      :class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
     [header/component {:class ["bg-[#00000010]", "2xl:bg-[#00000050]", "fixed", "flex", "h-[4rem]", "items-end" "justify-center", "left-0", "lg:h-[8rem]" "portrait:md:h-[8rem]", "top-0", "w-dvw" "z-[1]"]}]
     [pages-progress-circles {:id "pages-progress-circles"
@@ -95,11 +97,6 @@
       [component (conj props
                        {:id element-id
                         :key element-id})])]])
-
-(defn after-ready! []
-  (println "Initializing (`after-ready!`)!")
-  (back/init!)
-  (dimensions/init!))
 
 (defonce root-container
   (rdomc/create-root (.getElementById js/document
@@ -112,13 +109,6 @@
 (defn init! []
   (println "Initializing!")
   (rf/dispatch-sync [:initialize])
-  (.addEventListener js/window
-                     "load"
-                     (fn []
-                       ;; todo, remove
-                       (.setTimeout js/window
-                                    after-ready!
-                                    500)))
   (mount!)
   true)
 
