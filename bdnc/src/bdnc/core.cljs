@@ -1,9 +1,11 @@
 (ns bdnc.core
   {:figwheel-hooks true}
+  (:require-macros [secretary.core :refer [defroute]])
   (:require
    [bdnc.back :as back]
    [bdnc.background :as background]
    [bdnc.dimensions :as dimensions]
+   [goog.events :as events]
    [bdnc.events]
    [bdnc.header.header :as header]
    [bdnc.mocks :as mocks]
@@ -19,13 +21,30 @@
    [bdnc.progress-circles :as progress-circles]
    [bdnc.scrolling :as scrolling]
    [bdnc.subscriptions]
+   [secretary.core :as secretary]
    [goog.string :as gstring]
    [goog.string.format]
    [re-frame.core :as rf]
    [reagent.core :as r :refer [atom]]
-   [reagent.dom.client :as rdomc]))
+   [reagent.dom.client :as rdomc])
+  (:import [goog History]
+           [goog.history EventType]))
 
 (enable-console-print!)
+
+(defroute "/:page-id-s" [page-id-s]
+  (when-let [page-id (some-> page-id-s keyword)]
+    (do (println (gstring/format "Navigating to `%s`" page-id))
+        (rf/dispatch [:page-active page-id]))))
+
+(defonce history
+  (doto (History.)
+    (events/listen EventType.NAVIGATE
+                  (fn [^js/goog.History.Event event] 
+                    (secretary/dispatch! (.-token event))))
+    (.setEnabled true)))
+
+
 
 (def page-props
   {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start", "relative"]})
@@ -51,12 +70,12 @@
         opacity-default (/ (/ opacity-active phi) phi)]
     [:div props
      [progress-circles/component {:class ["m-auto", "w-[12rem]", "h-auto"]}
-                                 (count pages-and-props)
-                                 [:page-active-index]
-                                 {:fill "black"
-                                  :opacity opacity-active}
-                                 {:fill "black"
-                                  :opacity opacity-default}]]))
+      (count pages-and-props)
+      [:page-active-index]
+      {:fill "black"
+       :opacity opacity-active}
+      {:fill "black"
+       :opacity opacity-default}]]))
 
 (defn root []
   [:div#root-container {:class ["relative" "w-dvw", "h-dvh", "overflow-hidden"]}
@@ -80,15 +99,7 @@
   (scrolling/init! :container :main-container
                    :pages (keys pages/all))
   (back/init!)
-  (dimensions/init!)
-  (let [page-onstart-s (.-hash (.-location js/window))]
-    (if (not (empty? page-onstart-s))
-      (println (gstring/format "Page on start, `%s`."
-                               page-onstart-s))
-      ;; else
-      (do
-        (println "Setting current page to home page.")
-        (set! js/window.location.hash (name pages/home-page))))))
+  (dimensions/init!))
 
 (defonce root-container
   (rdomc/create-root (.getElementById js/document
@@ -111,7 +122,7 @@
   (mount!)
   true)
 
-(defonce initialized? (init!))
-
 (defn ^:after-load re-render []
   (mount!))
+
+(defonce initialized? (init!))
