@@ -44,8 +44,6 @@
                     (secretary/dispatch! (.-token event))))
     (.setEnabled true)))
 
-
-
 (def page-props
   {:class ["flex", "h-dvh", "justify-center", "overflow-hidden", "snap-start", "relative"]})
 
@@ -83,7 +81,11 @@
     {:class ["w-dvw", "h-dvh", "absolute", "z-[-99]"]}
     {:image "./images/bg-hermansyah2.jpg"
      :video "./videos/bg-loop.mp4"}]
-   [:div#main-container {:class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
+   [:div#main-container 
+    {:ref (fn [target]
+            (scrolling/init! :pages (keys pages/all)
+                             :container target))
+     :class ["h-dvh", "overflow-auto", "snap-mandatory", "snap-y"]}
     [header/component {:class ["bg-[#00000010]", "2xl:bg-[#00000050]", "fixed", "flex", "h-[4rem]", "items-end" "justify-center", "left-0", "lg:h-[8rem]" "portrait:md:h-[8rem]", "top-0", "w-dvw" "z-[1]"]}]
     [pages-progress-circles {:id "pages-progress-circles"
                              :class ["fixed", "w-[100vw]", "bottom-[1rem]"]}]
@@ -96,8 +98,6 @@
 
 (defn after-ready! []
   (println "Initializing (`after-ready!`)!")
-  (scrolling/init! :container :main-container
-                   :pages (keys pages/all))
   (back/init!)
   (dimensions/init!))
 
